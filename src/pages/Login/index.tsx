@@ -4,19 +4,23 @@ import { LoginUser } from "../../services/user-service";
 import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
 import Footer from "../../components/Shared/Footer";
+import { popUp } from "../../utils/index.ts";
 
 const Login = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const { setAuth, setRole } = useAuth();
 
   const handleLoginData = async (email: string, password: string) => {
-    const request = await LoginUser(email, password);
+    const response = await LoginUser(email, password);
 
-    if (request) {
-      setAuth(true);
-      navigate("/");
+    if (!response.success) {
+      popUp(response.error.message, "error");
+      return;
     }
+    setAuth(true);
+    setRole(response.role);
+    navigate("/");
   };
 
   useEffect(() => {
