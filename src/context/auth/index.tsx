@@ -5,6 +5,8 @@ type AuthContextType = {
   setAuth: (auth: boolean) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  role: string;
+  setRole: (role: string) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

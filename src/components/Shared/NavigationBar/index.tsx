@@ -9,7 +9,7 @@ import Welcome from "../../Email/Welcome";
 import useModal from "../../../hooks/useModal";
 
 const NavigationBar = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, setRole, role } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const { isShowing, setIsShowing, toggle } = useModal();
@@ -18,6 +18,7 @@ const NavigationBar = () => {
     navigate("/login");
     await LogOutUser();
     setAuth(false);
+    setRole("");
   };
 
   const handleMenuToggle = () => {
@@ -30,8 +31,8 @@ const NavigationBar = () => {
   };
 
   const handleSendEmail = async (email: string) => {
-    const html = render(<Welcome username={email}></Welcome>);
-    console.log(email);
+    const html = render(<Welcome username={email} />);
+
     await SendEmail(email, html);
     setIsShowing(false);
   };
@@ -74,12 +75,14 @@ const NavigationBar = () => {
               </svg>
             )}
           </button>
-          <button
-            onClick={handleShare}
-            className="hidden md:block text-white text-xl hover:text-cyan-600"
-          >
-            Add collaborator
-          </button>
+          {role == "admin" ? (
+            <button
+              onClick={handleShare}
+              className="hidden md:block text-white text-xl hover:text-cyan-600"
+            >
+              Add collaborator
+            </button>
+          ) : null}
           <button
             onClick={handleSignOut}
             className="hidden md:block text-white text-xl hover:text-cyan-600"
