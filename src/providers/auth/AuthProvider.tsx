@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [auth, setAuth] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [role, setRole] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   useEffect(() => {
     const isUserAuth = async () => {
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }: Props) => {
         if (currentUser) {
           setAuth(currentUser.success);
           setRole(currentUser.role);
+          setEmail(currentUser.email);
         } else {
           setAuth(false);
         }
@@ -35,7 +37,16 @@ export const AuthProvider = ({ children }: Props) => {
 
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth, loading, setLoading, role, setRole }}
+      value={{
+        auth,
+        setAuth,
+        loading,
+        setLoading,
+        role,
+        setRole,
+        email,
+        setEmail,
+      }}
     >
       {children}
     </AuthContext.Provider>

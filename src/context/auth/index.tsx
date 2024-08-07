@@ -7,6 +7,8 @@ type AuthContextType = {
   setLoading: (loading: boolean) => void;
   role: string;
   setRole: (role: string) => void;
+  email: string;
+  setEmail: (email: string) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

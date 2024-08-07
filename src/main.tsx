@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/RouteAccess/PrivateRoute";
 import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ToasterWrapper from "./wrapper/ToasterWrapper";
+import PublicRoute from "./components/RouteAccess/PublicRoute";
+import AdminRoute from "./components/RouteAccess/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,15 +35,19 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: <Login />,
+    element: (
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    ),
+  },
+  {
+    element: (
+    ),
   },
   {
     path: "register",
-    element: (
-      <PrivateRoute>
-        <Register />
-      </PrivateRoute>
-    ),
+    element: <Register />,
   },
 ]);
 
@@ -49,11 +55,11 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <AuthProvider>
-      <ToasterWrapper>
-        <RouterProvider router={router} />
-      </ToasterWrapper>
-    </AuthProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+      <AuthProvider>
+        <ToasterWrapper>
+          <RouterProvider router={router} />
+        </ToasterWrapper>
+      </AuthProvider>
+    </React.StrictMode>
 );
