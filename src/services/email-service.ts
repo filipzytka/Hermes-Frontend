@@ -13,6 +13,7 @@ export const SendEmail = async (receiverEmail: string, body: string) => {
       }),
       credentials: "include",
     });
+
     if (response.status == 200) {
       return true;
     }
