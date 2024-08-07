@@ -8,40 +8,46 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { REACT_URL } from "../../../services/constants";
 
-interface WelcomeProps {
+interface Props {
   username: string;
+  token: string;
+  inviterEmail: string;
 }
 
-export const REACT_URL = `${import.meta.env.VITE_CLIENT_URL}`;
-
-export const Welcome = ({ username }: WelcomeProps) => (
-  <Html>
-    <Head />
-    <Preview>You have been invited to join Hermes</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Text style={title}>You have been invited to join Hermes.</Text>
-        <Section style={section}>
-          <Text style={text}>
-            Hey <strong>{username}</strong>!
-          </Text>
-          <Text style={text}>
-            You have been invited to join Hermes. Click the button below to
-            accept your invitation.
-          </Text>
-          <Button style={button} href={REACT_URL}>
-            Accept Invitation
-          </Button>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
-);
+export const Welcome = ({ username, token, inviterEmail }: Props) => {
+  return (
+    <Html>
+      <Head />
+      <Preview>You have been invited to join Hermes</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Text style={title}>You have been invited to join Hermes.</Text>
+          <Section style={section}>
+            <Text style={text}>
+              Hey <strong>{username}</strong>!
+            </Text>
+            <Text style={text}>
+              You have been invited by {inviterEmail} to join Hermes. Click the
+              button below to accept your invitation.
+            </Text>
+            <Button
+              style={button}
+              href={`${REACT_URL}/register?token=${token}`}
+            >
+              Accept Invitation
+            </Button>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+};
 
 Welcome.PreviewProps = {
   username: "alanturing",
-} as WelcomeProps;
+} as Props;
 
 export default Welcome;
 
