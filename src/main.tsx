@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "@mantine/core/styles.css";
 import "./index.css";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./components/RouteAccess/PrivateRoute";
@@ -10,6 +11,8 @@ import Login from "./pages/Login";
 import ToasterWrapper from "./wrapper/ToasterWrapper";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
 import AdminRoute from "./components/RouteAccess/AdminRoute";
+import { createTheme, MantineProvider } from "@mantine/core";
+const theme = createTheme({});
 
 const router = createBrowserRouter([
   {
@@ -42,7 +45,11 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "collaborators",
     element: (
+      <AdminRoute>
+        <Collaborators />
+      </AdminRoute>
     ),
   },
   {
@@ -55,6 +62,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
+  <MantineProvider theme={theme}>
     <React.StrictMode>
       <AuthProvider>
         <ToasterWrapper>
@@ -62,4 +70,5 @@ root.render(
         </ToasterWrapper>
       </AuthProvider>
     </React.StrictMode>
+  </MantineProvider>
 );
