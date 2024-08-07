@@ -35,7 +35,14 @@ const UserForm = ({
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validate(email, password, repeatPassword)) return;
+    if (
+      !validate(
+        email,
+        password,
+        isRepeatPasswordInput ? repeatPassword : undefined
+      )
+    )
+      return;
     onFormSubmit!(
       email,
       password,
@@ -56,14 +63,14 @@ const UserForm = ({
             visible ? "opacity-1" : "opacity-0"
           }`}
         >
-          <h2 className="text-left pb-4 font-medium text-2xl">{mainLabel}</h2>
+          <h2 className="text-left pb-4 font-medium text-xl">{mainLabel}</h2>
           {isEmailInput && (
             <>
               <input
                 autoComplete="on"
                 id="email-input"
                 type="email"
-                className={`bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full text-left ${
+                className={`bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full text-left mt-2 ${
                   errors.email && `border-red-500 focus:border-red-600`
                 }
                 `}
@@ -86,7 +93,7 @@ const UserForm = ({
                 autoComplete="on"
                 id="password-input"
                 type="password"
-                className={`bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full mt-4 ${
+                className={`bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full mt-6 ${
                   errors.password && `border-red-500 focus:border-red-600`
                 }
                 `}
@@ -108,7 +115,7 @@ const UserForm = ({
               autoComplete="on"
               id="repeat-password-input"
               type="password"
-              className="bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full mt-4"
+              className="bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full mt-6"
               placeholder="Confirm password"
               onChange={(e) => {
                 setRepeatPassword(e.target.value);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../services/user-service";
 import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
@@ -9,17 +9,18 @@ import { popUp } from "../../utils/index.ts";
 const Login = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { setAuth, setRole } = useAuth();
+  const { setAuth, setRole, setEmail } = useAuth();
 
   const handleLoginData = async (email: string, password: string) => {
     const response = await LoginUser(email, password);
 
     if (!response.success) {
-      popUp(response.error.message, "error");
+      popUp(response.message, "error");
       return;
     }
     setAuth(true);
     setRole(response.role);
+    setEmail(response.email);
     navigate("/");
   };
 
@@ -42,26 +43,9 @@ const Login = () => {
         isPasswordInput
         onFormSubmit={handleLoginData}
       >
-        <div className="mt-6">
-          <h4 className="text-xs text-left pe-1 inline">No account?</h4>
-          <Link
-            to="/register"
-            className="text-xs text-left pe-1 m-0 inline text-sky-700 cursor-pointer hover:text-sky-800"
-          >
-            Create new account
-          </Link>
-        </div>
-        <div className="mt-2">
-          <h4 className="text-xs text-left pe-1 inline">Forgot password?</h4>
-          <Link
-            to="/forgetpassword"
-            className="text-xs text-left pe-1 m-0 inline text-sky-700 cursor-pointer hover:text-sky-800"
-          >
-            New password
-          </Link>
-        </div>
+        <div className="mt-6" />
         <div className="sm:absolute sm:right-6 sm:bottom-6 flex flex-wrap justify-end items-end mt-2">
-          <button className="text-sm dark:bg-gray-700 p-2 text-slate-100 hover:dark:bg-gray-800 w-28 rounded-md">
+          <button className="text-sm bg-gray-700 p-2 text-slate-100 hover:bg-gray-800 w-28 rounded-lg">
             Sign in
           </button>
         </div>

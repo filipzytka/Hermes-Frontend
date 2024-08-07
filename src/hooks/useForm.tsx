@@ -9,7 +9,7 @@ const useForm = () => {
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email) && email) {
+    if (!emailRegex.test(email) || !email) {
       setErrors((prev) => ({ ...prev, email: "Invalid email address." }));
       return false;
     }
@@ -19,7 +19,7 @@ const useForm = () => {
 
   const validatePassword = (password: string) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,30}$/;
-    if (!passwordRegex.test(password) && password) {
+    if (!passwordRegex.test(password) || !password) {
       setErrors((prev) => ({
         ...prev,
         password:
@@ -32,7 +32,7 @@ const useForm = () => {
   };
 
   const validateRepeatPassword = (password: string, repeatPassword: string) => {
-    if (password !== repeatPassword && repeatPassword && password) {
+    if (password !== repeatPassword || (!repeatPassword && !password)) {
       setErrors((prev) => ({
         ...prev,
         repeatPassword: "Passwords must be the same",
@@ -46,14 +46,14 @@ const useForm = () => {
   const validate = (
     email: string,
     password: string,
-    repeatPassword?: string
+    repeatPassword: string | undefined
   ) => {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
-    const isRepeatPasswordValid = repeatPassword
-      ? validateRepeatPassword(password, repeatPassword)
-      : true;
-
+    const isRepeatPasswordValid =
+      repeatPassword !== undefined
+        ? validateRepeatPassword(password, repeatPassword)
+        : true;
     if (isEmailValid && isPasswordValid && isRepeatPasswordValid) return true;
 
     return false;
