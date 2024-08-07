@@ -9,36 +9,22 @@ import Welcome from "../../Email/Welcome";
 import useModal from "../../../hooks/useModal";
 
 const NavigationBar = () => {
-  const { setAuth, setRole, role } = useAuth();
+  const { setAuth, role } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isShowing, setIsShowing, toggle } = useModal();
 
   const handleSignOut = async () => {
-    navigate("/login");
     await LogOutUser();
     setAuth(false);
-    setRole("");
+    navigate("/login");
   };
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const handleShare = () => {
-    setMenuOpen(false);
-    toggle();
-  };
-
-  const handleSendEmail = async (email: string) => {
-    const html = render(<Welcome username={email} />);
-
-    await SendEmail(email, html);
-    setIsShowing(false);
-  };
-
   return (
-    <nav className="bg-white dark:bg-gray-900 fixed w-full top-0 start-0 mt-8">
+    <nav className=" bg-gray-900 w-full  mt-8">
       <div className="max-w-screen-xl flex flex-nowrap md:flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
@@ -49,7 +35,7 @@ const NavigationBar = () => {
             className="h-8"
             alt="Hermes logo"
           />{" "}
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
             Hermes
           </span>
         </Link>
@@ -75,13 +61,13 @@ const NavigationBar = () => {
               </svg>
             )}
           </button>
-          {role == "admin" ? (
-            <button
-              onClick={handleShare}
+          {role === "admin" ? (
+            <Link
+              to="/collaborators"
               className="hidden md:block text-white text-xl hover:text-cyan-600"
             >
-              Add collaborator
-            </button>
+              Collaborators
+            </Link>
           ) : null}
           <button
             onClick={handleSignOut}
@@ -121,12 +107,14 @@ const NavigationBar = () => {
         </div>
         <ul className="flex flex-col items-start ms-10 mt-8 space-y-4">
           <li>
-            <button
-              onClick={handleShare}
-              className="block py-2 px-3 rounded md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 md:dark:hover:text-cyan-600 text-white"
-            >
-              Add collaborator
-            </button>
+            {role === "admin" ? (
+              <Link
+                to="/collaborators"
+                className="block py-2 px-3 rounded md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 md:dark:hover:text-cyan-600 text-white"
+              >
+                Collaborators
+              </Link>
+            ) : null}
             <button
               onClick={handleSignOut}
               className="block py-2 px-3 rounded md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 md:dark:hover:text-cyan-600 text-white"
@@ -136,15 +124,6 @@ const NavigationBar = () => {
           </li>
         </ul>
       </div>
-      <Modal
-        title="Invite collaborator"
-        inputLabel="Email"
-        inputType="email"
-        buttonLabel="Send"
-        isShowing={isShowing}
-        onButtonClick={handleSendEmail}
-        onClose={toggle}
-      />
     </nav>
   );
 };
