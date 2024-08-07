@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { LogOutUser } from "../../../services/user-service";
-import Modal from "../../Modal";
+import InvitationModal from "../../InvitationModal";
 import { SendEmail } from "../../../services/email-service";
 import { render } from "@react-email/components";
 import Welcome from "../../Email/Welcome";
