@@ -11,7 +11,9 @@ import Login from "./pages/Login";
 import ToasterWrapper from "./wrapper/ToasterWrapper";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
 import AdminRoute from "./components/RouteAccess/AdminRoute";
+import Collaborators from "./pages/Collaborators";
 import { createTheme, MantineProvider } from "@mantine/core";
+
 const theme = createTheme({});
 
 const router = createBrowserRouter([
