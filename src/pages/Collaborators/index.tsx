@@ -39,11 +39,10 @@ const Collaborators = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen ">
+    <div className="flex flex-col min-h-screen">
       <NavigationBar />
-      <div className="flex-grow">
-        <div className="flex flex-col items-center mt-24"></div>
-        <div className="w-1/3 mx-auto">
+      <div className="flex-grow flex items-center justify-center">
+        <div className="w-full sm:w-1/2">
           <DataTable
             onDelete={FetchCollaborators}
             onAdd={toggle}
@@ -51,7 +50,6 @@ const Collaborators = () => {
           ></DataTable>
         </div>
       </div>
-
       <InvitationModal
         isShowing={isShowing}
         onSend={handleSendEmail}

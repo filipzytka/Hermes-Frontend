@@ -64,7 +64,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <MantineProvider theme={theme}>
+  <MantineProvider theme={{ primaryColor: "cyan" }}>
     <React.StrictMode>
       <AuthProvider>
         <ToasterWrapper>

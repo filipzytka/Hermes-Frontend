@@ -1,20 +1,19 @@
 import "@mantine/core/styles.css";
-import "@mantine/dates/styles.css"; //if using mantine date picker features
-import "mantine-react-table/styles.css"; //make sure MRT styles were imported in your app root (once)
+import "@mantine/dates/styles.css";
+import "mantine-react-table/styles.css";
 import {
   MantineReactTable,
   useMantineReactTable,
   type MRT_ColumnDef,
-  type MRT_Row,
 } from "mantine-react-table";
 import { Box, Button, MantineProvider, Modal } from "@mantine/core";
 import { TCollaborator } from "../../pages/Collaborators";
-import { CgUserRemove } from "react-icons/cg";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { DeleteUsers } from "../../services/user-service";
 import { popUp } from "../../utils";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUserDelete } from "react-icons/ai";
 
 const columns: MRT_ColumnDef<TCollaborator>[] = [
   {
@@ -87,12 +86,12 @@ const DataTable = ({ data, onDelete, onAdd }: Props) => {
             !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
           }
           onClick={handleSelectedRows}
-          leftSection={<CgUserRemove />}
+          leftSection={<AiOutlineUserDelete />}
           variant="filled"
         >
           Delete
         </Button>
-        <MantineProvider forceColorScheme="dark">
+        <MantineProvider>
           <Modal
             opened={opened}
             onClose={close}
@@ -104,9 +103,10 @@ const DataTable = ({ data, onDelete, onAdd }: Props) => {
               <button
                 onClick={handleCollaboratorRemoval}
                 type="submit"
-                className="py-1 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold
-                      bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                      transition-all text-sm dark:focus:ring-offset-gray-800 "
+                className="py-1 px-4 inline-flex justify-center items-center gap-2 rounded-md
+                 border border-transparent font-semibold
+                bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                 transition-all text-sm dark:focus:ring-offset-gray-800"
               >
                 {"Remove "}
               </button>
