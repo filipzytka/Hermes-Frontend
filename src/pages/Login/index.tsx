@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
 import Footer from "../../components/Shared/Footer";
 import { popUp } from "../../utils/index.ts";
+import TailwindImg from "../../assets/tailwind-css-logo.png";
 
 const Login = () => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -38,7 +39,7 @@ const Login = () => {
       <UserForm
         visible={visible}
         mainLabel="Sign in"
-        imgUrl="https://seeklogo.com/images/T/tailwind-css-logo-5AD4175897-seeklogo.com.png"
+        imgUrl={TailwindImg}
         isEmailInput
         isPasswordInput
         onFormSubmit={handleLoginData}

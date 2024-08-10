@@ -7,6 +7,7 @@ import { popUp } from "../../utils";
 import { UseToken, ValidateToken } from "../../services/token-service";
 import { useAuth } from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
+import TailwindImg from "../../assets/tailwind-css-logo.png";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const Register = () => {
       <UserForm
         visible={visible}
         mainLabel={`You have been invited by ${inviter} to create an account`}
-        imgUrl="https://seeklogo.com/images/T/tailwind-css-logo-5AD4175897-seeklogo.com.png"
+        imgUrl={TailwindImg}
         isEmailInput
         isPasswordInput
         isRepeatPasswordInput

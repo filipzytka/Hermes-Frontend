@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { LogOutUser } from "../../../services/user-service";
+import TailwindImg from "../../../assets/tailwind-css-logo.png";
 
 const NavigationBar = () => {
   const { setAuth, role } = useAuth();
@@ -25,11 +26,7 @@ const NavigationBar = () => {
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img
-            src="https://seeklogo.com/images/T/tailwind-css-logo-5AD4175897-seeklogo.com.png"
-            className="h-8"
-            alt="Hermes logo"
-          />{" "}
+          <img src={TailwindImg} className="h-8" alt="Hermes logo" />{" "}
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
             Hermes
           </span>
