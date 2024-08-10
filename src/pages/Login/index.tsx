@@ -4,7 +4,7 @@ import { LoginUser } from "../../services/user-service";
 import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
 import Footer from "../../components/Shared/Footer";
-import { popUp } from "../../utils/index.ts";
+import { popUp } from "../../utils/Popup/index.ts";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
 
 const Login = () => {

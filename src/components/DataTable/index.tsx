@@ -11,7 +11,7 @@ import { TCollaborator } from "../../pages/Collaborators";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { DeleteUsers } from "../../services/user-service";
-import { popUp } from "../../utils";
+import { popUp } from "../../utils/Popup";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { AiOutlineUserDelete } from "react-icons/ai";
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserForm from "../../components/UserForm";
 import Footer from "../../components/Shared/Footer";
 import { LogOutUser, RegisterUser } from "../../services/user-service";
-import { popUp } from "../../utils";
+import { popUp } from "../../utils/Popup";
 import { UseToken, ValidateToken } from "../../services/token-service";
 import { useAuth } from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
