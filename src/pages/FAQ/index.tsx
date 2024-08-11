@@ -10,7 +10,7 @@ const FAQ = () => {
         size="sm"
         className="flex-grow w-full justify-center items-center my-28"
       >
-        <Title className="text-center text-gray-800 dark:text-gray-400 my-10">
+        <Title className="text-center text-gray-800 dark:text-gray-100 my-10">
           Frequently Asked Questions
         </Title>
 

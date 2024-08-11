@@ -59,7 +59,7 @@ const NavigationBar = () => {
             <div className="relative hidden md:block">
               <button
                 onClick={handleDropdownToggle}
-                className="dark:text-white text-gray-800 text-xl hover:text-cyan-600 flex items-center"
+                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 flex items-center"
               >
                 Collaborators
                 <svg
@@ -110,13 +110,13 @@ const NavigationBar = () => {
           ) : null}
           <Link
             to="/faq"
-            className="hidden md:block dark:text-white text-gray-800 text-xl hover:text-cyan-600"
+            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
           >
             FAQ
           </Link>
           <button
             onClick={handleSignOut}
-            className="hidden md:block dark:text-white text-gray-800 text-xl hover:text-cyan-600"
+            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
           >
             Sign out
           </button>
