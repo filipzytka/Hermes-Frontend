@@ -81,10 +81,10 @@ const NavigationBar = () => {
               {dropdownOpen && (
                 <div
                   className="absolute z-10 mt-2 bg-white divide-y divide-gray-100
-                 rounded-lg shadow w-44 dark:bg-gray-700
+                 rounded-lg shadow w-full dark:bg-gray-700
                   dark:divide-gray-600"
                 >
-                  <ul className="text-sm text-gray-700 dark:text-gray-300">
+                  <ul className="text-lg text-gray-700 dark:text-gray-300">
                     <li>
                       <Link
                         to="/collaborators"
@@ -108,6 +108,12 @@ const NavigationBar = () => {
               )}
             </div>
           ) : null}
+          <Link
+            to="/faq"
+            className="hidden md:block dark:text-white text-gray-800 text-xl hover:text-cyan-600"
+          >
+            FAQ
+          </Link>
           <button
             onClick={handleSignOut}
             className="hidden md:block dark:text-white text-gray-800 text-xl hover:text-cyan-600"
@@ -166,6 +172,14 @@ const NavigationBar = () => {
                 </Link>
               </>
             ) : null}
+            <Link
+              to="/faq"
+              className="block py-2 px-3 rounded md:hover:bg-transparent
+                md:hover:text-cyan-600 md:p-0
+                md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+            >
+              FAQ
+            </Link>
             <button
               onClick={handleSignOut}
               className="block py-2 px-3 rounded md:hover:bg-transparent

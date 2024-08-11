@@ -22,6 +22,8 @@ Chart.register(
 
 const LineGraph = () => {
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         grid: {
