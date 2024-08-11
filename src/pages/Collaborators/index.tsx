@@ -50,6 +50,9 @@ const Collaborators = () => {
       <NavigationBar />
       <div className="flex-grow flex items-center justify-center">
         <div className="w-full sm:w-1/2">
+          <h2 className="dark:text-white text-3xl my-4">
+            Manage collaborators
+          </h2>
           <DataTable
             onDelete={FetchCollaborators}
             onAdd={toggle}

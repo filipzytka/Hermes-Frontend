@@ -13,6 +13,7 @@ import PublicRoute from "./components/RouteAccess/PublicRoute";
 import AdminRoute from "./components/RouteAccess/AdminRoute";
 import Collaborators from "./pages/Collaborators";
 import { MantineProvider } from "@mantine/core";
+import Statistics from "./pages/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
         <Collaborators />
       </AdminRoute>
     ),
+  },
+  {
+    path: "statistics",
+    element: <Statistics />,
   },
   {
     path: "register",
