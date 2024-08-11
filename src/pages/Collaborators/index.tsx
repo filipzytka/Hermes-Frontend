@@ -9,6 +9,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { SendEmail } from "../../services/email-service";
 import InvitationModal from "../../components/InvitationModal";
 import DataTable from "../../components/DataTable";
+import Loading from "../../components/Loading";
 
 export type TCollaborator = {
   email: string;
@@ -16,6 +17,7 @@ export type TCollaborator = {
 
 const Collaborators = () => {
   const [collaborators, setCollaborators] = useState<TCollaborator[]>([]);
+  const [isFetched, setIsFetched] = useState(false);
   const { isShowing, setIsShowing, toggle } = useModal();
   const { email } = useAuth();
 
@@ -23,6 +25,7 @@ const Collaborators = () => {
     const response = await GetCollaborators();
 
     setCollaborators(response?.collaborators);
+    setIsFetched(true);
   };
 
   const handleSendEmail = async (receiverEmail: string, token: string) => {
@@ -38,6 +41,10 @@ const Collaborators = () => {
     FetchCollaborators();
   }, []);
 
+  if (!isFetched) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavigationBar />
@@ -47,7 +54,7 @@ const Collaborators = () => {
             onDelete={FetchCollaborators}
             onAdd={toggle}
             data={collaborators}
-          ></DataTable>
+          />
         </div>
       </div>
       <InvitationModal
