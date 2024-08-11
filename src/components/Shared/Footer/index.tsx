@@ -20,7 +20,7 @@ const Footer = () => {
       <a href="https://youtube.com" className="mx-5">
         <FaYoutube
           size={30}
-          className="text-cyan-600 dark:text-cyan-200 hover:animate-pulse cursor-pointer"
+          className="text-cyan-600 dark:text-gray-200 hover:animate-pulse cursor-pointer"
         />
       </a>
     </footer>
