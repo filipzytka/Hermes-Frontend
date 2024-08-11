@@ -8,6 +8,7 @@ const NavigationBar = () => {
   const { setAuth, role } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSignOut = async () => {
     await LogOutUser();
@@ -19,23 +20,24 @@ const NavigationBar = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
-    <nav className=" bg-gray-900 w-full  mt-8">
+    <nav className="bg-gray-900 w-full mt-8">
       <div className="max-w-screen-xl flex flex-nowrap md:flex-wrap items-center justify-between mx-auto p-4">
-        <Link
-          to="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img src={TailwindImg} className="h-8" alt="Hermes logo" />{" "}
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
+        <Link to="/" className="flex items-center space-x-3">
+          <img src={TailwindImg} className="h-8" alt="Hermes logo" />
+          <span className="text-2xl font-semibold whitespace-nowrap text-white">
             Hermes
           </span>
         </Link>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-8">
+        <div className="flex gap-8">
           <button
             onClick={handleMenuToggle}
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm
+            className="flex items-center p-2 w-10 h-10 justify-center text-sm
                text-gray-500 rounded-lg md:hidden
                hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
                dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -54,12 +56,55 @@ const NavigationBar = () => {
             )}
           </button>
           {role === "admin" ? (
-            <Link
-              to="/collaborators"
-              className="hidden md:block text-white text-xl hover:text-cyan-600"
-            >
-              Collaborators
-            </Link>
+            <div className="relative hidden md:block">
+              <button
+                onClick={handleDropdownToggle}
+                className="text-white text-xl hover:text-cyan-600 flex items-center"
+              >
+                Collaborators
+                <svg
+                  className="w-2.5 h-2.5 ms-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              {dropdownOpen && (
+                <div
+                  className="absolute z-10 mt-2 bg-white divide-y divide-gray-100
+                 rounded-lg shadow w-44 dark:bg-gray-700
+                  dark:divide-gray-600"
+                >
+                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-300 font-semibold">
+                    <li>
+                      <Link
+                        to="/collaborators"
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Manage
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/statistics"
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Statistics
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           ) : null}
           <button
             onClick={handleSignOut}
@@ -100,16 +145,30 @@ const NavigationBar = () => {
         <ul className="flex flex-col items-start ms-10 mt-8 space-y-4">
           <li>
             {role === "admin" ? (
-              <Link
-                to="/collaborators"
-                className="block py-2 px-3 rounded md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 md:dark:hover:text-cyan-600 text-white"
-              >
-                Collaborators
-              </Link>
+              <>
+                <Link
+                  to="/collaborators"
+                  className="block py-2 px-3 rounded md:hover:bg-transparent
+                md:hover:text-cyan-600 md:p-0
+                md:dark:hover:text-cyan-600 text-white"
+                >
+                  Manage collaborators
+                </Link>
+                <Link
+                  to="/"
+                  className="block py-2 px-3 rounded md:hover:bg-transparent
+                md:hover:text-cyan-600 md:p-0
+                md:dark:hover:text-cyan-600 text-white"
+                >
+                  Statistics
+                </Link>
+              </>
             ) : null}
             <button
               onClick={handleSignOut}
-              className="block py-2 px-3 rounded md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 md:dark:hover:text-cyan-600 text-white"
+              className="block py-2 px-3 rounded md:hover:bg-transparent
+              md:hover:text-cyan-600 md:p-0
+              md:dark:hover:text-cyan-600 text-white"
             >
               Sign out
             </button>
