@@ -25,11 +25,11 @@ const NavigationBar = () => {
   };
 
   return (
-    <nav className="bg-gray-900 w-full mt-8">
+    <nav className="dark:bg-gray-900 w-full mt-8">
       <div className="max-w-screen-xl flex flex-nowrap md:flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-3">
           <img src={TailwindImg} className="h-8" alt="Hermes logo" />
-          <span className="text-2xl font-semibold whitespace-nowrap text-white">
+          <span className="text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">
             Hermes
           </span>
         </Link>
@@ -38,7 +38,7 @@ const NavigationBar = () => {
             onClick={handleMenuToggle}
             type="button"
             className="flex items-center p-2 w-10 h-10 justify-center text-sm
-               text-gray-500 rounded-lg md:hidden
+               text-gray-800 rounded-lg md:hidden
                hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
                dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           >
@@ -59,7 +59,7 @@ const NavigationBar = () => {
             <div className="relative hidden md:block">
               <button
                 onClick={handleDropdownToggle}
-                className="text-white text-xl hover:text-cyan-600 flex items-center"
+                className="dark:text-white text-gray-800 text-xl hover:text-cyan-600 flex items-center"
               >
                 Collaborators
                 <svg
@@ -84,11 +84,12 @@ const NavigationBar = () => {
                  rounded-lg shadow w-44 dark:bg-gray-700
                   dark:divide-gray-600"
                 >
-                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-300 font-semibold">
+                  <ul className="text-sm text-gray-700 dark:text-gray-300">
                     <li>
                       <Link
                         to="/collaborators"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="block px-4 py-2 hover:bg-cyan-50 dark:hover:bg-gray-600
+                        dark:hover:text-white rounded-t-lg"
                       >
                         Manage
                       </Link>
@@ -96,7 +97,8 @@ const NavigationBar = () => {
                     <li>
                       <Link
                         to="/statistics"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="block px-4 py-2 hover:bg-cyan-50
+                        dark:hover:bg-gray-600 dark:hover:text-white rounded-b-lg"
                       >
                         Statistics
                       </Link>
@@ -108,14 +110,14 @@ const NavigationBar = () => {
           ) : null}
           <button
             onClick={handleSignOut}
-            className="hidden md:block text-white text-xl hover:text-cyan-600"
+            className="hidden md:block dark:text-white text-gray-800 text-xl hover:text-cyan-600"
           >
             Sign out
           </button>
         </div>
       </div>
       <div
-        className={`md:hidden fixed top-0 left-0 w-full h-full bg-black/95 bg-opacity-95
+        className={`md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-black/95 bg-opacity-95
           transition-transform transform font-bold text-xl ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
           } z-30`}
@@ -124,7 +126,7 @@ const NavigationBar = () => {
           <button
             onClick={handleMenuToggle}
             type="button"
-            className="text-white"
+            className="text-gray-800 dark:text-white"
           >
             <svg
               className="w-6 h-6"
@@ -150,7 +152,7 @@ const NavigationBar = () => {
                   to="/collaborators"
                   className="block py-2 px-3 rounded md:hover:bg-transparent
                 md:hover:text-cyan-600 md:p-0
-                md:dark:hover:text-cyan-600 text-white"
+                md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
                 >
                   Manage collaborators
                 </Link>
@@ -158,7 +160,7 @@ const NavigationBar = () => {
                   to="/"
                   className="block py-2 px-3 rounded md:hover:bg-transparent
                 md:hover:text-cyan-600 md:p-0
-                md:dark:hover:text-cyan-600 text-white"
+                md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
                 >
                   Statistics
                 </Link>
@@ -168,7 +170,7 @@ const NavigationBar = () => {
               onClick={handleSignOut}
               className="block py-2 px-3 rounded md:hover:bg-transparent
               md:hover:text-cyan-600 md:p-0
-              md:dark:hover:text-cyan-600 text-white"
+              md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
             >
               Sign out
             </button>
