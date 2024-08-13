@@ -77,7 +77,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                     <form onSubmit={handleSubmit}>
                       <div className="flex flex-col gap-y-4">
                         <div>
-                          <label className="block text-sm font-bold ml-1 mb-3 dark:text-white">
+                          <label className="block text-sm font-semibold ml-1 mb-3 dark:text-white text-gray-800">
                             {"Search by email"}
                           </label>
                           <div className="relative">
