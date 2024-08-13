@@ -92,7 +92,7 @@ const NavigationBar = () => {
                  rounded-lg shadow w-full dark:bg-gray-700
                   dark:divide-gray-600"
                 >
-                  <ul className="text-lg text-gray-700 dark:text-gray-300">
+                  <ul className="text-gray-700 dark:text-gray-300">
                     <li>
                       <Link
                         to="/collaborators"
