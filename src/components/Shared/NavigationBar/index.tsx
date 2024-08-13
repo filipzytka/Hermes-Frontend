@@ -123,14 +123,12 @@ const NavigationBar = () => {
             FAQ
           </Link>
         </div>
-        <div className="flex gap-6">
-          <button
-            onClick={handleSignOut}
-            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
-          >
-            Sign out
-          </button>
-        </div>
+        <button
+          onClick={handleSignOut}
+          className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+        >
+          Sign out
+        </button>
       </div>
       <div
         className={`md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-black/95 bg-opacity-95
