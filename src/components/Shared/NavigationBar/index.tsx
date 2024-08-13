@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { LogOutUser } from "../../../services/user-service";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
+import { useMantineColorScheme } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 
 const NavigationBar = () => {
   const { setAuth, role } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { setColorScheme } = useMantineColorScheme();
+  const preferredColorScheme = useColorScheme();
+
+  useEffect(() => {
+    setColorScheme(preferredColorScheme);
+  }, [preferredColorScheme, setColorScheme]);
 
   const handleSignOut = async () => {
     await LogOutUser();
@@ -114,6 +122,8 @@ const NavigationBar = () => {
           >
             FAQ
           </Link>
+        </div>
+        <div className="flex gap-6">
           <button
             onClick={handleSignOut}
             className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
@@ -163,7 +173,7 @@ const NavigationBar = () => {
                   Manage collaborators
                 </Link>
                 <Link
-                  to="/"
+                  to="/statistics"
                   className="block py-2 px-3 rounded md:hover:bg-transparent
                 md:hover:text-cyan-600 md:p-0
                 md:dark:hover:text-cyan-600 dark:text-white text-gray-800"

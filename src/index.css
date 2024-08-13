@@ -3,12 +3,19 @@
 @tailwind utilities;
 
 body {
-  @apply dark:bg-gray-900;
+  @apply dark:bg-gray-900 bg-slate-100;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen", "Ubuntu",
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 code {

@@ -42,7 +42,14 @@ const Collaborators = () => {
   }, []);
 
   if (!isFetched) {
-    return <Loading />;
+    return (
+      <div className="flex flex-col min-h-screen">
+        <NavigationBar />
+        <div className="flex-grow"></div>
+        <Loading />
+        <Footer />
+      </div>
+    );
   }
 
   return (
@@ -50,7 +57,7 @@ const Collaborators = () => {
       <NavigationBar />
       <div className="flex-grow flex items-center justify-center">
         <div className="w-full sm:w-1/2 mb-28">
-          <h2 className="dark:text-white text-3xl my-4">
+          <h2 className="dark:text-white text-gray-800 text-3xl my-4">
             Manage collaborators
           </h2>
           <DataTable

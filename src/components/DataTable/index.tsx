@@ -6,7 +6,7 @@ import {
   useMantineReactTable,
   type MRT_ColumnDef,
 } from "mantine-react-table";
-import { Box, Button, MantineProvider, Modal } from "@mantine/core";
+import { Box, Button, Modal } from "@mantine/core";
 import { TCollaborator } from "../../pages/Collaborators";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
@@ -91,28 +91,26 @@ const DataTable = ({ data, onDelete, onAdd }: Props) => {
         >
           Delete
         </Button>
-        <MantineProvider>
-          <Modal
-            opened={opened}
-            onClose={close}
-            title="Remove collaborator"
-            centered
-          >
-            <p>Are you sure you want to remove selected users? </p>
-            <div className="mt-3">
-              <button
-                onClick={handleCollaboratorRemoval}
-                type="submit"
-                className="py-1 px-4 inline-flex justify-center items-center gap-2 rounded-md
+        <Modal
+          opened={opened}
+          onClose={close}
+          title="Remove collaborator"
+          centered
+        >
+          <p>Are you sure you want to remove selected users? </p>
+          <div className="mt-3">
+            <button
+              onClick={handleCollaboratorRemoval}
+              type="submit"
+              className="py-1 px-4 inline-flex justify-center items-center gap-2 rounded-md
                  border border-transparent font-semibold
                 bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
                  transition-all text-sm dark:focus:ring-offset-gray-800"
-              >
-                {"Remove "}
-              </button>
-            </div>
-          </Modal>
-        </MantineProvider>
+            >
+              {"Remove "}
+            </button>
+          </div>
+        </Modal>
       </Box>
     ),
   });

@@ -54,7 +54,7 @@ const UserForm = ({
     <div className="flex flex-col bg-slate-100 shadow-lg w-screen h-screen rounded-md sm:relative sm:max-w-96 sm:max-h-96 sm:my-10">
       <form
         noValidate
-        className="mx-10 my-6 w-auto"
+        className="mx-10 my-6 w-auto text-gray-800"
         onSubmit={handleFormSubmit}
       >
         <img alt="" src={imgUrl} className="h-8 w-8 object-contain mb-2"></img>
@@ -63,16 +63,20 @@ const UserForm = ({
             visible ? "opacity-1" : "opacity-0"
           }`}
         >
-          <h2 className="text-left pb-4 font-medium text-xl">{mainLabel}</h2>
+          <h2 className="text-left pb-4 font-medium text-xl text-gray-800">
+            {mainLabel}
+          </h2>
           {isEmailInput && (
             <>
               <input
                 autoComplete="on"
                 id="email-input"
                 type="email"
-                className={`bg-slate-100 text-sm outline-none border-b-2 border-gray-400 focus:border-gray-600 block w-full text-left mt-2 ${
-                  errors.email && `border-red-500 focus:border-red-600`
-                }
+                className={`bg-slate-100 text-sm outline-none border-b-2
+                   border-gray-400
+                    focus:border-gray-600 block w-full text-left mt-2 ${
+                      errors.email && `border-red-500 focus:border-red-600`
+                    }
                 `}
                 placeholder="E-mail"
                 onChange={(e) => {
