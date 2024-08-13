@@ -67,7 +67,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                   </button>
                 </div>
                 <div className="flex flex-col justify-center items-center text-center">
-                  <FaAddressBook className="text-white w-10 h-10" />
+                  <FaAddressBook className="dark:text-white text-cyan-600 w-10 h-10" />
                 </div>
                 <div className="w-80">
                   <h1 className="block text-2xl  text-gray-800 dark:text-white mt-2">
@@ -90,10 +90,10 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                               onChange={handleInputChange}
                               type="email"
                               className="py-1 pl-8 pr-4 block w-full border-2
-                             border-gray-700 rounded-md text-sm
+                             border-gray-500 rounded-md text-sm
                              focus:border-cyan-600
                              focus:ring-cyan-700 shadow-sm
-                             outline-none bg-gray-800 text-white"
+                             outline-none dark:bg-gray-800 bg-slate-50 dark:text-white text-gray-800"
                               required
                             ></input>
                           </div>
