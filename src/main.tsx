@@ -15,6 +15,7 @@ import Collaborators from "./pages/Collaborators";
 import { MantineProvider } from "@mantine/core";
 import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
+import PageNotFound from "./pages/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +27,7 @@ const router = createBrowserRouter([
     ),
     errorElement: (
       <div className="flex justify-center items-center h-screen flex-col">
-        <h1 className="text-4xl text-center mt-10 text-red-800">
-          {`Page not found :(`}
-        </h1>
-        <Link
-          to="/"
-          className="text-3xl text-center mt-10 text-grey-800 hover:text-gray-600"
-        >
-          Go back to home
-        </Link>
+        <PageNotFound />
       </div>
     ),
   },
