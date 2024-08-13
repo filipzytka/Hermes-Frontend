@@ -45,8 +45,7 @@ const Collaborators = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <NavigationBar />
-        <div className="flex-grow"></div>
-        <Loading />
+        <div className="flex-grow" />
         <Footer />
       </div>
     );
