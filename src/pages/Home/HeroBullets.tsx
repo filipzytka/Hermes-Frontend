@@ -56,7 +56,10 @@ const HeroBullets = () => {
           </List>
 
           <Group mt={30}>
-            <Link to="https://github.com/Filipus1/Hermes-Frontend">
+            <Link
+              to="https://github.com/Filipus1/Hermes-Frontend"
+              target="_blank"
+            >
               <Button color={"cyan"} variant="filled" radius="xl" size="md">
                 Source code
               </Button>
