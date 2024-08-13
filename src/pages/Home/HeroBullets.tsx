@@ -57,12 +57,7 @@ const HeroBullets = () => {
 
           <Group mt={30}>
             <Link to="https://github.com/Filipus1/Hermes-Frontend">
-              <Button
-                variant="default"
-                radius="xl"
-                size="md"
-                className={classes.control}
-              >
+              <Button color={"cyan"} variant="filled" radius="xl" size="md">
                 Source code
               </Button>
             </Link>
