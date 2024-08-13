@@ -17,7 +17,7 @@ const Register = () => {
   const [inviter, setInviter] = useState("");
 
   const handleRegisterData = async (email: string, password: string) => {
-    const response = await RegisterUser(email, password);
+    const response = await RegisterUser(email, password, token);
 
     if (!response.success) {
       popUp(response.message, "error");

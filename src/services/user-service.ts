@@ -2,7 +2,11 @@ import { TCollaborator } from "../pages/Collaborators";
 import { SERVER_URL_USERS } from "./constants";
 import { getCookie } from "./helpers";
 
-export const RegisterUser = async (email: string, password: string) => {
+export const RegisterUser = async (
+  email: string,
+  password: string,
+  token: string
+) => {
   try {
     const response = await fetch(`${SERVER_URL_USERS}/register`, {
       method: "POST",
@@ -12,6 +16,7 @@ export const RegisterUser = async (email: string, password: string) => {
       body: JSON.stringify({
         email,
         password,
+        token,
       }),
       credentials: "include",
     });
