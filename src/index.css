@@ -11,6 +11,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+input:-webkit-autofill {
+  color: #1f2937;
+  -webkit-text-fill-color: #1f2937;
+}
+
+input:-webkit-autofill::placeholder {
+  color: #4b5563;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
