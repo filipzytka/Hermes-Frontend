@@ -58,9 +58,9 @@ const router = createBrowserRouter([
   {
     path: "faq",
     element: (
-      <AdminRoute>
+      <PrivateRoute>
         <FAQ />
-      </AdminRoute>
+      </PrivateRoute>
     ),
   },
   {
