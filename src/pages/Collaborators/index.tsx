@@ -55,7 +55,7 @@ const Collaborators = () => {
     <div className="flex flex-col min-h-screen">
       <NavigationBar />
       <div className="flex-grow flex items-center justify-center px-3">
-        <div className="w-full sm:w-1/2 mb-28">
+        <div className="w-full sm:w-1/2 my-28">
           <h2 className="dark:text-white text-gray-800 text-3xl my-4">
             Manage collaborators
           </h2>
