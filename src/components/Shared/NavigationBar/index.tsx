@@ -55,6 +55,12 @@ const NavigationBar = () => {
               </svg>
             )}
           </button>
+          <Link
+            to="/"
+            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+          >
+            Home
+          </Link>
           {role === "admin" ? (
             <div className="relative hidden md:block">
               <button
