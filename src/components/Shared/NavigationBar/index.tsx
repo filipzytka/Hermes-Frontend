@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { LogOutUser } from "../../../services/user-service";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
-import { useMantineColorScheme } from "@mantine/core";
-import { useColorScheme } from "@mantine/hooks";
 
 const NavigationBar = () => {
   const { setAuth, role } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { setColorScheme } = useMantineColorScheme();
-  const preferredColorScheme = useColorScheme();
-
-  useEffect(() => {
-    setColorScheme(preferredColorScheme);
-  }, [preferredColorScheme, setColorScheme]);
 
   const handleSignOut = async () => {
     await LogOutUser();
