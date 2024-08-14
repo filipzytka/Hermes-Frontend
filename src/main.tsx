@@ -65,11 +65,7 @@ const router = createBrowserRouter([
   },
   {
     path: "register",
-    element: (
-      <PublicRoute>
-        <Register />
-      </PublicRoute>
-    ),
+    element: <Register />,
   },
 ]);
 
