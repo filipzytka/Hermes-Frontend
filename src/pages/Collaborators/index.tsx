@@ -9,7 +9,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { SendEmail } from "../../services/email-service";
 import InvitationModal from "../../components/InvitationModal";
 import DataTable from "../../components/DataTable";
-import Loading from "../../components/Loading";
 
 export type TCollaborator = {
   email: string;

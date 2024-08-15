@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "@mantine/core/styles.css";
 import "./index.css";
-import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./components/RouteAccess/PrivateRoute";
 import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";

@@ -1,5 +1,4 @@
 import {
-  Badge,
   Group,
   Title,
   Text,
@@ -7,7 +6,6 @@ import {
   SimpleGrid,
   Container,
   rem,
-  useMantineTheme,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons-react";
 import classes from "./FeaturesCards.module.css";

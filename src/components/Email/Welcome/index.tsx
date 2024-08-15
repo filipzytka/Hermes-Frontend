@@ -89,19 +89,3 @@ const button = {
   borderRadius: "0.5em",
   padding: "12px 24px",
 };
-
-const links = {
-  textAlign: "center" as const,
-};
-
-const link = {
-  color: "#0366d6",
-  fontSize: "12px",
-};
-
-const footer = {
-  color: "#6a737d",
-  fontSize: "12px",
-  textAlign: "center" as const,
-  marginTop: "60px",
-};
