@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserForm from "../../components/UserForm";
 import Footer from "../../components/Shared/Footer";
-import { LogOutUser, RegisterUser } from "../../api/user";
+import { logOutUser, registerUser } from "../../api/user";
 import { popUp } from "../../utils/Popup";
-import { UseToken, ValidateToken } from "../../api/token";
+import { useToken, validateToken } from "../../api/token";
 import { useAuth } from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
@@ -17,14 +17,14 @@ const Register = () => {
   const [inviter, setInviter] = useState("");
 
   const handleRegisterData = async (email: string, password: string) => {
-    const response = await RegisterUser(email, password, token);
+    const response = await registerUser(email, password, token);
 
     if (!response.success) {
       popUp(response.message!, "error");
       return;
     }
 
-    await UseToken(token);
+    await useToken(token);
 
     navigate("/login");
   };
@@ -41,8 +41,8 @@ const Register = () => {
 
     setToken(searchedToken);
 
-    const validateToken = async () => {
-      const response = await ValidateToken(searchedToken);
+    const validateTokenStatus = async () => {
+      const response = await validateToken(searchedToken);
       setLoading(false);
 
       if (!response.success) {
@@ -50,10 +50,10 @@ const Register = () => {
       }
 
       setInviter(response.createdBy);
-      await LogOutUser();
+      await logOutUser();
     };
 
-    validateToken();
+    validateTokenStatus();
   }, []);
 
   useEffect(() => {

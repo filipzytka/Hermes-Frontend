@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Shared/Footer";
 import NavigationBar from "../../components/Shared/NavigationBar";
-import { GetCollaborators } from "../../api/user";
+import { getCollaborators } from "../../api/user";
 import useModal from "../../hooks/useModal";
 import Welcome from "../../components/Email/Welcome";
 import { render } from "@react-email/components";
 import { useAuth } from "../../hooks/useAuth";
-import { SendEmail } from "../../api/email";
+import { sendEmail } from "../../api/email";
 import InvitationModal from "../../components/InvitationModal";
 import DataTable from "../../components/DataTable";
 
@@ -20,8 +20,8 @@ const Collaborators = () => {
   const { isShowing, setIsShowing, toggle } = useModal();
   const { email } = useAuth();
 
-  const FetchCollaborators = async () => {
-    const response = await GetCollaborators();
+  const fetchCollaborators = async () => {
+    const response = await getCollaborators();
 
     setCollaborators(response?.collaborators);
     setIsFetched(true);
@@ -32,12 +32,12 @@ const Collaborators = () => {
       <Welcome username={receiverEmail} token={token} inviterEmail={email} />
     );
 
-    await SendEmail(receiverEmail, html);
+    await sendEmail(receiverEmail, html);
     setIsShowing(false);
   };
 
   useEffect(() => {
-    FetchCollaborators();
+    fetchCollaborators();
   }, []);
 
   if (!isFetched) {
@@ -59,7 +59,7 @@ const Collaborators = () => {
             Manage collaborators
           </h2>
           <DataTable
-            onDelete={FetchCollaborators}
+            onDelete={fetchCollaborators}
             onAdd={toggle}
             data={collaborators}
           />

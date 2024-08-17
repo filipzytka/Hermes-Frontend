@@ -1,13 +1,13 @@
 import { TCollaborator } from "../pages/Collaborators";
 import { SERVER_URL_USERS } from "./constants";
-import { FetchRequest, getCookie } from "./helpers";
+import { fetchRequest, getCookie } from "./helpers";
 
-export const RegisterUser = async (
+export const registerUser = async (
   email: string,
   password: string,
   token: string
 ) => {
-  return await FetchRequest({
+  return await fetchRequest({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/register`,
     body: JSON.stringify({
@@ -18,7 +18,7 @@ export const RegisterUser = async (
   });
 };
 
-export const LoginUser = async (email: string, password: string) => {
+export const loginUser = async (email: string, password: string) => {
   try {
     const response = await fetch(`${SERVER_URL_USERS}/login`, {
       method: "POST",
@@ -53,7 +53,7 @@ export const LoginUser = async (email: string, password: string) => {
   }
 };
 
-export const AuthenticateUser = async () => {
+export const authenticateUser = async () => {
   if (!getCookie("active")) return;
 
   try {
@@ -83,7 +83,7 @@ export const AuthenticateUser = async () => {
   }
 };
 
-export const LogOutUser = async () => {
+export const logOutUser = async () => {
   try {
     const response = await fetch(`${SERVER_URL_USERS}/logout`, {
       method: "POST",
@@ -103,7 +103,7 @@ export const LogOutUser = async () => {
   }
 };
 
-export const GetCollaborators = async () => {
+export const getCollaborators = async () => {
   try {
     const response = await fetch(`${SERVER_URL_USERS}/collaborators`, {
       method: "GET",
@@ -125,7 +125,7 @@ export const GetCollaborators = async () => {
   }
 };
 
-export const DeleteUsers = async (collaborators: TCollaborator[]) => {
+export const deleteUsers = async (collaborators: TCollaborator[]) => {
   try {
     const response = await fetch(`${SERVER_URL_USERS}/collaborator/remove`, {
       method: "DELETE",

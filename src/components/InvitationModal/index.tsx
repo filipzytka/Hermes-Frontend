@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactDOM from "react-dom";
 import { popUp } from "../../utils/Popup";
-import { GenerateToken } from "../../api/token";
+import { generateToken } from "../../api/token";
 import { useAuth } from "../../hooks/useAuth";
 import { FaAddressBook } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
@@ -18,7 +18,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const response = await GenerateToken(email);
+    const response = await generateToken(email);
 
     if (!response.success) {
       return;

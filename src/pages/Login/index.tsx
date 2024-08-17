@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginUser } from "../../api/user.ts";
+import { loginUser } from "../../api/user.ts";
 import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
 import Footer from "../../components/Shared/Footer";
@@ -13,7 +13,7 @@ const Login = () => {
   const { setAuth, setRole, setEmail } = useAuth();
 
   const handleLoginData = async (email: string, password: string) => {
-    const response = await LoginUser(email, password);
+    const response = await loginUser(email, password);
 
     if (!response.success) {
       popUp(response.message, "error");

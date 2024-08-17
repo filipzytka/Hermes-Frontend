@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AuthenticateUser } from "../../api/user";
+import { authenticateUser } from "../../api/user";
 import AuthContext from "../../context/auth";
 
 type Props = {
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: Props) => {
     const isUserAuth = async () => {
       setLoading(true);
       try {
-        const currentUser = await AuthenticateUser();
+        const currentUser = await authenticateUser();
 
         if (currentUser) {
           setAuth(currentUser.success);

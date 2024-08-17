@@ -4,7 +4,7 @@ import {
   SERVER_URL_VALIDATE_TOKEN,
 } from "./constants";
 
-export const GenerateToken = async (createdBy: string) => {
+export const generateToken = async (createdBy: string) => {
   try {
     const response = await fetch(`${SERVER_URL_GENERATE_TOKEN}`, {
       method: "POST",
@@ -35,7 +35,7 @@ export const GenerateToken = async (createdBy: string) => {
   }
 };
 
-export const ValidateToken = async (token: string) => {
+export const validateToken = async (token: string) => {
   try {
     const response = await fetch(
       `${SERVER_URL_VALIDATE_TOKEN}?token=${token}`,
@@ -65,7 +65,7 @@ export const ValidateToken = async (token: string) => {
   }
 };
 
-export const UseToken = async (token: string) => {
+export const useToken = async (token: string) => {
   try {
     const response = await fetch(`${SERVER_URL_TOKEN_USE}`, {
       method: "POST",

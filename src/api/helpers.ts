@@ -5,7 +5,7 @@ type TRequest = {
   body?: string;
 };
 
-export const FetchRequest = async <T>({
+export const fetchRequest = async <T>({
   method,
   endpoint,
   body,

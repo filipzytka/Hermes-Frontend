@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import { LogOutUser } from "../../../api/user";
+import { logOutUser } from "../../../api/user";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
 
 const NavigationBar = () => {
@@ -10,17 +10,17 @@ const NavigationBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleSignOut = async () => {
-    await LogOutUser();
+  const HandleSignOut = async () => {
+    await logOutUser();
     setAuth(false);
     navigate("/login");
   };
 
-  const handleMenuToggle = () => {
+  const HandleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const handleDropdownToggle = () => {
+  const HandleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -35,7 +35,7 @@ const NavigationBar = () => {
         </Link>
         <div className="flex gap-8">
           <button
-            onClick={handleMenuToggle}
+            onClick={HandleMenuToggle}
             type="button"
             className="flex items-center p-2 w-10 h-10 justify-center text-sm
                text-gray-800 rounded-lg md:hidden
@@ -64,7 +64,7 @@ const NavigationBar = () => {
           {role === "admin" ? (
             <div className="relative hidden md:block">
               <button
-                onClick={handleDropdownToggle}
+                onClick={HandleDropdownToggle}
                 className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 flex items-center"
               >
                 Collaborators
@@ -122,7 +122,7 @@ const NavigationBar = () => {
           </Link>
         </div>
         <button
-          onClick={handleSignOut}
+          onClick={HandleSignOut}
           className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
         >
           Sign out
@@ -136,7 +136,7 @@ const NavigationBar = () => {
       >
         <div className="flex items-center justify-end p-6 mt-8">
           <button
-            onClick={handleMenuToggle}
+            onClick={HandleMenuToggle}
             type="button"
             className="text-gray-800 dark:text-white"
           >
@@ -187,7 +187,7 @@ const NavigationBar = () => {
               FAQ
             </Link>
             <button
-              onClick={handleSignOut}
+              onClick={HandleSignOut}
               className="block py-2 px-3 rounded md:hover:bg-transparent
               md:hover:text-cyan-600 md:p-0
               md:dark:hover:text-cyan-600 dark:text-white text-gray-800"

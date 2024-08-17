@@ -10,7 +10,7 @@ import { Box, Button, Modal } from "@mantine/core";
 import { TCollaborator } from "../../pages/Collaborators";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { DeleteUsers } from "../../api/user";
+import { deleteUsers } from "../../api/user";
 import { popUp } from "../../utils/Popup";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { AiOutlineUserDelete } from "react-icons/ai";
@@ -40,7 +40,7 @@ const DataTable = ({ data, onDelete, onAdd }: Props) => {
 
   const handleCollaboratorRemoval = async () => {
     if (!selectedUsers) return;
-    const response = await DeleteUsers(selectedUsers);
+    const response = await deleteUsers(selectedUsers);
 
     if (response.success) {
       popUp(`Selected users has been deleted from collaborators`, "success");
