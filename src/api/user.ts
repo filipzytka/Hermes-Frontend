@@ -1,37 +1,21 @@
 import { TCollaborator } from "../pages/Collaborators";
 import { SERVER_URL_USERS } from "./constants";
-import { getCookie } from "./helpers";
+import { FetchRequest, getCookie } from "./helpers";
 
 export const RegisterUser = async (
   email: string,
   password: string,
   token: string
 ) => {
-  try {
-    const response = await fetch(`${SERVER_URL_USERS}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        token,
-      }),
-      credentials: "include",
-    });
-    const responseBody = await response.json();
-
-    if (response.status == 200) {
-      return { success: true, message: responseBody };
-    }
-    return { success: false, message: responseBody.message };
-  } catch (error) {
-    return {
-      success: false,
-      message: error,
-    };
-  }
+  return await FetchRequest({
+    method: "POST",
+    endpoint: `${SERVER_URL_USERS}/register`,
+    body: JSON.stringify({
+      email,
+      password,
+      token,
+    }),
+  });
 };
 
 export const LoginUser = async (email: string, password: string) => {

@@ -20,7 +20,7 @@ const Register = () => {
     const response = await RegisterUser(email, password, token);
 
     if (!response.success) {
-      popUp(response.message, "error");
+      popUp(response.message!, "error");
       return;
     }
 
