@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginUser } from "../../services/user-service";
+import { LoginUser } from "../../api/user.ts";
 import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
 import Footer from "../../components/Shared/Footer";

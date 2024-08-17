@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import { LogOutUser } from "../../../services/user-service";
+import { LogOutUser } from "../../../api/user";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
 
 const NavigationBar = () => {

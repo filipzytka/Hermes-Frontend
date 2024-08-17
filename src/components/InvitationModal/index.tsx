@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactDOM from "react-dom";
 import { popUp } from "../../utils/Popup";
-import { GenerateToken } from "../../services/token-service";
+import { GenerateToken } from "../../api/token";
 import { useAuth } from "../../hooks/useAuth";
 import { FaAddressBook } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";

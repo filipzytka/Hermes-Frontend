@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AuthenticateUser } from "../../services/user-service";
+import { AuthenticateUser } from "../../api/user";
 import AuthContext from "../../context/auth";
 
 type Props = {

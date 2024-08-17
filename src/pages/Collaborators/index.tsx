@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Shared/Footer";
 import NavigationBar from "../../components/Shared/NavigationBar";
-import { GetCollaborators } from "../../services/user-service";
+import { GetCollaborators } from "../../api/user";
 import useModal from "../../hooks/useModal";
 import Welcome from "../../components/Email/Welcome";
 import { render } from "@react-email/components";
 import { useAuth } from "../../hooks/useAuth";
-import { SendEmail } from "../../services/email-service";
+import { SendEmail } from "../../api/email";
 import InvitationModal from "../../components/InvitationModal";
 import DataTable from "../../components/DataTable";
 

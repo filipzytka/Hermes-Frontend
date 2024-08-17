@@ -8,7 +8,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import { REACT_URL } from "../../../services/constants";
+import { REACT_URL } from "../../../api/constants";
 
 interface Props {
   username: string;
