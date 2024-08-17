@@ -11,9 +11,9 @@ export const fetchRequest = async <T>({
   body,
   headers = {},
 }: TRequest): Promise<{
+  payload?: T;
   success: boolean;
-  data?: T;
-  message?: string;
+  error?: string;
 }> => {
   try {
     const response = await fetch(endpoint, {
@@ -27,17 +27,11 @@ export const fetchRequest = async <T>({
     });
 
     const responseBody = await response.json();
+    const success = response.ok;
 
-    if (response.ok) {
-      return { success: true, data: responseBody };
-    }
-
-    return {
-      success: false,
-      message: responseBody.message ?? "Request failed",
-    };
+    return { payload: responseBody, success };
   } catch (error) {
-    return { success: false, message: String(error) };
+    return { error: String(error), success: false };
   }
 };
 

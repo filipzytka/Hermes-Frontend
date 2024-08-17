@@ -23,7 +23,7 @@ const Collaborators = () => {
   const fetchCollaborators = async () => {
     const response = await getCollaborators();
 
-    setCollaborators(response?.collaborators);
+    setCollaborators(response.payload!.collaborators);
     setIsFetched(true);
   };
 

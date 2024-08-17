@@ -1,13 +1,20 @@
 import { TCollaborator } from "../pages/Collaborators";
 import { SERVER_URL_USERS } from "./constants";
 import { fetchRequest, getCookie } from "./helpers";
+import {
+  TAuthResponse,
+  TDeleteCollaboratorsResponse,
+  TGetCollaboratorsResponse,
+  TLoginResponse,
+  TRegisterResponse,
+} from "./response-types";
 
 export const registerUser = async (
   email: string,
   password: string,
   token: string
 ) => {
-  return await fetchRequest({
+  return await fetchRequest<TRegisterResponse>({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/register`,
     body: JSON.stringify({
@@ -19,130 +26,42 @@ export const registerUser = async (
 };
 
 export const loginUser = async (email: string, password: string) => {
-  try {
-    const response = await fetch(`${SERVER_URL_USERS}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-      credentials: "include",
-    });
-
-    const responseBody = await response.json();
-
-    if (response.status == 200) {
-      return {
-        success: true,
-        role: responseBody.role,
-        email: responseBody.email,
-      };
-    }
-
-    return { success: false, message: responseBody.message };
-  } catch (error) {
-    console.log(`Error while logging user! Error: ${error}`);
-
-    return {
-      success: false,
-      message: error,
-    };
-  }
+  return await fetchRequest<TLoginResponse>({
+    method: "POST",
+    endpoint: `${SERVER_URL_USERS}/login`,
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 };
 
 export const authenticateUser = async () => {
   if (!getCookie("active")) return;
-
-  try {
-    const response = await fetch(`${SERVER_URL_USERS}/auth`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    const responseBody = await response.json();
-
-    if (response.status === 200) {
-      return {
-        success: true,
-        role: responseBody.role,
-        email: responseBody.email,
-      };
-    }
-
-    return { success: false };
-  } catch (error) {
-    console.log(`Error while authenticating user! Error: ${error}`);
-
-    return { success: false };
-  }
+  return await fetchRequest<TAuthResponse>({
+    method: "GET",
+    endpoint: `${SERVER_URL_USERS}/auth`,
+  });
 };
 
 export const logOutUser = async () => {
-  try {
-    const response = await fetch(`${SERVER_URL_USERS}/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    if (response.status === 200) {
-      return { success: true };
-    }
-  } catch (error) {
-    console.log(`Error while authenticating user! Error: ${error}`);
-
-    return { success: false };
-  }
+  return await fetchRequest<TAuthResponse>({
+    method: "POST",
+    endpoint: `${SERVER_URL_USERS}/logout`,
+  });
 };
 
 export const getCollaborators = async () => {
-  try {
-    const response = await fetch(`${SERVER_URL_USERS}/collaborators`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    if (response.status === 200) {
-      const responseJson = await response.json();
-
-      return { success: true, collaborators: responseJson.collaborators };
-    }
-  } catch (error) {
-    console.log(`Error while fetching collaborators! Error: ${error}`);
-
-    return { success: false };
-  }
+  return await fetchRequest<TGetCollaboratorsResponse>({
+    method: "GET",
+    endpoint: `${SERVER_URL_USERS}/collaborators`,
+  });
 };
 
 export const deleteUsers = async (collaborators: TCollaborator[]) => {
-  try {
-    const response = await fetch(`${SERVER_URL_USERS}/collaborator/remove`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(collaborators),
-      credentials: "include",
-    });
-
-    if (response.status === 200) {
-      return { success: true, message: `Users has been removed` };
-    }
-    return { success: false };
-  } catch (error) {
-    console.log(`Error while deleting collaborators! Error: ${error}`);
-
-    return { success: false };
-  }
+  return await fetchRequest<TDeleteCollaboratorsResponse>({
+    method: "DELETE",
+    endpoint: `${SERVER_URL_USERS}/collaborator/remove`,
+    body: JSON.stringify(collaborators),
+  });
 };

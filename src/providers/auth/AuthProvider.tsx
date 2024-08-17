@@ -16,12 +16,12 @@ export const AuthProvider = ({ children }: Props) => {
     const isUserAuth = async () => {
       setLoading(true);
       try {
-        const currentUser = await authenticateUser();
+        const response = await authenticateUser();
 
-        if (currentUser) {
-          setAuth(currentUser.success);
-          setRole(currentUser.role);
-          setEmail(currentUser.email);
+        if (response) {
+          setAuth(response.success);
+          setRole(response.payload!.role);
+          setEmail(response.payload!.email);
         } else {
           setAuth(false);
         }

@@ -16,12 +16,13 @@ const Login = () => {
     const response = await loginUser(email, password);
 
     if (!response.success) {
-      popUp(response.message, "error");
+      console.log(response.success);
+      popUp(response.payload!.message!, "error");
       return;
     }
     setAuth(true);
-    setRole(response.role);
-    setEmail(response.email);
+    setRole(response.payload!.role);
+    setEmail(response.payload!.email);
     navigate("/");
   };
 

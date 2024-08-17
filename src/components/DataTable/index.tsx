@@ -43,9 +43,11 @@ const DataTable = ({ data, onDelete, onAdd }: Props) => {
     const response = await deleteUsers(selectedUsers);
 
     if (response.success) {
-      popUp(`Selected users has been deleted from collaborators`, "success");
+      popUp(`${response.payload!.message}`, "success");
       onDelete();
       close();
+    } else {
+      popUp(`${response.payload!.message}`, "error");
     }
   };
 
