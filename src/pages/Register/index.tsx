@@ -4,7 +4,7 @@ import UserForm from "../../components/UserForm";
 import Footer from "../../components/Shared/Footer";
 import { logOutUser, registerUser } from "../../api/user";
 import { popUp } from "../../utils/Popup";
-import { useToken, validateToken } from "../../api/token";
+import { validateToken } from "../../api/token";
 import { useAuth } from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
@@ -23,8 +23,6 @@ const Register = () => {
       popUp(response.payload!.message!, "error");
       return;
     }
-
-    await useToken(token);
 
     navigate("/login");
   };
@@ -49,7 +47,7 @@ const Register = () => {
         navigate("/login");
       }
 
-      setInviter(response.createdBy);
+      setInviter(response.payload!.createdBy);
       await logOutUser();
     };
 

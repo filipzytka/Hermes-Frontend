@@ -23,3 +23,12 @@ export type TGetCollaboratorsResponse = {
 export type TDeleteCollaboratorsResponse = {
   message: string;
 };
+
+export type TGenerateToken = {
+  token: string;
+  createdBy: string;
+};
+
+export type TValidateToken = {
+  createdBy: string;
+};

@@ -24,7 +24,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
       return;
     }
 
-    const generatedToken = response.token;
+    const generatedToken = response.payload!.token;
 
     onSend(inputEmail, generatedToken);
 
