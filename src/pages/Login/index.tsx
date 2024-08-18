@@ -17,7 +17,7 @@ const Login = () => {
 
     if (!response.success) {
       console.log(response.success);
-      popUp(response.payload!.message!, "error");
+      popUp(response.payload!.message, "error");
       return;
     }
     setAuth(true);

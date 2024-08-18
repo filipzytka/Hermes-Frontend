@@ -10,12 +10,6 @@ export type TMessageResponse = {
   message: string;
 };
 
-export type TLoginResponse = {
-  role: string;
-  email: string;
-  message?: string;
-};
-
 export type TCollaboratorsResponse = {
   collaborators: TCollaborator[];
 };

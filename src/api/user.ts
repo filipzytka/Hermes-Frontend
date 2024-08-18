@@ -4,7 +4,6 @@ import { fetchRequest, getCookie } from "./helpers";
 import {
   TAuthResponse,
   TCollaboratorsResponse,
-  TLoginResponse,
   TMessageResponse,
 } from "./response-types";
 
@@ -25,7 +24,7 @@ export const registerUser = async (
 };
 
 export const loginUser = async (email: string, password: string) => {
-  return await fetchRequest<TLoginResponse>({
+  return await fetchRequest<TAuthResponse>({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/login`,
     body: JSON.stringify({
