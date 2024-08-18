@@ -11,7 +11,6 @@ import TailwindImg from "../../assets/tailwind-css-logo.png";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState<boolean>(false);
   const [token, setToken] = useState("");
   const { loading, setLoading } = useAuth();
   const [inviter, setInviter] = useState("");
@@ -54,14 +53,6 @@ const Register = () => {
     validateTokenStatus();
   }, []);
 
-  useEffect(() => {
-    setVisible(false);
-
-    setTimeout(() => {
-      setVisible(true);
-    }, 100);
-  }, []);
-
   if (loading) {
     return <Loading />;
   }
@@ -70,7 +61,6 @@ const Register = () => {
     <div className="flex justify-between items-center w-full h-screen flex-col">
       <div />
       <UserForm
-        visible={visible}
         mainLabel={`You have been invited by ${inviter} to create an account`}
         imgUrl={TailwindImg}
         isEmailInput

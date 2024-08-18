@@ -8,7 +8,6 @@ import { popUp } from "../../utils/Popup/index.ts";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
 
 const Login = () => {
-  const [visible, setVisible] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setAuth, setRole, setEmail } = useAuth();
 
@@ -26,19 +25,10 @@ const Login = () => {
     navigate("/");
   };
 
-  useEffect(() => {
-    setVisible(false);
-
-    setTimeout(() => {
-      setVisible(true);
-    }, 100);
-  }, []);
-
   return (
     <div className="flex justify-between items-center w-full h-screen flex-col">
       <div />
       <UserForm
-        visible={visible}
         mainLabel="Sign in"
         imgUrl={TailwindImg}
         isEmailInput
