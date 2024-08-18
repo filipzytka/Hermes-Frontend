@@ -10,17 +10,17 @@ const NavigationBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const HandleSignOut = async () => {
+  const handleSignOut = async () => {
     await logOutUser();
     setAuth(false);
     navigate("/login");
   };
 
-  const HandleMenuToggle = () => {
+  const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const HandleDropdownToggle = () => {
+  const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -35,7 +35,7 @@ const NavigationBar = () => {
         </Link>
         <div className="flex gap-8">
           <button
-            onClick={HandleMenuToggle}
+            onClick={handleMenuToggle}
             type="button"
             className="flex items-center p-2 w-10 h-10 justify-center text-sm
                text-gray-800 rounded-lg md:hidden
@@ -64,7 +64,7 @@ const NavigationBar = () => {
           {role === "admin" ? (
             <div className="relative hidden md:block">
               <button
-                onClick={HandleDropdownToggle}
+                onClick={handleDropdownToggle}
                 className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 flex items-center"
               >
                 Collaborators
@@ -122,7 +122,7 @@ const NavigationBar = () => {
           </Link>
         </div>
         <button
-          onClick={HandleSignOut}
+          onClick={handleSignOut}
           className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
         >
           Sign out
@@ -136,7 +136,7 @@ const NavigationBar = () => {
       >
         <div className="flex items-center justify-end p-6 mt-8">
           <button
-            onClick={HandleMenuToggle}
+            onClick={handleMenuToggle}
             type="button"
             className="text-gray-800 dark:text-white"
           >
@@ -187,7 +187,7 @@ const NavigationBar = () => {
               FAQ
             </Link>
             <button
-              onClick={HandleSignOut}
+              onClick={handleSignOut}
               className="block py-2 px-3 rounded md:hover:bg-transparent
               md:hover:text-cyan-600 md:p-0
               md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
