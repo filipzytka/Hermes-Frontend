@@ -7,12 +7,12 @@ import {
   TMessageResponse,
 } from "./response-types";
 
-export const registerUser = async (
+export const registerUser = (
   email: string,
   password: string,
   token: string
 ) => {
-  return await fetchRequest<TMessageResponse>({
+  return fetchRequest<TMessageResponse>({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/register`,
     body: JSON.stringify({
@@ -23,8 +23,8 @@ export const registerUser = async (
   });
 };
 
-export const loginUser = async (email: string, password: string) => {
-  return await fetchRequest<TAuthResponse>({
+export const loginUser = (email: string, password: string) => {
+  return fetchRequest<TAuthResponse>({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/login`,
     body: JSON.stringify({
@@ -34,30 +34,30 @@ export const loginUser = async (email: string, password: string) => {
   });
 };
 
-export const authenticateUser = async () => {
+export const authenticateUser = () => {
   if (!getCookie("active")) return;
-  return await fetchRequest<TAuthResponse>({
+  return fetchRequest<TAuthResponse>({
     method: "GET",
     endpoint: `${SERVER_URL_USERS}/auth`,
   });
 };
 
-export const logOutUser = async () => {
-  return await fetchRequest({
+export const logOutUser = () => {
+  return fetchRequest({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/logout`,
   });
 };
 
-export const getCollaborators = async () => {
-  return await fetchRequest<TCollaboratorsResponse>({
+export const getCollaborators = () => {
+  return fetchRequest<TCollaboratorsResponse>({
     method: "GET",
     endpoint: `${SERVER_URL_USERS}/collaborators`,
   });
 };
 
-export const deleteUsers = async (collaborators: TCollaborator[]) => {
-  return await fetchRequest<TMessageResponse>({
+export const deleteUsers = (collaborators: TCollaborator[]) => {
+  return fetchRequest<TMessageResponse>({
     method: "DELETE",
     endpoint: `${SERVER_URL_USERS}/collaborator/remove`,
     body: JSON.stringify(collaborators),
