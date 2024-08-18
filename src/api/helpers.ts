@@ -5,16 +5,18 @@ type TRequest = {
   body?: string;
 };
 
+type TResponse<T> = {
+  payload?: T;
+  success: boolean;
+  error?: string;
+};
+
 export const fetchRequest = async <T>({
   method,
   endpoint,
   body,
   headers = {},
-}: TRequest): Promise<{
-  payload?: T;
-  success: boolean;
-  error?: string;
-}> => {
+}: TRequest): Promise<TResponse<T>> => {
   try {
     const response = await fetch(endpoint, {
       method,
