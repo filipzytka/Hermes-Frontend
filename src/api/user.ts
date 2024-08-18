@@ -3,10 +3,9 @@ import { SERVER_URL_USERS } from "./constants";
 import { fetchRequest, getCookie } from "./helpers";
 import {
   TAuthResponse,
-  TDeleteCollaboratorsResponse,
-  TGetCollaboratorsResponse,
+  TCollaboratorsResponse,
   TLoginResponse,
-  TRegisterResponse,
+  TMessageResponse,
 } from "./response-types";
 
 export const registerUser = async (
@@ -14,7 +13,7 @@ export const registerUser = async (
   password: string,
   token: string
 ) => {
-  return await fetchRequest<TRegisterResponse>({
+  return await fetchRequest<TMessageResponse>({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/register`,
     body: JSON.stringify({
@@ -45,21 +44,21 @@ export const authenticateUser = async () => {
 };
 
 export const logOutUser = async () => {
-  return await fetchRequest<TAuthResponse>({
+  return await fetchRequest({
     method: "POST",
     endpoint: `${SERVER_URL_USERS}/logout`,
   });
 };
 
 export const getCollaborators = async () => {
-  return await fetchRequest<TGetCollaboratorsResponse>({
+  return await fetchRequest<TCollaboratorsResponse>({
     method: "GET",
     endpoint: `${SERVER_URL_USERS}/collaborators`,
   });
 };
 
 export const deleteUsers = async (collaborators: TCollaborator[]) => {
-  return await fetchRequest<TDeleteCollaboratorsResponse>({
+  return await fetchRequest<TMessageResponse>({
     method: "DELETE",
     endpoint: `${SERVER_URL_USERS}/collaborator/remove`,
     body: JSON.stringify(collaborators),

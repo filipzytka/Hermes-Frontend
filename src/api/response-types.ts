@@ -6,7 +6,7 @@ export type TAuthResponse = {
   message: string;
 };
 
-export type TRegisterResponse = {
+export type TMessageResponse = {
   message: string;
 };
 
@@ -16,19 +16,11 @@ export type TLoginResponse = {
   message?: string;
 };
 
-export type TGetCollaboratorsResponse = {
+export type TCollaboratorsResponse = {
   collaborators: TCollaborator[];
 };
 
-export type TDeleteCollaboratorsResponse = {
-  message: string;
-};
-
-export type TGenerateToken = {
-  token: string;
-  createdBy: string;
-};
-
-export type TValidateToken = {
+export type TTokenResponse = {
+  token?: string;
   createdBy: string;
 };

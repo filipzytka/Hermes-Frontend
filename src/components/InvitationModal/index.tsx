@@ -26,7 +26,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
 
     const generatedToken = response.payload!.token;
 
-    onSend(inputEmail, generatedToken);
+    onSend(inputEmail, generatedToken!);
 
     popUp("Invitation has been sent successfully", "success");
     onClose();
