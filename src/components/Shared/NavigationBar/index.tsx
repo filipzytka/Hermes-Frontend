@@ -4,7 +4,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { logOutUser } from "../../../api/user";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
 import { Menu, rem } from "@mantine/core";
-import { IconMessageCircle, IconSettings } from "@tabler/icons-react";
+import { IconSettings, IconDeviceDesktop, IconBan } from "@tabler/icons-react";
 
 const NavigationBar = () => {
   const { setAuth, role } = useAuth();
@@ -111,7 +111,7 @@ const NavigationBar = () => {
                     <Link to="/statistics">
                       <Menu.Item
                         leftSection={
-                          <IconMessageCircle
+                          <IconDeviceDesktop
                             style={{ width: rem(14), height: rem(14) }}
                           />
                         }
@@ -152,7 +152,7 @@ const NavigationBar = () => {
                     <Link to="/ban">
                       <Menu.Item
                         leftSection={
-                          <IconSettings
+                          <IconBan
                             style={{ width: rem(14), height: rem(14) }}
                           />
                         }
