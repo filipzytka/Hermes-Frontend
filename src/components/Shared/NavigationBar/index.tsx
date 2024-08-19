@@ -3,12 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { logOutUser } from "../../../api/user";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
+import { Menu, rem } from "@mantine/core";
+import { IconMessageCircle, IconSettings } from "@tabler/icons-react";
 
 const NavigationBar = () => {
   const { setAuth, role } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [collaboratorsMenuOpen, setCollaboratorsMenuOpen] = useState(false);
+  const [serverMenuOpen, setServerMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     await logOutUser();
@@ -20,8 +23,12 @@ const NavigationBar = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleCollabDropdownToggle = () => {
+    setCollaboratorsMenuOpen(!collaboratorsMenuOpen);
+  };
+
+  const handleServerDropdownToggle = () => {
+    setServerMenuOpen(!serverMenuOpen);
   };
 
   return (
@@ -62,57 +69,101 @@ const NavigationBar = () => {
             Home
           </Link>
           {role === "admin" ? (
-            <div className="relative hidden md:block">
-              <button
-                onClick={handleDropdownToggle}
-                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 flex items-center"
-              >
-                Collaborators
-                <svg
-                  className="w-2.5 h-2.5 ms-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
-              </button>
-              {dropdownOpen && (
-                <div
-                  className="absolute z-10 mt-2 bg-white divide-y divide-gray-100
-                 rounded-lg shadow w-full dark:bg-gray-700
-                  dark:divide-gray-600"
-                >
-                  <ul className="text-gray-700 dark:text-gray-300">
-                    <li>
-                      <Link
-                        to="/collaborators"
-                        className="block px-4 py-2 hover:bg-cyan-50 dark:hover:bg-gray-600
-                        dark:hover:text-white rounded-t-lg"
+            <>
+              <div className="relative hidden md:block">
+                <Menu shadow="md" width={200}>
+                  <Menu.Target>
+                    <button
+                      onClick={handleCollabDropdownToggle}
+                      className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 flex items-center"
+                    >
+                      Collaborators
+                      <svg
+                        className="w-2.5 h-2.5 ms-2.5"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m1 1 4 4 4-4"
+                        />
+                      </svg>
+                    </button>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Menu.Label>Collaborators</Menu.Label>
+                    <Link to="/collaborators">
+                      <Menu.Item
+                        leftSection={
+                          <IconSettings
+                            style={{ width: rem(14), height: rem(14) }}
+                          />
+                        }
                       >
                         Manage
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/statistics"
-                        className="block px-4 py-2 hover:bg-cyan-50
-                        dark:hover:bg-gray-600 dark:hover:text-white rounded-b-lg"
+                      </Menu.Item>
+                    </Link>
+                    <Link to="/statistics">
+                      <Menu.Item
+                        leftSection={
+                          <IconMessageCircle
+                            style={{ width: rem(14), height: rem(14) }}
+                          />
+                        }
                       >
                         Statistics
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
+                      </Menu.Item>
+                    </Link>
+                  </Menu.Dropdown>
+                </Menu>
+              </div>
+              <div className="relative hidden md:block">
+                <Menu shadow="md" width={200}>
+                  <Menu.Target>
+                    <button
+                      onClick={handleServerDropdownToggle}
+                      className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 flex items-center"
+                    >
+                      Server
+                      <svg
+                        className="w-2.5 h-2.5 ms-2.5"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m1 1 4 4 4-4"
+                        />
+                      </svg>
+                    </button>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Menu.Label>Server options</Menu.Label>
+                    <Link to="/ban">
+                      <Menu.Item
+                        leftSection={
+                          <IconSettings
+                            style={{ width: rem(14), height: rem(14) }}
+                          />
+                        }
+                      >
+                        Blacklist
+                      </Menu.Item>
+                    </Link>
+                  </Menu.Dropdown>
+                </Menu>
+              </div>
+            </>
           ) : null}
           <Link
             to="/faq"
@@ -158,6 +209,14 @@ const NavigationBar = () => {
         </div>
         <ul className="flex flex-col items-start ms-10 mt-8 space-y-4">
           <li>
+            <Link
+              to="/"
+              className="block py-2 px-3 rounded md:hover:bg-transparent
+                md:hover:text-cyan-600 md:p-0
+                md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+            >
+              Home
+            </Link>
             {role === "admin" ? (
               <>
                 <Link

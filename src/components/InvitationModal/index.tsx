@@ -4,7 +4,7 @@ import { popUp } from "../../utils/Popup";
 import { generateToken } from "../../api/token";
 import { useAuth } from "../../hooks/useAuth";
 import { FaAddressBook } from "react-icons/fa";
-import { CiSearch } from "react-icons/ci";
+import AutocompleteLoading from "./AutoCompleteLoading";
 
 type Props = {
   isShowing: boolean;
@@ -30,11 +30,6 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
 
     popUp("Invitation has been sent successfully", "success");
     onClose();
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setInputValue(event.target.value);
   };
 
   return isShowing
@@ -79,23 +74,9 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                         <label className="block text-sm font-semibold ml-1 mb-3 dark:text-white text-gray-800">
                           {"Search by email"}
                         </label>
-                        <div className="relative">
-                          <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                            <CiSearch />
-                          </span>
-                          <input
-                            autoComplete="on"
-                            placeholder="Find people"
-                            onChange={handleInputChange}
-                            type="email"
-                            className="py-1 pl-8 pr-4 block w-full border-2
-                             border-gray-500 rounded-md text-sm
-                             focus:border-cyan-600
-                             focus:ring-cyan-700 shadow-sm
-                             outline-none dark:bg-gray-800 bg-slate-50 dark:text-white text-gray-800"
-                            required
-                          ></input>
-                        </div>
+                        <AutocompleteLoading
+                          onEmailChange={setInputValue}
+                        ></AutocompleteLoading>
                       </div>
                       <div className="flex items-center justify-center">
                         <button
