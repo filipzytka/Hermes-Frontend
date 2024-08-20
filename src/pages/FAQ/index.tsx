@@ -17,9 +17,9 @@ const FAQ = () => {
       <NavigationBar />
       <Container
         size="sm"
-        className="flex-grow w-full justify-center items-center my-28"
+        className="flex-grow w-full justify-center items-center mt-8 md:mt-32"
       >
-        <Title className="text-center text-gray-800 dark:text-gray-100 my-10">
+        <Title className="text-center text-gray-800 dark:text-gray-100 mb-8">
           Frequently Asked Questions
         </Title>
 

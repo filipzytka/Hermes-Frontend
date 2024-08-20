@@ -34,8 +34,7 @@
     font-size: rem(32px);
   }
 }
-
-.description {
+\ .description {
   max-width: rem(540px);
   margin: auto;
   margin-top: var(--mantine-spacing-xl);

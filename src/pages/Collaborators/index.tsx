@@ -53,16 +53,16 @@ const Collaborators = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <NavigationBar />
-      <div className="flex-grow flex items-center justify-center px-3">
-        <div className="w-full sm:w-1/2 my-28">
-          <h2 className="dark:text-white text-gray-800 text-3xl my-4">
-            Manage collaborators
-          </h2>
-          <DataTable
-            onDelete={fetchCollaborators}
-            onAdd={toggle}
-            data={collaborators}
-          />
+      <div className="flex-grow flex flex-col items-center px-3 mt-8 md:mt-32">
+        <div className="flex justify-start"></div>
+        <div className="w-1/2 flex flex-col">
+          <div className="flex-grow ">
+            <DataTable
+              onDelete={fetchCollaborators}
+              onAdd={toggle}
+              data={collaborators}
+            />
+          </div>
         </div>
       </div>
       <InvitationModal

@@ -1,6 +1,6 @@
 import { Container, Title, Text, Button, Group } from "@mantine/core";
-import Illustration from "./Illustration";
-import classes from "./PageNotFound.module.css";
+import Illustration from "./assets/Illustration";
+import classes from "./assets/PageNotFound.module.css";
 import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
