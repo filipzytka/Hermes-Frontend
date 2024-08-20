@@ -11,16 +11,23 @@ import { useDisclosure } from "@mantine/hooks";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import { useState } from "react";
 
+type TButtonOptions = {
+  addLabel?: string;
+  deleteLabel?: string;
+};
+
 type Props<T> = {
   data: T[];
   onDelete: (items: T[]) => void;
   onAdd: () => void;
+  buttonLabels?: TButtonOptions;
 };
 
 const DataTable = <T extends Record<string, any>>({
   data,
   onDelete,
   onAdd,
+  buttonLabels,
 }: Props<T>) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedItems, setSelectedItems] = useState<T[]>([]);
@@ -66,7 +73,7 @@ const DataTable = <T extends Record<string, any>>({
           leftSection={<AiOutlineUserAdd />}
           variant="filled"
         >
-          Add
+          {buttonLabels?.addLabel ?? "Add"}
         </Button>
         <Button
           color="darkred"
@@ -77,7 +84,7 @@ const DataTable = <T extends Record<string, any>>({
           leftSection={<AiOutlineUserDelete />}
           variant="filled"
         >
-          Delete
+          {buttonLabels?.deleteLabel ?? "Delete"}
         </Button>
         <Modal opened={opened} onClose={close} title="Remove" centered>
           <p>Are you sure you want to remove selected records? </p>

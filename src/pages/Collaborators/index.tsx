@@ -73,6 +73,7 @@ const Collaborators = () => {
             <DataTable
               onDelete={handleCollaboratorRemoval}
               onAdd={toggle}
+              buttonLabels={{ addLabel: "Invite", deleteLabel: "Remove" }}
               data={collaborators}
             />
           </div>

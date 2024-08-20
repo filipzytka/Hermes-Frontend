@@ -45,6 +45,7 @@ const Ban = () => {
         <div className="w-1/2 flex flex-col">
           <div className="flex-grow">
             <DataTable
+              buttonLabels={{ addLabel: "Ban", deleteLabel: "Unban" }}
               onDelete={handleBanRemoval}
               onAdd={open}
               data={bannedPlayers}
