@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Shared/Footer";
 import NavigationBar from "../../components/Shared/NavigationBar";
-import { getCollaborators } from "../../api/user";
+import { deleteUsers, getCollaborators } from "../../api/user";
 import useModal from "../../hooks/useModal";
 import Welcome from "../../components/Email/Welcome";
 import { render } from "@react-email/components";
 import { useAuth } from "../../hooks/useAuth";
 import { sendEmail } from "../../api/email";
 import InvitationModal from "../../components/InvitationModal";
-import DataTable from "./DataTable";
+import DataTable from "../../components/DataTable";
+import { popUp } from "../../utils/Popup";
 
 export type TCollaborator = {
   email: string;
@@ -25,6 +26,18 @@ const Collaborators = () => {
 
     setCollaborators(response.payload!.collaborators);
     setIsFetched(true);
+  };
+
+  const handleCollaboratorRemoval = async (collaborators: TCollaborator[]) => {
+    if (!collaborators) return;
+    const response = await deleteUsers(collaborators);
+
+    if (response.success) {
+      popUp(`${response.payload!.message}`, "success");
+      fetchCollaborators();
+    } else {
+      popUp(`${response.payload!.message}`, "error");
+    }
   };
 
   const handleSendEmail = async (receiverEmail: string, token: string) => {
@@ -58,7 +71,7 @@ const Collaborators = () => {
         <div className="w-1/2 flex flex-col">
           <div className="flex-grow ">
             <DataTable
-              onDelete={fetchCollaborators}
+              onDelete={handleCollaboratorRemoval}
               onAdd={toggle}
               data={collaborators}
             />
