@@ -7,7 +7,7 @@ const Statistics = () => {
     <>
       <div className="flex flex-col min-h-screen">
         <NavigationBar />
-        <div className="flex flex-grow items-center">
+        <div className="flex flex-grow justify-center mt-8 md:mt-32 mx-6">
           <LeadGrid />
         </div>
         <Footer />
