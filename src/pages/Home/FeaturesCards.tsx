@@ -6,6 +6,7 @@ import {
   SimpleGrid,
   Container,
   rem,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { IconGauge, IconUser, IconCookie } from "@tabler/icons-react";
 import classes from "./FeaturesCards.module.css";
@@ -32,6 +33,9 @@ const mockdata = [
 ];
 
 const FeaturesCards = () => {
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === "dark";
+
   const features = mockdata.map((feature) => (
     <Card
       key={feature.title}
@@ -39,6 +43,9 @@ const FeaturesCards = () => {
       radius="md"
       className={classes.card}
       padding="xl"
+      style={{
+        backgroundColor: isDark ? "#0e141f" : undefined,
+      }}
     >
       <feature.icon
         style={{ width: rem(50), height: rem(50) }}

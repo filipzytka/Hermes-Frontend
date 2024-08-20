@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #0e141f !important;
+}
+
 body {
   @apply dark:bg-gray-900 bg-slate-100;
   margin: 0;
