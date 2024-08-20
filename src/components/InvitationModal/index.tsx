@@ -65,7 +65,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                   <FaAddressBook className="dark:text-white text-cyan-600 w-10 h-10" />
                 </div>
                 <h1 className="block text-2xl  text-gray-800 dark:text-white mt-2">
-                  {"Add a collaborator to Hermes"}
+                  Invite a collaborator to Hermes
                 </h1>
                 <div className="mt-5">
                   <form onSubmit={handleSubmit}>
@@ -85,7 +85,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                             bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
                             transition-all text-sm dark:focus:ring-offset-gray-800 max-w-20"
                         >
-                          {"Send"}
+                          Send
                         </button>
                       </div>
                     </div>
