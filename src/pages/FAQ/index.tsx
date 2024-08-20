@@ -26,6 +26,7 @@ const FAQ = () => {
         <Accordion variant="separated">
           {data.map((d) => (
             <Accordion.Item
+              key={d.value}
               value={d.value}
               style={{
                 backgroundColor: isDark ? "#0e141f" : undefined,
