@@ -16,6 +16,7 @@ import { MantineProvider } from "@mantine/core";
 import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
+import Ban from "./pages/Ban";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ const router = createBrowserRouter([
     element: (
       <AdminRoute>
         <Statistics />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: "ban",
+    element: (
+      <AdminRoute>
+        <Ban />
       </AdminRoute>
     ),
   },
