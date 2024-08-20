@@ -1,6 +1,6 @@
 import Footer from "../../components/Shared/Footer";
 import NavigationBar from "../../components/Shared/NavigationBar";
-import FeaturesCards from "./assets/FeaturesCards";
+import FeaturesCards from "./FeaturesCards";
 import HeroBullets from "./HeroBullets";
 
 const Home = () => {

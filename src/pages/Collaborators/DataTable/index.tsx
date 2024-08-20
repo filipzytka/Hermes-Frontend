@@ -7,11 +7,11 @@ import {
   type MRT_ColumnDef,
 } from "mantine-react-table";
 import { Box, Button, Modal } from "@mantine/core";
-import { TCollaborator } from "../../pages/Collaborators";
+import { TCollaborator } from "..";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { deleteUsers } from "../../api/user";
-import { popUp } from "../../utils/Popup";
+import { deleteUsers } from "../../../api/user";
+import { popUp } from "../../../utils/Popup";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { AiOutlineUserDelete } from "react-icons/ai";
 

@@ -8,7 +8,7 @@ import {
   rem,
   useMantineColorScheme,
 } from "@mantine/core";
-import classes from "./FeaturesCards.module.css";
+import classes from "../assets/FeaturesCards.module.css";
 import { data } from "./data";
 
 const FeaturesCards = () => {

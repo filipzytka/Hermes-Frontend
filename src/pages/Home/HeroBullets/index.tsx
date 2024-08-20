@@ -10,8 +10,8 @@ import {
   rem,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
-import image from "./assets/herobullets.svg";
-import classes from "./HeroBullets.module.css";
+import image from "../assets/herobullets.svg";
+import classes from "../assets/HeroBullets.module.css";
 import { Link } from "react-router-dom";
 
 const HeroBullets = () => {

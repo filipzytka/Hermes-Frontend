@@ -8,7 +8,7 @@ import { render } from "@react-email/components";
 import { useAuth } from "../../hooks/useAuth";
 import { sendEmail } from "../../api/email";
 import InvitationModal from "../../components/InvitationModal";
-import DataTable from "../../components/DataTable";
+import DataTable from "./DataTable";
 
 export type TCollaborator = {
   email: string;
