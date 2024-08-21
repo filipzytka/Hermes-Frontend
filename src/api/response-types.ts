@@ -1,3 +1,4 @@
+import { BannedPlayer } from "../pages/Ban";
 import { TCollaborator } from "../pages/Collaborators";
 
 export type TAuthResponse = {
@@ -17,4 +18,8 @@ export type TCollaboratorsResponse = {
 export type TTokenResponse = {
   token?: string;
   createdBy: string;
+};
+
+export type TBanResponse = {
+  players: BannedPlayer[];
 };
