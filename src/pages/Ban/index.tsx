@@ -69,7 +69,7 @@ const Ban = () => {
       <NavigationBar />
       <div className="flex-grow flex flex-col items-center px-3 mt-8 md:mt-32">
         <div className="flex justify-start"></div>
-        <div className="w-1/2 flex flex-col">
+        <div className="min-w-96 md:w-1/2 flex flex-col">
           <div className="flex-grow">
             <DataTable
               buttonLabels={{ addLabel: "Ban", deleteLabel: "Unban" }}
