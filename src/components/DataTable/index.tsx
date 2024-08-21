@@ -34,8 +34,8 @@ const DataTable = <T extends Record<string, any>>({
 
   const handleSelectedRows = () => {
     const rows = table.getSelectedRowModel().rows;
-    const users = rows.map((row) => row.original as T);
-    setSelectedItems(users);
+    const items = rows.map((row) => row.original as T);
+    setSelectedItems(items);
     open();
   };
 
