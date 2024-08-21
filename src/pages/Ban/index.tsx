@@ -4,9 +4,11 @@ import Footer from "../../components/Shared/Footer";
 import NavigationBar from "../../components/Shared/NavigationBar";
 import { useDisclosure } from "@mantine/hooks";
 import ModalInput from "./ModalInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { removeBannedPlayers, getBannedPlayers } from "../../api/ban-list";
+import { popUp } from "../../utils/Popup";
 
-type BannedPlayer = {
+export type BannedPlayer = {
   token: string;
   ip: string;
 };
@@ -15,7 +17,22 @@ const Ban = () => {
   const [bannedPlayers, setBannedPlayers] = useState<BannedPlayer[]>([]);
   const [token, setToken] = useState("");
   const [ip, setIP] = useState("");
+  const [isFetched, setIsFetched] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
+
+  const fetchBannedPlayers = async () => {
+    const response = await getBannedPlayers();
+
+    const bannedPlayers = response.payload?.players;
+    if (!bannedPlayers) return;
+
+    setBannedPlayers(bannedPlayers!);
+    setIsFetched(true);
+  };
+
+  useEffect(() => {
+    fetchBannedPlayers();
+  }, []);
 
   const addBannedPlayer = () => {
     if (token && ip) {
@@ -25,17 +42,27 @@ const Ban = () => {
     }
   };
 
-  const handleBanRemoval = (playersToRemove: BannedPlayer[]) => {
-    setBannedPlayers((prevPlayers) =>
-      prevPlayers.filter(
-        (player) =>
-          !playersToRemove.some(
-            (toRemove) =>
-              toRemove.token === player.token && toRemove.ip === player.ip
-          )
-      )
-    );
+  const handleBanRemoval = async (playersToRemove: BannedPlayer[]) => {
+    if (!playersToRemove) return;
+    const response = await removeBannedPlayers(playersToRemove);
+
+    if (response.success) {
+      popUp(`Players have been unbaned successfully!`, "success");
+      fetchBannedPlayers();
+    } else {
+      popUp(`Something went wrong`, "error");
+    }
   };
+
+  if (!isFetched) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <NavigationBar />
+        <div className="flex-grow" />
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
