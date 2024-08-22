@@ -5,7 +5,7 @@ import NavigationBar from "../../components/Shared/NavigationBar";
 import { useDisclosure } from "@mantine/hooks";
 import ModalInput from "./ModalInput";
 import { useEffect, useState } from "react";
-import { removeBannedPlayers, getBannedPlayers } from "../../api/ban-list";
+import { updateBannedPlayers, getBannedPlayers } from "../../api/ban-list";
 import { popUp } from "../../utils/Popup";
 
 export type BannedPlayer = {
@@ -34,23 +34,36 @@ const Ban = () => {
     fetchBannedPlayers();
   }, []);
 
-  const addBannedPlayer = () => {
+  const addBannedPlayer = async () => {
     if (token && ip) {
       const playerToBan: BannedPlayer = { token, ip };
-      setBannedPlayers((prevPlayers) => [...prevPlayers, playerToBan]);
+      const updatedBannedList = [...bannedPlayers, playerToBan];
+      const response = await updateBannedPlayers(updatedBannedList);
+
+      if (response.success) {
+        popUp(response.payload!.message, "success");
+        fetchBannedPlayers();
+      } else {
+        popUp(response.payload!.message, "error");
+      }
+
       close();
     }
   };
 
   const handleBanRemoval = async (playersToRemove: BannedPlayer[]) => {
     if (!playersToRemove) return;
-    const response = await removeBannedPlayers(playersToRemove);
+
+    const updatedBannedPlayers = bannedPlayers.filter(
+      (p) => !playersToRemove.includes(p)
+    );
+    const response = await updateBannedPlayers(updatedBannedPlayers);
 
     if (response.success) {
-      popUp(`Players have been unbaned successfully!`, "success");
+      popUp(response.payload!.message, "success");
       fetchBannedPlayers();
     } else {
-      popUp(`Something went wrong`, "error");
+      popUp(response.payload!.message, "error");
     }
   };
 
