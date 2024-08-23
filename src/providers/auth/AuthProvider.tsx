@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { authenticateUser } from "../../api/user";
 import AuthContext from "../../context/auth";
+import { authenticateUser } from "../../api/auth";
 
 type Props = {
   children: React.ReactNode;

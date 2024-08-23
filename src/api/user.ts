@@ -1,11 +1,7 @@
 import { TCollaborator } from "../pages/Collaborators";
 import { SERVER_URL_USERS } from "./constants";
-import { fetchRequest, getCookie } from "./helpers";
-import {
-  TAuthResponse,
-  TCollaboratorsResponse,
-  TMessageResponse,
-} from "./response-types";
+import { fetchRequest } from "./helpers";
+import { TCollaboratorsResponse, TMessageResponse } from "./response-types";
 
 export const registerUser = (email: string, password: string, token: string) =>
   fetchRequest<TMessageResponse>({
@@ -16,19 +12,6 @@ export const registerUser = (email: string, password: string, token: string) =>
       password,
       token,
     }),
-  });
-
-export const loginUser = (email: string, password: string) =>
-  fetchRequest<TAuthResponse>({
-    method: "POST",
-    endpoint: `${SERVER_URL_USERS}/login`,
-    body: JSON.stringify({ email, password }),
-  });
-
-export const logOutUser = () =>
-  fetchRequest({
-    method: "POST",
-    endpoint: `${SERVER_URL_USERS}/logout`,
   });
 
 export const getCollaborators = () =>
@@ -43,11 +26,3 @@ export const deleteUsers = (collaborators: TCollaborator[]) =>
     endpoint: `${SERVER_URL_USERS}/collaborator/remove`,
     body: JSON.stringify(collaborators),
   });
-
-export const authenticateUser = () => {
-  if (!getCookie("active")) return;
-  return fetchRequest<TAuthResponse>({
-    method: "GET",
-    endpoint: `${SERVER_URL_USERS}/auth`,
-  });
-};

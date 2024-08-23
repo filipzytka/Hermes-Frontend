@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/user.ts";
 import { useAuth } from "../../hooks/useAuth";
 import UserForm from "../../components/UserForm/index.tsx";
 import Footer from "../../components/Shared/Footer";
 import { popUp } from "../../utils/Popup/index.ts";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
+import { loginUser } from "../../api/auth.ts";
 
 const Login = () => {
   const navigate = useNavigate();

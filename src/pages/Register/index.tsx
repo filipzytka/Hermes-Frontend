@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserForm from "../../components/UserForm";
 import Footer from "../../components/Shared/Footer";
-import { logOutUser, registerUser } from "../../api/user";
 import { popUp } from "../../utils/Popup";
 import { validateToken } from "../../api/token";
 import { useAuth } from "../../hooks/useAuth";
 import Loading from "../../components/Shared/Loading";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
+import { registerUser } from "../../api/user";
+import { logOutUser } from "../../api/auth";
 
 const Register = () => {
   const navigate = useNavigate();

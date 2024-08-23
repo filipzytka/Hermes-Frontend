@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import { logOutUser } from "../../../api/user";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
 import { Menu, rem, useMantineColorScheme } from "@mantine/core";
 import { IconSettings, IconDeviceDesktop, IconBan } from "@tabler/icons-react";
+import { logOutUser } from "../../../api/auth";
 
 const NavigationBar = () => {
   const { setAuth, role } = useAuth();
