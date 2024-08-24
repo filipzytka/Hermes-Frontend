@@ -6,15 +6,11 @@ import {
   SimpleGrid,
   Container,
   rem,
-  useMantineColorScheme,
 } from "@mantine/core";
 import classes from "../assets/FeaturesCards.module.css";
 import { data } from "./data";
 
 const FeaturesCards = () => {
-  const { colorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === "dark";
-
   const features = data.map((d) => (
     <Card
       key={d.title}
@@ -22,9 +18,6 @@ const FeaturesCards = () => {
       radius="md"
       className={classes.card}
       padding="xl"
-      style={{
-        backgroundColor: isDark ? "#0e141f" : undefined,
-      }}
     >
       <d.icon
         style={{ width: rem(50), height: rem(50) }}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
-import { Menu, rem, useMantineColorScheme } from "@mantine/core";
+import { Menu, rem } from "@mantine/core";
 import { IconSettings, IconDeviceDesktop, IconBan } from "@tabler/icons-react";
 import { logOutUser } from "../../../api/auth";
 
@@ -12,8 +12,6 @@ const NavigationBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [collaboratorsMenuOpen, setCollaboratorsMenuOpen] = useState(false);
   const [serverMenuOpen, setServerMenuOpen] = useState(false);
-  const { colorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === "dark";
 
   const handleSignOut = async () => {
     await logOutUser();
@@ -97,11 +95,7 @@ const NavigationBar = () => {
                       </svg>
                     </button>
                   </Menu.Target>
-                  <Menu.Dropdown
-                    style={{
-                      backgroundColor: isDark ? "#0e141f" : undefined,
-                    }}
-                  >
+                  <Menu.Dropdown>
                     <Menu.Label>Collaborators</Menu.Label>
                     <Link to="/collaborators">
                       <Menu.Item
@@ -153,11 +147,7 @@ const NavigationBar = () => {
                       </svg>
                     </button>
                   </Menu.Target>
-                  <Menu.Dropdown
-                    style={{
-                      backgroundColor: isDark ? "#0e141f" : undefined,
-                    }}
-                  >
+                  <Menu.Dropdown>
                     <Menu.Label>Server options</Menu.Label>
                     <Link to="/ban">
                       <Menu.Item

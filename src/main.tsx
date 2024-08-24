@@ -12,7 +12,7 @@ import ToasterWrapper from "./wrapper/ToasterWrapper";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
 import AdminRoute from "./components/RouteAccess/AdminRoute";
 import Collaborators from "./pages/Collaborators";
-import { MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
@@ -83,13 +83,16 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <MantineProvider theme={{ primaryColor: "cyan" }}>
-    <React.StrictMode>
-      <AuthProvider>
-        <ToasterWrapper>
-          <RouterProvider router={router} />
-        </ToasterWrapper>
-      </AuthProvider>
-    </React.StrictMode>
-  </MantineProvider>
+  <>
+    <ColorSchemeScript defaultColorScheme="auto" />
+    <MantineProvider defaultColorScheme="auto" theme={{ primaryColor: "cyan" }}>
+      <React.StrictMode>
+        <AuthProvider>
+          <ToasterWrapper>
+            <RouterProvider router={router} />
+          </ToasterWrapper>
+        </AuthProvider>
+      </React.StrictMode>
+    </MantineProvider>
+  </>
 );
