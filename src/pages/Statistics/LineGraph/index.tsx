@@ -44,12 +44,12 @@ const LineGraph = () => {
       {
         label: "Steps",
         data: [300, 100, 1231, 111, 515, 661, 151],
-        borderColor: "rgb(255, 111, 111)",
+        borderColor: "gray",
       },
       {
         label: "Other Data",
         data: [11, 213, 122, 44, 14, 5, 151],
-        borderColor: "rgb(55, 55, 255)",
+        borderColor: "darkcyan",
       },
     ],
   };
