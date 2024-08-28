@@ -14,7 +14,6 @@ const Login = () => {
     const response = await loginUser(email, password);
 
     if (!response.success) {
-      console.log(response.success);
       popUp(response.payload!.message, "error");
       return;
     }
