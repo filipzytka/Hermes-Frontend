@@ -46,7 +46,6 @@ const Ban = () => {
       } else {
         popUp(response.payload!.message, "error");
       }
-
       close();
     }
   };
@@ -89,6 +88,8 @@ const Ban = () => {
               onDelete={handleBanRemoval}
               onAdd={open}
               data={bannedPlayers}
+              rowSelection={true}
+              pagination={true}
             />
           </div>
         </div>

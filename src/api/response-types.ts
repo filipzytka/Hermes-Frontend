@@ -23,3 +23,21 @@ export type TTokenResponse = {
 export type TBanResponse = {
   players: BannedPlayer[];
 };
+
+export type TServerDataResponse = {
+  players: number;
+  serverName: string;
+  gameMode: string;
+  public: boolean;
+  port: number;
+  serverType: string;
+  hasPassword: boolean;
+  world: string;
+  version: string;
+  preloadUrl: string;
+};
+
+export type TServerDataChartResponse = {
+  players: number;
+  date: string;
+};

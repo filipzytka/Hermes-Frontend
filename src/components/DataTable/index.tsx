@@ -18,8 +18,10 @@ type TButtonOptions = {
 
 type Props<T> = {
   data: T[];
-  onDelete: (items: T[]) => void;
-  onAdd: () => void;
+  onDelete?: (items: T[]) => void;
+  onAdd?: () => void;
+  rowSelection: boolean;
+  pagination: boolean;
   buttonLabels?: TButtonOptions;
 };
 
@@ -27,6 +29,8 @@ const DataTable = <T extends Record<string, any>>({
   data,
   onDelete,
   onAdd,
+  rowSelection,
+  pagination,
   buttonLabels,
 }: Props<T>) => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -40,7 +44,7 @@ const DataTable = <T extends Record<string, any>>({
   };
 
   const handleRemoval = () => {
-    onDelete(selectedItems);
+    onDelete!(selectedItems);
     close();
     table.resetRowSelection();
   };
@@ -48,15 +52,22 @@ const DataTable = <T extends Record<string, any>>({
   const columns = Object.keys(data[0] ?? {}).map((key) => ({
     accessorKey: key,
     header: key.charAt(0).toUpperCase() + key.slice(1),
-    size: 80,
+    Cell: ({ cell }) => {
+      const value = cell.getValue();
+      if (typeof value === "boolean") {
+        return value ? "Yes" : "No";
+      }
+
+      return value;
+    },
   })) as MRT_ColumnDef<T>[];
 
   const table = useMantineReactTable({
     columns,
     data,
-    enableRowSelection: true,
+    enableRowSelection: rowSelection,
     columnFilterDisplayMode: "popover",
-    paginationDisplayMode: "pages",
+    enablePagination: pagination,
     positionToolbarAlertBanner: "bottom",
     renderTopToolbarCustomActions: ({ table }) => (
       <Box
@@ -67,25 +78,29 @@ const DataTable = <T extends Record<string, any>>({
           flexWrap: "wrap",
         }}
       >
-        <Button
-          color="cyan"
-          onClick={onAdd}
-          leftSection={<AiOutlineUserAdd />}
-          variant="filled"
-        >
-          {buttonLabels?.addLabel ?? "Add"}
-        </Button>
-        <Button
-          color="darkred"
-          disabled={
-            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
-          }
-          onClick={handleSelectedRows}
-          leftSection={<AiOutlineUserDelete />}
-          variant="filled"
-        >
-          {buttonLabels?.deleteLabel ?? "Delete"}
-        </Button>
+        {onAdd && (
+          <Button
+            color="cyan"
+            onClick={onAdd}
+            leftSection={<AiOutlineUserAdd />}
+            variant="filled"
+          >
+            {buttonLabels?.addLabel ?? "Add"}
+          </Button>
+        )}
+        {onDelete && (
+          <Button
+            color="darkred"
+            disabled={
+              !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+            }
+            onClick={handleSelectedRows}
+            leftSection={<AiOutlineUserDelete />}
+            variant="filled"
+          >
+            {buttonLabels?.deleteLabel ?? "Delete"}
+          </Button>
+        )}
         <Modal opened={opened} onClose={close} title="Remove" centered>
           <p>Are you sure you want to remove selected records? </p>
           <div className="mt-3">

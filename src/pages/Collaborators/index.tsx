@@ -75,6 +75,8 @@ const Collaborators = () => {
               onAdd={toggle}
               buttonLabels={{ addLabel: "Invite", deleteLabel: "Remove" }}
               data={collaborators}
+              rowSelection={true}
+              pagination={true}
             />
           </div>
         </div>

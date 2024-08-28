@@ -3,5 +3,8 @@ export const SERVER_URL_EMAIL = `${import.meta.env.VITE_SERVER_URL}/api/email`;
 export const SERVER_URL_TOKEN = `${import.meta.env.VITE_SERVER_URL}/api/invite`;
 export const SERVER_URL_BANLIST = `${import.meta.env.VITE_SERVER_URL}/api/ban`;
 export const SERVER_URL_AUTH = `${import.meta.env.VITE_SERVER_URL}/api/auth`;
+export const MONITORED_SERVER_URL = `${
+  import.meta.env.VITE_SERVER_URL
+}/api/server`;
 
 export const REACT_URL = `${import.meta.env.VITE_CLIENT_URL}`;
