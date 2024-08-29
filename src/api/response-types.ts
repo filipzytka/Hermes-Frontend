@@ -1,4 +1,3 @@
-import { BannedPlayer } from "../pages/Ban";
 import { TCollaborator } from "../pages/Collaborators";
 
 export type TAuthResponse = {
