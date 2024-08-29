@@ -23,7 +23,7 @@ const Ban = () => {
   const fetchBannedPlayers = async () => {
     const response = await getBannedPlayers();
 
-    const bannedPlayers = response.payload?.players;
+    const bannedPlayers = response.payload;
     if (!bannedPlayers) return;
 
     setBannedPlayers(bannedPlayers!);

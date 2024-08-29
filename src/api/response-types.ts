@@ -21,7 +21,8 @@ export type TTokenResponse = {
 };
 
 export type TBanResponse = {
-  players: BannedPlayer[];
+  token: string;
+  ip: string;
 };
 
 export type TServerDataResponse = {

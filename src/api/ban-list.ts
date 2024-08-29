@@ -4,7 +4,7 @@ import { fetchRequest } from "./helpers";
 import { TBanResponse, TMessageResponse } from "./response-types";
 
 export const getBannedPlayers = () =>
-  fetchRequest<TBanResponse>({
+  fetchRequest<TBanResponse[]>({
     method: "GET",
     endpoint: `${SERVER_URL_BANLIST}/players`,
   });
