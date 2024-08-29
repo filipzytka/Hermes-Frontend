@@ -6,6 +6,7 @@ import { TServerDataResponse } from "../../api/response-types";
 import DataTable from "../../components/DataTable";
 import Graph, { TGraphDataset } from "./Graph";
 import { IoIosRefresh } from "react-icons/io";
+
 const Statistics = () => {
   const [serverData, setServerData] = useState<TServerDataResponse[]>([]);
   const [isFetched, setIsFetched] = useState(false);
