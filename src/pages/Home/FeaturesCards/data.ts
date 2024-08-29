@@ -1,22 +1,22 @@
-import { IconCookie, IconGauge, IconUser } from "@tabler/icons-react";
+import { IconMail, IconChartBar, IconShieldLock } from "@tabler/icons-react";
 
 export const data = [
   {
-    title: "Extreme performance",
+    title: "Role-Based Access",
     description:
-      "This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
-    icon: IconGauge,
+      "Manage access to your server with precision. Assign roles such as admin or collaborator to control what users can see and do.",
+    icon: IconShieldLock,
   },
   {
-    title: "Privacy focused",
+    title: "Real-Time Statistics",
     description:
-      "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma",
-    icon: IconUser,
+      "Monitor live server data with real-time charts displaying player counts and other essential metrics to keep you informed.",
+    icon: IconChartBar,
   },
   {
-    title: "No third parties",
+    title: "Collaborator Invitations",
     description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
-    icon: IconCookie,
+      "Easily invite new collaborators via email, allowing them to join your server quickly and start contributing.",
+    icon: IconMail,
   },
 ];

@@ -20,12 +20,13 @@ const HeroBullets = () => {
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>
-            A modern React <br /> components library
+            Streamline Your Server Management <br /> with Our Admin Dashboard
           </Title>
           <Text c="dimmed" mt="md">
-            Build fully functional accessible web applications faster than ever
-            – Mantine includes more than 120 customizable components and hooks
-            to cover you in any situation
+            Efficiently manage your server and collaborators with our modern
+            admin dashboard. From role-based access control to real-time server
+            statistics, our platform provides all the tools you need to keep
+            your server running smoothly.
           </Text>
 
           <List
@@ -42,16 +43,21 @@ const HeroBullets = () => {
             }
           >
             <List.Item>
-              <b>TypeScript based</b> – build type safe applications, all
-              components and hooks export types
+              <b>Role-Based Access Control</b> – Sign in as an admin or
+              collaborator, with customized permissions tailored to each role.
             </List.Item>
             <List.Item>
-              <b>Free and open source</b> – all packages have MIT license, you
-              can use Mantine in any project
+              <b>Invite Collaborators</b> – Admins can send invitation emails to
+              add new collaborators to the platform effortlessly.
             </List.Item>
             <List.Item>
-              <b>No annoying focus ring</b> – focus ring will appear only when
-              user navigates with keyboard
+              <b>Server Management Tools</b> – Manage your banlist, keep track
+              of unwanted users, and ensure your server runs smoothly.
+            </List.Item>
+            <List.Item>
+              <b>Real-Time Server Statistics</b> – View live data from your
+              server, including player counts and activity trends, displayed in
+              an intuitive chart format.
             </List.Item>
           </List>
 

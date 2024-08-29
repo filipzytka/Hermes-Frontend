@@ -37,12 +37,12 @@ const FeaturesCards = () => {
     <Container size="lg" py="xl">
       <Group justify="center"></Group>
       <Title order={2} className={classes.title} ta="center" mt="sm">
-        Integrate effortlessly with any technology stack
+        Manage Your Server with Efficient Features
       </Title>
 
       <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        Every once in a while, you’ll see a Golbat that’s missing some fangs.
-        This happens when hunger drives it to try biting a Steel-type Pokémon.
+        Our platform offers a comprehensive suite of tools designed to help you
+        effortlessly manage your server and collaborate with your team.
       </Text>
 
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>
