@@ -9,6 +9,8 @@ import Loading from "../../components/Shared/Loading";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
 import { registerUser } from "../../api/user";
 import { logOutUser } from "../../api/auth";
+import FormWrapper from "../../components/wrapper/PageWrapper";
+import ButtonWrapper from "../../components/wrapper/ButtonWrapper";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -59,8 +61,7 @@ const Register = () => {
   }
 
   return (
-    <div className="flex justify-between items-center w-full h-screen flex-col">
-      <div />
+    <FormWrapper>
       <UserForm
         mainLabel={`You have been invited by ${inviter} to create an account`}
         imgUrl={TailwindImg}
@@ -69,18 +70,21 @@ const Register = () => {
         isRepeatPasswordInput
         onFormSubmit={handleRegisterData}
       >
-        <div className="sm:absolute sm:right-6 sm:bottom-6 flex flex-wrap justify-end items-end mt-2">
-          <button
-            type="submit"
-            className="text-sm bg-gray-800 p-2 text-slate-100 hover:bg-gray-800 w-28 rounded-md"
-          >
-            Sign up
-          </button>
-        </div>
+        <ButtonWrapper>
+          <RegisterButton />
+        </ButtonWrapper>
       </UserForm>
       <Footer />
-    </div>
+    </FormWrapper>
   );
 };
 
 export default Register;
+
+const RegisterButton = () => {
+  return (
+    <button className="text-sm bg-gray-800 p-2 text-slate-100 hover:bg-gray-800 w-28 rounded-md">
+      Sign up
+    </button>
+  );
+};

@@ -5,7 +5,7 @@ type Props = {
   onEmailChange: (email: string) => void;
 };
 
-const AutocompleteLoading = ({ onEmailChange }: Props) => {
+const AutoCompleteInput = ({ onEmailChange }: Props) => {
   const timeoutRef = useRef<number>(-1);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<string[]>([]);
@@ -39,4 +39,4 @@ const AutocompleteLoading = ({ onEmailChange }: Props) => {
   );
 };
 
-export default AutocompleteLoading;
+export default AutoCompleteInput;

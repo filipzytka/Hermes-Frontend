@@ -10,6 +10,7 @@ import { Box, Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import { useState } from "react";
+import ModalBody from "./ModalBody";
 
 type TButtonOptions = {
   addLabel?: string;
@@ -102,19 +103,7 @@ const DataTable = <T extends Record<string, any>>({
           </Button>
         )}
         <Modal opened={opened} onClose={close} title="Remove" centered>
-          <p>Are you sure you want to remove selected records? </p>
-          <div className="mt-3">
-            <button
-              onClick={handleRemoval}
-              type="submit"
-              className="py-1 px-4 inline-flex justify-center items-center gap-2 rounded-md
-                 border border-transparent font-semibold
-                bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                 transition-all text-sm dark:focus:ring-offset-gray-800"
-            >
-              Remove
-            </button>
-          </div>
+          <ModalBody handler={handleRemoval} />
         </Modal>
       </Box>
     ),

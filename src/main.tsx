@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import ToasterWrapper from "./wrapper/ToasterWrapper";
+import ToasterWrapper from "./components/wrapper/ToasterWrapper";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
 import AdminRoute from "./components/RouteAccess/AdminRoute";
 import Collaborators from "./pages/Collaborators";

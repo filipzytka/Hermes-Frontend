@@ -5,6 +5,8 @@ import Footer from "../../components/Shared/Footer";
 import { popUp } from "../../utils/Popup/index.ts";
 import TailwindImg from "../../assets/tailwind-css-logo.png";
 import { loginUser } from "../../api/auth.ts";
+import FormWrapper from "../../components/wrapper/PageWrapper/index.tsx";
+import ButtonWrapper from "../../components/wrapper/ButtonWrapper/index.tsx";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,11 +14,11 @@ const Login = () => {
 
   const handleLoginData = async (email: string, password: string) => {
     const response = await loginUser(email, password);
-
     if (!response.success) {
       popUp(response.payload!.message, "error");
       return;
     }
+
     setAuth(true);
     setRole(response.payload!.role);
     setEmail(response.payload!.email);
@@ -24,8 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-between items-center w-full h-screen flex-col">
-      <div />
+    <FormWrapper>
       <UserForm
         mainLabel="Sign in"
         imgUrl={TailwindImg}
@@ -34,14 +35,20 @@ const Login = () => {
         onFormSubmit={handleLoginData}
       >
         <div className="mt-6" />
-        <div className="sm:absolute sm:right-6 sm:bottom-6 flex flex-wrap justify-end items-end mt-2">
-          <button className="text-sm bg-gray-700 p-2 text-slate-100 hover:bg-gray-800 w-28 rounded-lg">
-            Sign in
-          </button>
-        </div>
+        <ButtonWrapper>
+          <SignInButton />
+        </ButtonWrapper>
       </UserForm>
       <Footer />
-    </div>
+    </FormWrapper>
+  );
+};
+
+const SignInButton = () => {
+  return (
+    <button className="text-sm bg-gray-700 p-2 text-slate-100 hover:bg-gray-800 w-28 rounded-lg">
+      Sign in
+    </button>
   );
 };
 
