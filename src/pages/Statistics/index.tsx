@@ -23,6 +23,7 @@ const Statistics = () => {
     if (!response.success) {
       setChartDataset([]);
       setServerData([]);
+      setIsFetched(true);
       return;
     }
 
