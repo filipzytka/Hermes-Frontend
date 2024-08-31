@@ -20,11 +20,11 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
     event.preventDefault();
     const response = await generateToken(email);
 
-    if (!response.success) {
+    if (!response.success || !response.payload) {
       return;
     }
 
-    const generatedToken = response.payload!.token;
+    const generatedToken = response.payload.token;
 
     onSend(inputEmail, generatedToken!);
 
@@ -32,23 +32,25 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
     onClose();
   };
 
-  return isShowing
-    ? ReactDOM.createPortal(
-        <>
-          <InvitationModalWrapper>
-            <div className="absolute right-4 top-4">
-              <CloseButton handler={onClose} />
-            </div>
-            <InvitationModalHeader />
-            <InvitationModalForm
-              submitHandler={handleSubmit}
-              emailChangeHandler={setInputValue}
-            />
-          </InvitationModalWrapper>
-        </>,
-        document.getElementById("modal-root") as HTMLElement
-      )
-    : null;
+  if (!isShowing) {
+    return;
+  }
+
+  return ReactDOM.createPortal(
+    <>
+      <InvitationModalWrapper>
+        <div className="absolute right-4 top-4">
+          <CloseButton handler={onClose} />
+        </div>
+        <InvitationModalHeader />
+        <InvitationModalForm
+          submitHandler={handleSubmit}
+          emailChangeHandler={setInputValue}
+        />
+      </InvitationModalWrapper>
+    </>,
+    document.getElementById("modal-root") as HTMLElement
+  );
 };
 
 type CloseBtnProps = {

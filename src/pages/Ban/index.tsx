@@ -1,7 +1,7 @@
 import { Modal } from "@mantine/core";
 import DataTable from "../../components/DataTable";
-import Footer from "../../components/Shared/Footer";
-import NavigationBar from "../../components/Shared/NavigationBar";
+import Footer from "../../components/Layout/Footer";
+import NavigationBar from "../../components/Layout/NavigationBar";
 import { useDisclosure } from "@mantine/hooks";
 import ModalInput from "./ModalInput";
 import { useEffect, useState } from "react";

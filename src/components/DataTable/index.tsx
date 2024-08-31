@@ -40,6 +40,7 @@ const DataTable = <T extends Record<string, any>>({
   const handleSelectedRows = () => {
     const rows = table.getSelectedRowModel().rows;
     const items = rows.map((row) => row.original as T);
+    console.log(items);
     setSelectedItems(items);
     open();
   };

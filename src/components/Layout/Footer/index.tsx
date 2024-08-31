@@ -4,7 +4,7 @@ import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="flex dark:bg-black/20 min-h-16 justify-center items-center shadow-lg w-full shrink-0 overflow-hidden mt-8 md:mt-32">
+    <footer className="flex dark:bg-black/20 min-h-16 justify-center items-center shadow-lg w-full shrink-0 overflow-hidden mt-8 md:mt-20">
       <a href="https://discord.com/">
         <FaDiscord
           size={20}

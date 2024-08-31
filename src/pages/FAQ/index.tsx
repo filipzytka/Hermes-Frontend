@@ -1,12 +1,10 @@
 import { Container, Title, Accordion } from "@mantine/core";
-import NavigationBar from "../../components/Shared/NavigationBar";
-import Footer from "../../components/Shared/Footer";
 import { data } from "./data";
+import Layout from "../../components/Layout";
 
 const FAQ = () => {
   return (
-    <div className="flex flex-col min-h-screen w-full">
-      <NavigationBar />
+    <Layout>
       <Container
         size="sm"
         className="flex-grow w-full justify-center items-center mt-8 md:mt-32"
@@ -24,8 +22,7 @@ const FAQ = () => {
           ))}
         </Accordion>
       </Container>
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

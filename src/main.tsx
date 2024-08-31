@@ -10,22 +10,26 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ToasterWrapper from "./components/wrapper/ToasterWrapper";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
-import AdminRoute from "./components/RouteAccess/AdminRoute";
-import Collaborators from "./pages/Collaborators";
+// import AdminRoute from "./components/RouteAccess/AdminRoute";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
 import Ban from "./pages/Ban";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <PrivateRoute>
-        <Home />
-      </PrivateRoute>
+    element: <Home />,
+    errorElement: (
+      <div className="flex justify-center items-center h-screen flex-col">
+        <PageNotFound />
+      </div>
     ),
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
     errorElement: (
       <div className="flex justify-center items-center h-screen flex-col">
         <PageNotFound />
@@ -41,35 +45,19 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "collaborators",
-    element: (
-      <AdminRoute>
-        <Collaborators />
-      </AdminRoute>
-    ),
-  },
-  {
-    path: "statistics",
-    element: (
-      <AdminRoute>
-        <Statistics />
-      </AdminRoute>
-    ),
-  },
-  {
     path: "ban",
     element: (
-      <AdminRoute>
+      <PrivateRoute>
         <Ban />
-      </AdminRoute>
+      </PrivateRoute>
     ),
   },
   {
     path: "faq",
     element: (
-      <PrivateRoute>
+      <PublicRoute>
         <FAQ />
-      </PrivateRoute>
+      </PublicRoute>
     ),
   },
   {

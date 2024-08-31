@@ -1,4 +1,6 @@
-import { TCollaborator } from "../pages/Collaborators";
+export type TCollaborator = {
+  email: string;
+};
 
 export type TAuthResponse = {
   role: string;

@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import Loading from "../../Shared/Loading";
+import Loading from "../../Loading";
 
 type Props = {
   children: JSX.Element;

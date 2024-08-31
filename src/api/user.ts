@@ -1,7 +1,10 @@
-import { TCollaborator } from "../pages/Collaborators";
 import { SERVER_URL_USERS } from "./constants";
 import { fetchRequest } from "./helpers";
-import { TCollaboratorsResponse, TMessageResponse } from "./response-types";
+import {
+  TCollaborator,
+  TCollaboratorsResponse,
+  TMessageResponse,
+} from "./response-types";
 
 export const registerUser = (email: string, password: string, token: string) =>
   fetchRequest<TMessageResponse>({
