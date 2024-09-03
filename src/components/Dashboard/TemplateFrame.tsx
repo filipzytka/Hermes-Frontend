@@ -73,7 +73,7 @@ export default function TemplateFrame({
               size="small"
               aria-label="Back to templates"
               component="a"
-              href="/material-ui/getting-started/templates/"
+              href="/"
               sx={{ display: { xs: "auto", sm: "none" } }}
             >
               <ArrowBackRoundedIcon />

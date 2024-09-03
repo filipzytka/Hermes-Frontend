@@ -15,7 +15,7 @@ import {
   PaletteMode,
 } from "@mui/material/styles";
 import getSignInTheme from "./theme/getSignInTheme";
-import TemplateFrame from "./TemplateFrame";
+import TemplateFrame from "../../components/MUI-components/TemplateFrame";
 import { useForm } from "@tanstack/react-form";
 import { popUp } from "../../utils/Popup";
 import { loginUser } from "../../api/auth";

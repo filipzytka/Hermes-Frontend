@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";
 import ToasterWrapper from "./components/wrapper/ToasterWrapper";
-import PublicRoute from "./components/RouteAccess/PublicRoute";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
@@ -25,7 +24,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/dashboard",
+    path: "/admin/dashboard",
     element: <Dashboard />,
     errorElement: (
       <div className="flex justify-center items-center h-screen flex-col">

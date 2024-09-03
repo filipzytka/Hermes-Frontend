@@ -21,21 +21,22 @@ const NavigationBar = () => {
 
   return (
     <nav className="dark:bg-gray-900 w-full mt-8">
-      <div className="max-w-screen-xl flex flex-nowrap md:flex-wrap items-center justify-between mx-auto p-4">
-        <Link to="/" className="flex items-center space-x-3">
+      <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+        <Link to="/" className="flex items-center">
           <img src={TailwindImg} className="h-8" alt="Hermes logo" />
           <span className="text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">
             Hermes
           </span>
         </Link>
-        <div className="flex gap-8">
+
+        <div className="flex items-center space-x-4">
           <button
             onClick={handleMenuToggle}
             type="button"
             className="flex items-center p-2 w-10 h-10 justify-center text-sm
-               text-gray-800 rounded-lg md:hidden
-               hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
-               dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            text-gray-800 rounded-lg md:hidden
+            hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
+            dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           >
             <span className="sr-only">Open main menu</span>
             {!menuOpen && (
@@ -50,41 +51,43 @@ const NavigationBar = () => {
               </svg>
             )}
           </button>
-          <Link
-            to="/"
-            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
-          >
-            Home
-          </Link>
-          {auth && (
+          <div className="hidden md:flex space-x-8">
             <Link
-              to="/dashboard"
-              className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+              to="/"
+              className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
             >
-              Dashboard
+              Home
             </Link>
-          )}
-          <Link
-            to="/faq"
-            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
-          >
-            FAQ
-          </Link>
+            {auth && (
+              <Link
+                to="/admin/dashboard"
+                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+              >
+                Dashboard
+              </Link>
+            )}
+            <Link
+              to="/faq"
+              className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+            >
+              FAQ
+            </Link>
+            {!auth ? (
+              <Link to="/login">
+                <button className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24">
+                  Sign in
+                </button>
+              </Link>
+            ) : (
+              <button
+                onClick={handleSignOut}
+                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24"
+              >
+                Sign out
+              </button>
+            )}
+          </div>
         </div>
-        {!auth ? (
-          <Link to="/login">
-            <button className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24">
-              Sign in
-            </button>
-          </Link>
-        ) : (
-          <button
-            onClick={handleSignOut}
-            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24"
-          >
-            Sign out
-          </button>
-        )}
       </div>
       <div
         className={`md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-black/95 bg-opacity-95
@@ -124,6 +127,16 @@ const NavigationBar = () => {
             >
               Home
             </Link>
+            {auth && (
+              <Link
+                to="/admin/dashboard"
+                className="block py-2 px-3 rounded md:hover:bg-transparent
+                            md:hover:text-cyan-600 md:p-0
+                            md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+              >
+                Dashboard
+              </Link>
+            )}
             <Link
               to="/faq"
               className="block py-2 px-3 rounded md:hover:bg-transparent
@@ -142,14 +155,15 @@ const NavigationBar = () => {
                 Sign out
               </button>
             ) : (
-              <button
-                onClick={handleSignOut}
-                className="block py-2 px-3 rounded md:hover:bg-transparent
+              <Link to="login">
+                <button
+                  className="block py-2 px-3 rounded md:hover:bg-transparent
     md:hover:text-cyan-600 md:p-0
     md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
-              >
-                Sign in
-              </button>
+                >
+                  Sign in
+                </button>
+              </Link>
             )}
           </li>
         </ul>

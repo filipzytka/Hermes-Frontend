@@ -16,12 +16,12 @@ import {
   PaletteMode,
 } from "@mui/material/styles";
 import getSignUpTheme from "./theme/getSignUpTheme";
-import TemplateFrame from "./TemplateFrame";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import { validateToken } from "../../api/token";
 import { registerUser } from "../../api/user";
 import { popUp } from "../../utils/Popup";
+import TemplateFrame from "../../components/MUI-components/TemplateFrame";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",

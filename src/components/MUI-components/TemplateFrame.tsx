@@ -12,7 +12,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ToggleColorMode from "./ToggleColorMode";
-import getSignInTheme from "./theme/getSignInTheme";
+import getSignInTheme from "../../pages/SignIn/theme/getSignInTheme";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "relative",
@@ -73,7 +73,7 @@ export default function TemplateFrame({
               size="small"
               aria-label="Back to templates"
               component="a"
-              href="/material-ui/getting-started/templates/"
+              href="/"
               sx={{ display: { xs: "auto", sm: "none" } }}
             >
               <ArrowBackRoundedIcon />

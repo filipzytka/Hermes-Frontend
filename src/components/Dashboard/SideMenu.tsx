@@ -43,7 +43,6 @@ export default function SideMenu() {
           p: 1.5,
         }}
       ></Box>
-      <Divider />
       <MenuContent />
       <Stack
         direction="row"
