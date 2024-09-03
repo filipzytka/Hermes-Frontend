@@ -5,7 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";
-import ToasterWrapper from "./components/wrapper/ToasterWrapper";
+import ToasterWrapper from "./components/ToasterWrapper";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
