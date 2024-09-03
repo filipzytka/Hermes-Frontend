@@ -1,7 +1,11 @@
-import { BannedPlayer } from "../pages/Ban";
 import { SERVER_URL_BANLIST } from "./constants";
 import { fetchRequest } from "./helpers";
 import { TBanResponse, TMessageResponse } from "./response-types";
+
+type BannedPlayer = {
+  token: string;
+  ip: string;
+};
 
 export const getBannedPlayers = () =>
   fetchRequest<TBanResponse[]>({

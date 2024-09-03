@@ -1,42 +1,36 @@
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import DataTable from "./DataTable";
-import PlayersBarChart from "./PlayersBarChart";
-import PlayersLineChart from "./PlayersLineChart";
-import StatCard from "./StatCard";
+import DataTable from "../DataTable";
+import PlayersBarChart from "../PlayersBarChart";
+import PlayersLineChart from "../PlayersLineChart";
+import StatCard from "../StatCard";
 import { useEffect, useState } from "react";
-import { deleteUsers, getCollaborators } from "../../api/user";
-import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { getChartData, getServerData } from "../../api/monitor-server";
-import useModal from "../../hooks/useModal";
+import { deleteUsers, getCollaborators } from "../../../api/user";
+import { GridRowsProp } from "@mui/x-data-grid";
+import { getChartData, getServerData } from "../../../api/monitor-server";
+import useModal from "../../../hooks/useModal";
 import { render } from "@react-email/components";
-import Welcome from "../Email/Welcome";
-import { sendEmail } from "../../api/email";
-import { useAuth } from "../../hooks/useAuth";
-import InvitationModal from "../InvitationModal";
-import { popUp } from "../../utils/Popup";
-import { TCollaborator, TServerDataResponse } from "../../api/response-types";
-
-export const columns: GridColDef[] = [
-  {
-    field: "email",
-    headerName: "Email",
-    headerAlign: "left",
-    align: "left",
-    flex: 1,
-    minWidth: 80,
-  },
-];
-
-export type TGraphDataset = {
-  x: string;
-  y: number;
-};
+import Welcome from "../../Email/Welcome";
+import { sendEmail } from "../../../api/email";
+import { useAuth } from "../../../hooks/useAuth";
+import InvitationModal from "../../InvitationModal";
+import { popUp } from "../../../utils/Popup";
+import {
+  TCollaborator,
+  TServerDataResponse,
+} from "../../../api/response-types";
+import { getBannedPlayers } from "../../../api/ban-list";
+import {
+  TGraphDataset,
+  collaboratorColumns,
+  bannedPlayersColumns,
+} from "./data";
 
 export default function MainGrid() {
   const [serverData, setServerData] = useState<TServerDataResponse>();
   const [collaboratorsRows, setCollaboratorsRows] = useState<GridRowsProp>([]);
+  const [bannedPlayersRows, setBannedPlayersRows] = useState<GridRowsProp>([]);
   const [chartData, setChartData] = useState<TGraphDataset[]>([]);
   const { email } = useAuth();
   const { isShowing, setIsShowing, toggle } = useModal();
@@ -96,10 +90,21 @@ export default function MainGrid() {
     }
   };
 
-  useEffect(() => {
-    fetchServerData();
-    fetchPlayersCount();
-  }, []);
+  const fetchBannedPlayers = async () => {
+    const response = await getBannedPlayers();
+
+    const bannedPlayers = response.payload;
+    console.log(bannedPlayers);
+    if (!bannedPlayers) return;
+
+    const bannedRows = bannedPlayers.map((b, index) => ({
+      id: index,
+      Token: b.Token,
+      Ip: b.Ip,
+    }));
+
+    setBannedPlayersRows(bannedRows);
+  };
 
   const fetchCollaborators = async () => {
     const response = await getCollaborators();
@@ -115,6 +120,9 @@ export default function MainGrid() {
 
   useEffect(() => {
     fetchCollaborators();
+    fetchServerData();
+    fetchPlayersCount();
+    fetchBannedPlayers();
   }, []);
 
   return (
@@ -173,24 +181,28 @@ export default function MainGrid() {
           />
         </Grid>
       </Grid>
-      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+
+      <Grid size={{ md: 12, lg: 9 }}>
+        <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+          Banned Players
+        </Typography>
+        <DataTable columns={bannedPlayersColumns} rows={bannedPlayersRows} />
+      </Grid>
+
+      <Typography component="h2" variant="h6" sx={{ mt: 2, mb: 2 }}>
         Collaborators
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ md: 12, lg: 9 }}>
           <DataTable
-            columns={columns}
+            columns={collaboratorColumns}
             rows={collaboratorsRows}
             onAdd={toggle}
             onRemove={handleCollaboratorRemoval}
           />
         </Grid>
-        {/* <Grid size={{ xs: 12, lg: 3 }}>
-          <Stack gap={2} direction={{ xs: "column", sm: "row", lg: "column" }}>
-            <CustomizedTreeView />
-          </Stack>
-        </Grid> */}
       </Grid>
+
       <InvitationModal
         isShowing={isShowing}
         onSend={handleSendEmail}

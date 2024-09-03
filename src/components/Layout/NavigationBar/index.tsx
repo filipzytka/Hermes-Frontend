@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
 import { logOutUser } from "../../../api/auth";
+import { useAuth } from "../../../hooks/useAuth";
+import { popUp } from "../../../utils/Popup";
 
 const NavigationBar = () => {
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { auth, setAuth } = useAuth();
 
   const handleSignOut = async () => {
     await logOutUser();
-    navigate("/login");
+    popUp("Sign out successfully", "success");
+    setAuth(false);
   };
 
   const handleMenuToggle = () => {
@@ -53,6 +56,14 @@ const NavigationBar = () => {
           >
             Home
           </Link>
+          {auth && (
+            <Link
+              to="/dashboard"
+              className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+            >
+              Dashboard
+            </Link>
+          )}
           <Link
             to="/faq"
             className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
@@ -60,12 +71,20 @@ const NavigationBar = () => {
             FAQ
           </Link>
         </div>
-        <Link
-          to="/login"
-          className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
-        >
-          Sign in
-        </Link>
+        {!auth ? (
+          <Link to="/login">
+            <button className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24">
+              Sign in
+            </button>
+          </Link>
+        ) : (
+          <button
+            onClick={handleSignOut}
+            className="hidden md:block dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24"
+          >
+            Sign out
+          </button>
+        )}
       </div>
       <div
         className={`md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-black/95 bg-opacity-95
@@ -113,14 +132,25 @@ const NavigationBar = () => {
             >
               FAQ
             </Link>
-            <button
-              onClick={handleSignOut}
-              className="block py-2 px-3 rounded md:hover:bg-transparent
-              md:hover:text-cyan-600 md:p-0
-              md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
-            >
-              Sign in
-            </button>
+            {auth ? (
+              <button
+                onClick={handleSignOut}
+                className="block py-2 px-3 rounded md:hover:bg-transparent
+    md:hover:text-cyan-600 md:p-0
+    md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+              >
+                Sign out
+              </button>
+            ) : (
+              <button
+                onClick={handleSignOut}
+                className="block py-2 px-3 rounded md:hover:bg-transparent
+    md:hover:text-cyan-600 md:p-0
+    md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+              >
+                Sign in
+              </button>
+            )}
           </li>
         </ul>
       </div>

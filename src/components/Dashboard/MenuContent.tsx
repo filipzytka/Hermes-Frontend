@@ -8,11 +8,7 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
-const mainListItems = [
-  { text: "Dashboard", icon: <HomeRoundedIcon /> },
-  { text: "Settings", icon: <SettingsRoundedIcon /> },
-  { text: "About", icon: <InfoRoundedIcon /> },
-];
+const mainListItems = [{ text: "Dashboard", icon: <HomeRoundedIcon /> }];
 
 export default function MenuContent() {
   return (

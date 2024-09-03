@@ -5,14 +5,14 @@ import {
   PaletteMode,
   styled,
 } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ToggleColorMode from "./ToggleColorMode";
-import getDashboardTheme from "./theme/getDashboardTheme";
-import Button from "@mui/material/Button";
+import getSignInTheme from "./theme/getSignInTheme";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "relative",
@@ -42,10 +42,10 @@ export default function TemplateFrame({
   toggleColorMode,
   children,
 }: TemplateFrameProps) {
-  const dashboardTheme = createTheme(getDashboardTheme(mode));
+  const signInTheme = createTheme(getSignInTheme(mode));
 
   return (
-    <ThemeProvider theme={dashboardTheme}>
+    <ThemeProvider theme={signInTheme}>
       <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
         <StyledAppBar>
           <Toolbar

@@ -8,7 +8,7 @@ type Props = {
 const ToasterWrapper = ({ children }: Props) => {
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster position="bottom-right" />
       {children}
     </>
   );

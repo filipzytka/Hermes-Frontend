@@ -3,19 +3,16 @@ import ReactDOM from "react-dom/client";
 import "@mantine/core/styles.css";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PrivateRoute from "./components/RouteAccess/PrivateRoute";
 import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import ToasterWrapper from "./components/wrapper/ToasterWrapper";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
-// import AdminRoute from "./components/RouteAccess/AdminRoute";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
-import Ban from "./pages/Ban";
 import Dashboard from "./pages/Dashboard";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -38,31 +35,15 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: (
-      <PublicRoute>
-        <Login />
-      </PublicRoute>
-    ),
-  },
-  {
-    path: "ban",
-    element: (
-      <PrivateRoute>
-        <Ban />
-      </PrivateRoute>
-    ),
+    element: <SignIn />,
   },
   {
     path: "faq",
-    element: (
-      <PublicRoute>
-        <FAQ />
-      </PublicRoute>
-    ),
+    element: <FAQ />,
   },
   {
     path: "register",
-    element: <Register />,
+    element: <SignUp />,
   },
 ]);
 

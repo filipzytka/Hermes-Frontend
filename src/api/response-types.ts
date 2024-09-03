@@ -22,8 +22,8 @@ export type TTokenResponse = {
 };
 
 export type TBanResponse = {
-  token: string;
-  ip: string;
+  Token: string;
+  Ip: string;
 };
 
 export type TServerDataResponse = {

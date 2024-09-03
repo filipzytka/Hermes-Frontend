@@ -1,4 +1,5 @@
-import { Box, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import {
   DataGrid,
   GridRowsProp,
@@ -10,8 +11,8 @@ import { useState } from "react";
 type Props<T> = {
   columns: GridColDef[];
   rows: GridRowsProp;
-  onAdd: () => void;
-  onRemove: (items: T[]) => void;
+  onAdd?: () => void;
+  onRemove?: (items: T[]) => void;
 };
 
 export default function DataTable<T>({
@@ -41,12 +42,16 @@ export default function DataTable<T>({
   return (
     <>
       <Box sx={{ mb: 2 }}>
-        <Button onClick={onAdd} variant="outlined" sx={{ mr: 1 }}>
-          Invite
-        </Button>
-        <Button onClick={handleRemove} variant="outlined">
-          Remove
-        </Button>
+        {onAdd && (
+          <Button onClick={onAdd} variant="outlined" sx={{ mr: 1 }}>
+            Invite
+          </Button>
+        )}
+        {onRemove && (
+          <Button onClick={handleRemove} variant="outlined">
+            Remove
+          </Button>
+        )}
       </Box>
       <DataGrid
         autoHeight

@@ -5,14 +5,17 @@ import {
   PaletteMode,
   styled,
 } from "@mui/material/styles";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ToggleColorMode from "./ToggleColorMode";
-import getDashboardTheme from "./theme/getDashboardTheme";
-import Button from "@mui/material/Button";
+import getSignUpTheme from "./theme/getSignUpTheme";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "relative",
@@ -38,14 +41,19 @@ interface TemplateFrameProps {
 }
 
 export default function TemplateFrame({
+  showCustomTheme,
+  toggleCustomTheme,
   mode,
   toggleColorMode,
   children,
 }: TemplateFrameProps) {
-  const dashboardTheme = createTheme(getDashboardTheme(mode));
+  const handleChange = (event: SelectChangeEvent) => {
+    toggleCustomTheme(event.target.value === "custom");
+  };
+  const signUpTheme = createTheme(getSignUpTheme(mode));
 
   return (
-    <ThemeProvider theme={dashboardTheme}>
+    <ThemeProvider theme={signUpTheme}>
       <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
         <StyledAppBar>
           <Toolbar
