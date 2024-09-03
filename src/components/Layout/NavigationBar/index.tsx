@@ -29,7 +29,7 @@ const NavigationBar = () => {
           </span>
         </Link>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center">
           <button
             onClick={handleMenuToggle}
             type="button"
@@ -51,7 +51,7 @@ const NavigationBar = () => {
               </svg>
             )}
           </button>
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex gap-8">
             <Link
               to="/"
               className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
