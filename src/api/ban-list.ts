@@ -1,4 +1,4 @@
-import { SERVER_URL_BANLIST } from "./constants";
+import { SERVER_URL } from "./constants";
 import { fetchRequest } from "./helpers";
 import { TBanResponse, TMessageResponse } from "./response-types";
 
@@ -10,12 +10,12 @@ type BannedPlayer = {
 export const getBannedPlayers = () =>
   fetchRequest<TBanResponse[]>({
     method: "GET",
-    endpoint: `${SERVER_URL_BANLIST}/players`,
+    endpoint: `${SERVER_URL}/api/ban/players`,
   });
 
 export const updateBannedPlayers = (players: BannedPlayer[]) =>
   fetchRequest<TMessageResponse>({
     method: "POST",
-    endpoint: `${SERVER_URL_BANLIST}/players/update`,
+    endpoint: `${SERVER_URL}/api/ban/players/update`,
     body: JSON.stringify(players),
   });
