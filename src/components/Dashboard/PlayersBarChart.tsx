@@ -58,7 +58,7 @@ export default function PlayersBarChart({ xAxisData, yAxisData }: Props) {
           series={[
             {
               id: "page-views",
-              label: "Page views",
+              label: "Players",
               data: yAxisData,
               stack: "A",
             },
