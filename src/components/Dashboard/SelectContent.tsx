@@ -1,4 +1,3 @@
-import * as React from "react";
 import MuiAvatar from "@mui/material/Avatar";
 import MuiListItemAvatar from "@mui/material/ListItemAvatar";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,6 +11,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import DevicesRoundedIcon from "@mui/icons-material/DevicesRounded";
 import SmartphoneRoundedIcon from "@mui/icons-material/SmartphoneRounded";
 import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
+import { useState } from "react";
 
 const Avatar = styled(MuiAvatar)(({ theme }) => ({
   width: 28,
@@ -27,7 +27,7 @@ const ListItemAvatar = styled(MuiListItemAvatar)({
 });
 
 export default function SelectContent() {
-  const [company, setCompany] = React.useState("");
+  const [company, setCompany] = useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
     setCompany(event.target.value as string);

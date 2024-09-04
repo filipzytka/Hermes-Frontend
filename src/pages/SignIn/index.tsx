@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -23,8 +23,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
-  const [mode, setMode] = React.useState<PaletteMode>("light");
-  const [showCustomTheme, setShowCustomTheme] = React.useState(true);
+  const [mode, setMode] = useState<PaletteMode>("light");
+  const [showCustomTheme, setShowCustomTheme] = useState(true);
   const defaultTheme = createTheme({ palette: { mode } });
   const SignInTheme = createTheme(getSignInTheme(mode));
   const { setAuth, setRole, setEmail } = useAuth();
@@ -55,7 +55,7 @@ export default function SignIn() {
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const savedMode = localStorage.getItem("themeMode") as PaletteMode | null;
     if (savedMode) {
       setMode(savedMode);
