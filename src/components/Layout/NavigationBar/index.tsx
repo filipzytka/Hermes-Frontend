@@ -74,14 +74,14 @@ const NavigationBar = () => {
             </Link>
             {!auth ? (
               <Link to="/login">
-                <button className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24">
+                <button className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600">
                   Sign in
                 </button>
               </Link>
             ) : (
               <button
                 onClick={handleSignOut}
-                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600 w-24"
+                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
               >
                 Sign out
               </button>
