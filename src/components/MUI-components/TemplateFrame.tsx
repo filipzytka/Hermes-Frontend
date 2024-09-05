@@ -12,6 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ToggleColorMode from "./ToggleColorMode";
 import getSignInTheme from "../../pages/SignIn/theme/getSignInTheme";
+import { Link } from "react-router-dom";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "relative",
@@ -57,17 +58,18 @@ export default function TemplateFrame({
               p: "8px 12px",
             }}
           >
-            <Button
-              variant="text"
-              size="small"
-              aria-label="Back to templates"
-              startIcon={<ArrowBackRoundedIcon />}
-              component="a"
-              href="/"
-              sx={{ display: { xs: "none", sm: "flex" } }}
-            >
-              Home Page
-            </Button>
+            <Link to="/">
+              <Button
+                variant="text"
+                size="small"
+                aria-label="Back to templates"
+                startIcon={<ArrowBackRoundedIcon />}
+                component="a"
+                sx={{ display: { xs: "none", sm: "flex" } }}
+              >
+                Home Page
+              </Button>
+            </Link>
             <IconButton
               size="small"
               aria-label="Back to templates"

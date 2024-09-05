@@ -1,18 +1,15 @@
 import { SERVER_URL } from "./constants";
 import { fetchRequest } from "./helpers";
-import {
-  TServerDataChartResponse,
-  TServerDataResponse,
-} from "./response-types";
+import { TMessageResponse, TServerDataResponse } from "./response-types";
 
 export const getServerData = () =>
-  fetchRequest<TServerDataResponse>({
+  fetchRequest<TServerDataResponse[]>({
     method: "GET",
-    endpoint: `${SERVER_URL}/api/server/check`,
+    endpoint: `${SERVER_URL}/api/server/get/data`,
   });
 
-export const getChartData = () =>
-  fetchRequest<TServerDataChartResponse[]>({
+export const getServerStatus = () =>
+  fetchRequest<TMessageResponse>({
     method: "GET",
-    endpoint: `${SERVER_URL}/api/server/jobs`,
+    endpoint: `${SERVER_URL}/api/server/status`,
   });

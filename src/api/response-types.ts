@@ -27,6 +27,8 @@ export type TBanResponse = {
 };
 
 export type TServerDataResponse = {
+  id: number;
+  created: string;
   players: number;
   serverName: string;
   gameMode: string;
@@ -41,5 +43,5 @@ export type TServerDataResponse = {
 
 export type TServerDataChartResponse = {
   players: number;
-  date: string;
+  created: string;
 };

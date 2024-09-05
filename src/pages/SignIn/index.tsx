@@ -33,7 +33,9 @@ export default function SignIn() {
   const handleLoginData = async (email: string, password: string) => {
     const response = await loginUser(email, password);
     if (!response.success) {
-      popUp(response.payload!.message, "error");
+      if (response.payload!.message) {
+        popUp(response.payload!.message, "error");
+      }
       return;
     }
 
@@ -50,8 +52,6 @@ export default function SignIn() {
     },
     onSubmit: (data) => {
       handleLoginData(data.value.email, data.value.password);
-      console.log(data.value.email);
-      console.log(data.value.password);
     },
   });
 

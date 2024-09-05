@@ -1,7 +1,11 @@
 import Stack from "@mui/material/Stack";
 import NavbarBreadcrumbs from "./NavbarBreadcrumbs";
 
-export default function Header() {
+type Props = {
+  currentPage: string;
+};
+
+export default function Header({ currentPage }: Props) {
   return (
     <Stack
       direction="row"
@@ -15,7 +19,7 @@ export default function Header() {
       }}
       spacing={2}
     >
-      <NavbarBreadcrumbs />
+      <NavbarBreadcrumbs currentPage={currentPage} />
     </Stack>
   );
 }

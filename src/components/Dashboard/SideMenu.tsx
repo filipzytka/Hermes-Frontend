@@ -21,7 +21,11 @@ const Drawer = styled(MuiDrawer)({
   },
 });
 
-export default function SideMenu() {
+type Props = {
+  currentPageIndex: number;
+};
+
+export default function SideMenu({ currentPageIndex }: Props) {
   const { email, role } = useAuth();
 
   return (
@@ -41,7 +45,7 @@ export default function SideMenu() {
           p: 1.5,
         }}
       ></Box>
-      <MenuContent />
+      <MenuContent currentPageIndex={currentPageIndex} />
       <Stack
         direction="row"
         sx={{

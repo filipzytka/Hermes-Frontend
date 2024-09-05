@@ -9,10 +9,14 @@ import ToasterWrapper from "./components/ToasterWrapper";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import PublicRoute from "./components/RouteAccess/PublicRoute";
+import AdminRoute from "./components/RouteAccess/AdminRoute";
+import CollabDashboard from "./pages/Dashboard/Collaborators";
+import PrivateRoute from "./components/RouteAccess/PrivateRoute";
+import BanListDashboard from "./pages/Dashboard/BanList";
 
 const router = createBrowserRouter([
   {
@@ -25,12 +29,27 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin/dashboard",
-    element: <Dashboard />,
-    errorElement: (
-      <div className="flex justify-center items-center h-screen flex-col">
-        <PageNotFound />
-      </div>
+    path: "/dashboard/home",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "admin/dashboard/collab",
+    element: (
+      <AdminRoute>
+        <CollabDashboard />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: "dashboard/banlist",
+    element: (
+      <PrivateRoute>
+        <BanListDashboard />
+      </PrivateRoute>
     ),
   },
   {

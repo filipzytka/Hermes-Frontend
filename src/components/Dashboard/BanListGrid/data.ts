@@ -1,15 +1,4 @@
-import { GridColDef } from "@mui/x-data-grid";
-
-export const collaboratorColumns: GridColDef[] = [
-  {
-    field: "email",
-    headerName: "Email",
-    headerAlign: "left",
-    align: "left",
-    flex: 1,
-    minWidth: 80,
-  },
-];
+import { GridColDef } from "@mui/x-data-grid/models/colDef/gridColDef";
 
 export const bannedPlayersColumns: GridColDef[] = [
   {
@@ -29,8 +18,3 @@ export const bannedPlayersColumns: GridColDef[] = [
     minWidth: 80,
   },
 ];
-
-export type TGraphDataset = {
-  x: string;
-  y: number;
-};

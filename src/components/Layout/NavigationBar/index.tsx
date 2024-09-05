@@ -20,7 +20,7 @@ const NavigationBar = () => {
   };
 
   return (
-    <nav className="dark:bg-gray-900 w-full mt-8">
+    <nav className="w-full mt-8">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center">
           <img src={TailwindImg} className="h-8" alt="Hermes logo" />
@@ -52,20 +52,20 @@ const NavigationBar = () => {
             )}
           </button>
           <div className="hidden md:flex gap-8">
+            {auth && (
+              <Link
+                to="/dashboard/home"
+                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+              >
+                Dashboard
+              </Link>
+            )}
             <Link
               to="/"
               className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
             >
               Home
             </Link>
-            {auth && (
-              <Link
-                to="/admin/dashboard"
-                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
-              >
-                Dashboard
-              </Link>
-            )}
             <Link
               to="/faq"
               className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
@@ -119,6 +119,16 @@ const NavigationBar = () => {
         </div>
         <ul className="flex flex-col items-start ms-10 mt-8 space-y-4">
           <li>
+            {auth && (
+              <Link
+                to="/dashboard/home"
+                className="block py-2 px-3 rounded md:hover:bg-transparent
+                            md:hover:text-cyan-600 md:p-0
+                            md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+              >
+                Dashboard
+              </Link>
+            )}
             <Link
               to="/"
               className="block py-2 px-3 rounded md:hover:bg-transparent
@@ -127,16 +137,6 @@ const NavigationBar = () => {
             >
               Home
             </Link>
-            {auth && (
-              <Link
-                to="/admin/dashboard"
-                className="block py-2 px-3 rounded md:hover:bg-transparent
-                            md:hover:text-cyan-600 md:p-0
-                            md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
-              >
-                Dashboard
-              </Link>
-            )}
             <Link
               to="/faq"
               className="block py-2 px-3 rounded md:hover:bg-transparent

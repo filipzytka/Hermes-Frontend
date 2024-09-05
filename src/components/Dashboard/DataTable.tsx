@@ -33,8 +33,6 @@ export default function DataTable<T>({
         }
       }) as T[];
 
-      console.log(itemsToRemove);
-
       onRemove(itemsToRemove);
     }
   };
