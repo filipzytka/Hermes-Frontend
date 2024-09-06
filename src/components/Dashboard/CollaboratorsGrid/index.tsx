@@ -46,7 +46,7 @@ export default function CollaboratorsGrid() {
       <Welcome username={receiverEmail} token={token} inviterEmail={email} />
     );
 
-    await sendEmail(receiverEmail, html);
+    await sendEmail(receiverEmail, "Invitation", html);
     setIsShowing(false);
   };
 
