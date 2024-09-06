@@ -1,15 +1,25 @@
+import axios from "axios";
 import { SERVER_URL } from "./constants";
-import { fetchRequest } from "./helpers";
 import { TMessageResponse, TServerDataResponse } from "./response-types";
 
-export const getServerData = () =>
-  fetchRequest<TServerDataResponse[]>({
-    method: "GET",
-    endpoint: `${SERVER_URL}/api/server/get/data`,
-  });
+export const getServerStatus = async () => {
+  const { data, status } = await axios.get<TMessageResponse>(
+    `${SERVER_URL}/api/server/status`,
+    {
+      withCredentials: true,
+    }
+  );
 
-export const getServerStatus = () =>
-  fetchRequest<TMessageResponse>({
-    method: "GET",
-    endpoint: `${SERVER_URL}/api/server/status`,
-  });
+  return { data, status };
+};
+
+export const getServerData = async () => {
+  const { data, status } = await axios.get<TServerDataResponse[]>(
+    `${SERVER_URL}/api/server/get/data`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return { data, status };
+};

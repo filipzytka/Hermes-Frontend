@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }: Props) => {
         const response = await authenticateUser();
 
         if (response) {
-          setAuth(response.success);
-          setRole(response.payload!.role);
-          setEmail(response.payload!.email);
+          setAuth(response.status === 200);
+          setRole(response.data.role);
+          setEmail(response.data.email);
         } else {
           setAuth(false);
         }

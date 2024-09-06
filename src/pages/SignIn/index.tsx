@@ -21,6 +21,9 @@ import { popUp } from "../../utils/Popup";
 import { loginUser } from "../../api/auth";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { TMessageResponse } from "../../api/response-types";
 
 export default function SignIn() {
   const [mode, setMode] = useState<PaletteMode>("light");
@@ -30,19 +33,34 @@ export default function SignIn() {
   const { setAuth, setRole, setEmail } = useAuth();
   const navigate = useNavigate();
 
-  const handleLoginData = async (email: string, password: string) => {
-    const response = await loginUser(email, password);
-    if (!response.success) {
-      if (response.payload!.message) {
-        popUp(response.payload!.message, "error");
-      }
-      return;
-    }
+  const { mutateAsync: loginAccountMutate } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }) => {
+      return loginUser(email, password);
+    },
+    onSuccess: (response) => {
+      setAuth(true);
+      setRole(response.role);
+      setEmail(response.email);
+      navigate("/");
+    },
+    onError: (error: AxiosError) => {
+      popUp(
+        `${(error.response?.data as TMessageResponse).message}` ||
+          "Something went wrong",
+        "error"
+      );
+    },
+  });
 
-    setAuth(true);
-    setRole(response.payload!.role);
-    setEmail(response.payload!.email);
-    navigate("/");
+  const handleLoginData = async (email: string, password: string) => {
+    await loginAccountMutate({ email, password });
   };
 
   const form = useForm({

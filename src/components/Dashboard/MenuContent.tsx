@@ -16,7 +16,7 @@ const mainListItems = [
 ];
 
 type Props = {
-  currentPageIndex: number;
+  currentPageIndex?: number;
 };
 
 export default function MenuContent({ currentPageIndex }: Props) {

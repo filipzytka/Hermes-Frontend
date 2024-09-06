@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "../DataTable";
 import { useEffect, useState } from "react";
-import { deleteUsers, getCollaborators } from "../../../api/user";
 import { GridRowsProp } from "@mui/x-data-grid";
 import useModal from "../../../hooks/useModal";
 import { render } from "@react-email/components";
@@ -16,12 +15,31 @@ import { TCollaborator } from "../../../api/response-types";
 import { collaboratorColumns } from "./data";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Loading from "../../Loading";
+import {
+  deleteCollaborators,
+  getCollaborators,
+} from "../../../api/collaborators";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export default function CollaboratorsGrid() {
   const [collaboratorsRows, setCollaboratorsRows] = useState<GridRowsProp>([]);
-  const { email, loading, setLoading } = useAuth();
   const { isShowing, setIsShowing, toggle } = useModal();
+  const { email } = useAuth();
+
+  const { isFetched, refetch } = useQuery({
+    queryKey: ["collaborators"],
+    queryFn: async () => getCollaborators(),
+  });
+
+  const { mutateAsync: deleteUsersMutate } = useMutation({
+    mutationKey: ["deleteUsers"],
+    mutationFn: (usersToDelete: TCollaborator[]) =>
+      deleteCollaborators(usersToDelete),
+    onSuccess: async (response) => {
+      popUp(`${response?.message}`, "success");
+      await fetchCollaborators();
+    },
+  });
 
   const handleSendEmail = async (receiverEmail: string, token: string) => {
     const html = render(
@@ -33,21 +51,17 @@ export default function CollaboratorsGrid() {
   };
 
   const handleCollaboratorRemoval = async (collaborators: TCollaborator[]) => {
-    if (!collaborators) return;
-    const response = await deleteUsers(collaborators);
-
-    if (response.success) {
-      popUp(`${response.payload!.message}`, "success");
-      fetchCollaborators();
-    } else {
-      popUp(`${response.payload!.message}`, "error");
-    }
+    await deleteUsersMutate(collaborators);
   };
 
   const fetchCollaborators = async () => {
-    const response = await getCollaborators();
+    const { data: recentData } = await refetch();
 
-    const collaboratorsData = response.payload!.collaborators;
+    if (!recentData) {
+      return;
+    }
+
+    const collaboratorsData = recentData.collaborators;
     const collaboratorsRows = collaboratorsData.map((c, index) => ({
       id: index,
       email: c.email,
@@ -62,14 +76,10 @@ export default function CollaboratorsGrid() {
   };
 
   useEffect(() => {
-    setLoading(true);
-    fetchCollaborators();
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
+    if (isFetched) {
+      fetchCollaborators();
+    }
+  }, [isFetched, deleteUsersMutate]);
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
@@ -95,12 +105,14 @@ export default function CollaboratorsGrid() {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ md: 12, lg: 9 }}>
-          <DataTable
-            columns={collaboratorColumns}
-            rows={collaboratorsRows}
-            onAdd={toggle}
-            onRemove={handleCollaboratorRemoval}
-          />
+          {isFetched && (
+            <DataTable
+              columns={collaboratorColumns}
+              rows={collaboratorsRows}
+              onAdd={toggle}
+              onRemove={handleCollaboratorRemoval}
+            />
+          )}
         </Grid>
       </Grid>
 

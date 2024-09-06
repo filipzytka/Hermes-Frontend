@@ -20,11 +20,11 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
     event.preventDefault();
     const response = await generateToken(email);
 
-    if (!response.success || !response.payload) {
+    if (response.status !== 200 || !response.data) {
       return;
     }
 
-    const generatedToken = response.payload.token;
+    const generatedToken = response.data.token;
 
     onSend(inputEmail, generatedToken!);
 

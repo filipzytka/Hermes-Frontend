@@ -19,9 +19,9 @@ import getSignUpTheme from "./theme/getSignUpTheme";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import { validateToken } from "../../api/token";
-import { registerUser } from "../../api/user";
-import { popUp } from "../../utils/Popup";
 import TemplateFrame from "../../components/MUI-components/TemplateFrame";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "../../api/user";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -63,15 +63,29 @@ export default function SignUp() {
   const SignUpTheme = createTheme(getSignUpTheme(mode));
   const navigate = useNavigate();
 
+  const { mutateAsync: registerAccountMutate } = useMutation({
+    mutationKey: ["register"],
+    mutationFn: async ({
+      email,
+      password,
+      token,
+    }: {
+      email: string;
+      password: string;
+      token: string;
+    }) => {
+      return registerUser(email, password, token);
+    },
+    onSuccess: () => {
+      navigate("/login");
+    },
+    onError: () => {
+      navigate("/");
+    },
+  });
+
   const handleRegisterData = async (email: string, password: string) => {
-    const response = await registerUser(email, password, token);
-
-    if (!response.success) {
-      popUp(response.payload!.message!, "error");
-      return;
-    }
-
-    navigate("/login");
+    await registerAccountMutate({ email, password, token });
   };
 
   const form = useForm({
@@ -97,11 +111,11 @@ export default function SignUp() {
     const validateTokenStatus = async () => {
       const response = await validateToken(searchedToken);
 
-      if (!response.success) {
+      if (response.status !== 200) {
         navigate("/login");
       }
 
-      setInviter(response.payload!.createdBy);
+      setInviter(response.data.createdBy);
     };
 
     validateTokenStatus();

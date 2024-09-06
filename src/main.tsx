@@ -17,6 +17,7 @@ import AdminRoute from "./components/RouteAccess/AdminRoute";
 import CollabDashboard from "./pages/Dashboard/Collaborators";
 import PrivateRoute from "./components/RouteAccess/PrivateRoute";
 import BanListDashboard from "./pages/Dashboard/BanList";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,8 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
+const queryClient = new QueryClient();
+
 root.render(
   <>
     <ColorSchemeScript defaultColorScheme="auto" />
@@ -81,7 +84,9 @@ root.render(
       <React.StrictMode>
         <AuthProvider>
           <ToasterWrapper>
-            <RouterProvider router={router} />
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+            </QueryClientProvider>
           </ToasterWrapper>
         </AuthProvider>
       </React.StrictMode>

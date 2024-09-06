@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import TailwindImg from "../../../assets/tailwind-css-logo.png";
-import { logOutUser } from "../../../api/auth";
+import { logoutUser } from "../../../api/auth";
 import { useAuth } from "../../../hooks/useAuth";
 import { popUp } from "../../../utils/Popup";
 
@@ -10,7 +10,7 @@ const NavigationBar = () => {
   const { auth, setAuth } = useAuth();
 
   const handleSignOut = async () => {
-    await logOutUser();
+    await logoutUser();
     popUp("Sign out successfully", "success");
     setAuth(false);
   };

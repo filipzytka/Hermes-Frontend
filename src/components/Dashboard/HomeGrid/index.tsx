@@ -23,44 +23,42 @@ export default function HomeGrid() {
   const { loading, setLoading } = useAuth();
 
   const fetchServerStatus = async () => {
-    const responseServerStatus = await getServerStatus();
+    const responseServer = await getServerStatus();
 
-    if (!responseServerStatus.success) {
+    if (responseServer.status !== 200) {
       setServerStatus("Offline");
 
       return;
     }
 
-    const payload = responseServerStatus.payload;
-
-    if (payload) {
-      setServerStatus(payload.message as TServerStatus);
+    if (responseServer.data) {
+      setServerStatus(responseServer.data.message as TServerStatus);
     }
   };
 
   const fetchServerData = async () => {
-    const responseServerData = await getServerData();
+    const responseServer = await getServerData();
 
-    if (!responseServerData.success) {
+    if (responseServer.status !== 200) {
       return;
     }
 
-    const payload = responseServerData.payload;
-
-    if (!payload) {
+    if (!responseServer.data) {
       return;
     }
 
-    const item = payload.reduce((prev, current) =>
+    const item = responseServer.data.reduce((prev, current) =>
       +prev.id > +current.id ? prev : current
     );
 
     setServerData(item);
 
-    const parsedToChartFormat: TGraphDataset[] = payload.map((d) => ({
-      x: d.created,
-      y: d.players,
-    }));
+    const parsedToChartFormat: TGraphDataset[] = responseServer.data.map(
+      (d) => ({
+        x: d.created,
+        y: d.players,
+      })
+    );
 
     setChartData(parsedToChartFormat);
   };

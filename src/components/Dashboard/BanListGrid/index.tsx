@@ -8,26 +8,53 @@ import { popUp } from "../../../utils/Popup";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Loading from "../../Loading";
-import { getBannedPlayers } from "../../../api/ban-list";
+import {
+  BannedPlayer,
+  getBannedPlayers,
+  updateBannedPlayers,
+} from "../../../api/ban-list";
 import { GridRowsProp } from "@mui/x-data-grid/models/gridRows";
 import { bannedPlayersColumns } from "./data";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { TMessageResponse } from "../../../api/response-types";
 
 export default function BanListGrid() {
   const { loading, setLoading } = useAuth();
   const [bannedPlayersRows, setBannedPlayersRows] = useState<GridRowsProp>([]);
+
+  const { mutateAsync: updateBannedMutate } = useMutation({
+    mutationKey: ["updateBan"],
+    mutationFn: async (players: BannedPlayer[]) => {
+      return updateBannedPlayers(players);
+    },
+    onSuccess: (response) => {
+      popUp(response.message, "success");
+    },
+    onError: (error: AxiosError) => {
+      popUp(
+        `${(error.response?.data as TMessageResponse).message}` ||
+          "Something went wrong",
+        "error"
+      );
+    },
+  });
 
   const handleRefresh = async () => {
     popUp("Ban list has been updated", "success");
     fetchBannedPlayers();
   };
 
+  const handleBanPlayersRemoval = async (players: BannedPlayer[]) => {
+    await updateBannedMutate(players);
+  };
+
   const fetchBannedPlayers = async () => {
-    const response = await getBannedPlayers();
+    const listOfBanPlayers = await getBannedPlayers();
 
-    const bannedPlayers = response.payload;
-    if (!bannedPlayers) return;
+    if (!listOfBanPlayers) return;
 
-    const bannedRows = bannedPlayers.map((b, index) => ({
+    const bannedRows = listOfBanPlayers.map((b, index) => ({
       id: index,
       Token: b.Token,
       Ip: b.Ip,
@@ -69,7 +96,12 @@ export default function BanListGrid() {
           <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
             Banned Players
           </Typography>
-          <DataTable columns={bannedPlayersColumns} rows={bannedPlayersRows} />
+          <DataTable
+            isBanList={true}
+            columns={bannedPlayersColumns}
+            rows={bannedPlayersRows}
+            onRemove={handleBanPlayersRemoval}
+          />
         </Grid>
       </Grid>
     </Box>

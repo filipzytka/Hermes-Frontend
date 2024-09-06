@@ -13,6 +13,7 @@ type Props<T> = {
   rows: GridRowsProp;
   onAdd?: () => void;
   onRemove?: (items: T[]) => void;
+  isBanList?: boolean;
 };
 
 export default function DataTable<T>({
@@ -20,10 +21,19 @@ export default function DataTable<T>({
   rows,
   onAdd,
   onRemove,
+  isBanList,
 }: Props<T>) {
   const [selectedRows, setSelectedRows] = useState<GridRowSelectionModel>([]);
 
   const handleRemove = () => {
+    if (isBanList) {
+      removeBanList();
+    } else {
+      removeSelectedItems();
+    }
+  };
+
+  const removeSelectedItems = () => {
     if (onRemove && selectedRows.length > 0) {
       const itemsToRemove = selectedRows.map((id: any) => {
         const row = rows.find((row) => row.id === id);
@@ -31,6 +41,19 @@ export default function DataTable<T>({
           const { id, ...rest } = row;
           return rest as T;
         }
+      }) as T[];
+
+      onRemove(itemsToRemove);
+    }
+  };
+
+  const removeBanList = () => {
+    const unselectedRows = rows.filter((row) => !selectedRows.includes(row.id));
+
+    if (onRemove && selectedRows.length > 0) {
+      const itemsToRemove = unselectedRows.map((row) => {
+        const { id, ...rest } = row;
+        return rest as T;
       }) as T[];
 
       onRemove(itemsToRemove);

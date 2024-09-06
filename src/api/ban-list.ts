@@ -1,21 +1,31 @@
+import axios from "axios";
 import { SERVER_URL } from "./constants";
-import { fetchRequest } from "./helpers";
 import { TBanResponse, TMessageResponse } from "./response-types";
 
-type BannedPlayer = {
+export type BannedPlayer = {
   token: string;
   ip: string;
 };
 
-export const getBannedPlayers = () =>
-  fetchRequest<TBanResponse[]>({
-    method: "GET",
-    endpoint: `${SERVER_URL}/api/ban/players`,
-  });
+export const getBannedPlayers = async () => {
+  const { data } = await axios.get<TBanResponse[]>(
+    `${SERVER_URL}/api/ban/players`,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
 
-export const updateBannedPlayers = (players: BannedPlayer[]) =>
-  fetchRequest<TMessageResponse>({
-    method: "POST",
-    endpoint: `${SERVER_URL}/api/ban/players/update`,
-    body: JSON.stringify(players),
-  });
+export const updateBannedPlayers = async (players: BannedPlayer[]) => {
+  const { data } = await axios.post<TMessageResponse>(
+    `${SERVER_URL}/api/ban/players/update`,
+
+    players,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return data;
+};
