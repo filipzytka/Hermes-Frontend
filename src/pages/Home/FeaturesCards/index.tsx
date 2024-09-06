@@ -11,9 +11,9 @@ import classes from "../assets/FeaturesCards.module.css";
 import { data } from "./data";
 
 const FeaturesCards = () => {
-  const features = data.map((d) => (
+  const features = data.map((d, index) => (
     <Card
-      key={d.title}
+      key={index}
       shadow="md"
       radius="md"
       className={classes.card}

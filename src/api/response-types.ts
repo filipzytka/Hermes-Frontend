@@ -1,4 +1,6 @@
-import { TCollaborator } from "../pages/Collaborators";
+export type TCollaborator = {
+  email: string;
+};
 
 export type TAuthResponse = {
   role: string;
@@ -20,11 +22,13 @@ export type TTokenResponse = {
 };
 
 export type TBanResponse = {
-  token: string;
-  ip: string;
+  Token: string;
+  Ip: string;
 };
 
 export type TServerDataResponse = {
+  id: number;
+  created: string;
   players: number;
   serverName: string;
   gameMode: string;
@@ -39,5 +43,5 @@ export type TServerDataResponse = {
 
 export type TServerDataChartResponse = {
   players: number;
-  date: string;
+  created: string;
 };

@@ -1,4 +1,4 @@
-import AutoCompleteInput from "../AutoCompleteInput";
+import ModalInput from "../ModalInput";
 
 type Props = {
   submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -14,9 +14,7 @@ const InvitationModalForm = ({ submitHandler, emailChangeHandler }: Props) => {
             <label className="block text-sm font-semibold ml-1 mb-3 dark:text-white text-gray-800">
               {"Search by email"}
             </label>
-            <AutoCompleteInput
-              onEmailChange={emailChangeHandler}
-            ></AutoCompleteInput>
+            <ModalInput onEmailChange={emailChangeHandler}></ModalInput>
           </div>
           <div className="flex items-center justify-center">
             <button

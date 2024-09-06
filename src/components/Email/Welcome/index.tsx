@@ -45,10 +45,6 @@ export const Welcome = ({ username, token, inviterEmail }: Props) => {
   );
 };
 
-Welcome.PreviewProps = {
-  username: "alanturing",
-} as Props;
-
 export default Welcome;
 
 const main = {

@@ -3,29 +3,26 @@ import ReactDOM from "react-dom/client";
 import "@mantine/core/styles.css";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PrivateRoute from "./components/RouteAccess/PrivateRoute";
 import Home from "./pages/Home";
 import { AuthProvider } from "./providers/auth/AuthProvider";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import ToasterWrapper from "./components/wrapper/ToasterWrapper";
-import PublicRoute from "./components/RouteAccess/PublicRoute";
-import AdminRoute from "./components/RouteAccess/AdminRoute";
-import Collaborators from "./pages/Collaborators";
+import ToasterWrapper from "./components/ToasterWrapper";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import Statistics from "./pages/Statistics";
 import FAQ from "./pages/FAQ";
 import PageNotFound from "./pages/PageNotFound";
-import Ban from "./pages/Ban";
+import Dashboard from "./pages/Dashboard/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import PublicRoute from "./components/RouteAccess/PublicRoute";
+import AdminRoute from "./components/RouteAccess/AdminRoute";
+import CollabDashboard from "./pages/Dashboard/Collaborators";
+import PrivateRoute from "./components/RouteAccess/PrivateRoute";
+import BanListDashboard from "./pages/Dashboard/BanList";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <PrivateRoute>
-        <Home />
-      </PrivateRoute>
-    ),
+    element: <Home />,
     errorElement: (
       <div className="flex justify-center items-center h-screen flex-col">
         <PageNotFound />
@@ -33,54 +30,52 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "login",
-    element: (
-      <PublicRoute>
-        <Login />
-      </PublicRoute>
-    ),
-  },
-  {
-    path: "collaborators",
-    element: (
-      <AdminRoute>
-        <Collaborators />
-      </AdminRoute>
-    ),
-  },
-  {
-    path: "statistics",
-    element: (
-      <AdminRoute>
-        <Statistics />
-      </AdminRoute>
-    ),
-  },
-  {
-    path: "ban",
-    element: (
-      <AdminRoute>
-        <Ban />
-      </AdminRoute>
-    ),
-  },
-  {
-    path: "faq",
+    path: "/dashboard/home",
     element: (
       <PrivateRoute>
-        <FAQ />
+        <Dashboard />
       </PrivateRoute>
     ),
   },
   {
+    path: "admin/dashboard/collab",
+    element: (
+      <AdminRoute>
+        <CollabDashboard />
+      </AdminRoute>
+    ),
+  },
+  {
+    path: "dashboard/banlist",
+    element: (
+      <PrivateRoute>
+        <BanListDashboard />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "login",
+    element: (
+      <PublicRoute>
+        <SignIn />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "faq",
+    element: <FAQ />,
+  },
+  {
     path: "register",
-    element: <Register />,
+    element: <SignUp />,
   },
 ]);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const queryClient = new QueryClient();
 
 root.render(
   <>
@@ -89,7 +84,9 @@ root.render(
       <React.StrictMode>
         <AuthProvider>
           <ToasterWrapper>
-            <RouterProvider router={router} />
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+            </QueryClientProvider>
           </ToasterWrapper>
         </AuthProvider>
       </React.StrictMode>

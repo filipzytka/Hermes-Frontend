@@ -1,18 +1,25 @@
-import { MONITORED_SERVER_URL } from "./constants";
-import { fetchRequest } from "./helpers";
-import {
-  TServerDataChartResponse,
-  TServerDataResponse,
-} from "./response-types";
+import axios from "axios";
+import { SERVER_URL } from "./constants";
+import { TMessageResponse, TServerDataResponse } from "./response-types";
 
-export const getServerData = () =>
-  fetchRequest<TServerDataResponse>({
-    method: "GET",
-    endpoint: `${MONITORED_SERVER_URL}/check`,
-  });
+export const getServerStatus = async () => {
+  const { data, status } = await axios.get<TMessageResponse>(
+    `${SERVER_URL}/api/server/status`,
+    {
+      withCredentials: true,
+    }
+  );
 
-export const getChartData = () =>
-  fetchRequest<TServerDataChartResponse[]>({
-    method: "GET",
-    endpoint: `${MONITORED_SERVER_URL}/jobs`,
-  });
+  return { data, status };
+};
+
+export const getServerData = async () => {
+  const { data, status } = await axios.get<TServerDataResponse[]>(
+    `${SERVER_URL}/api/server/get/data`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return { data, status };
+};

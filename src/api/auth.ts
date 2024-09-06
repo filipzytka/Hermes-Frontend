@@ -1,24 +1,34 @@
-import { SERVER_URL_AUTH } from "./constants";
-import { fetchRequest, getCookie } from "./helpers";
+import axios from "axios";
+import { SERVER_URL } from "./constants";
 import { TAuthResponse } from "./response-types";
 
-export const authenticateUser = () => {
-  if (!getCookie("active")) return;
-  return fetchRequest<TAuthResponse>({
-    method: "GET",
-    endpoint: `${SERVER_URL_AUTH}/check`,
-  });
+export const authenticateUser = async () => {
+  const { data, status } = await axios.get<TAuthResponse>(
+    `${SERVER_URL}/api/auth/check`,
+    {
+      withCredentials: true,
+    }
+  );
+  return { data, status };
 };
 
-export const loginUser = (email: string, password: string) =>
-  fetchRequest<TAuthResponse>({
-    method: "POST",
-    endpoint: `${SERVER_URL_AUTH}/login`,
-    body: JSON.stringify({ email, password }),
-  });
+export const loginUser = async (email: string, password: string) => {
+  const { data } = await axios.post<TAuthResponse>(
+    `${SERVER_URL}/api/auth/login`,
+    {
+      email,
+      password,
+    },
+    {
+      withCredentials: true,
+    }
+  );
 
-export const logOutUser = () =>
-  fetchRequest({
-    method: "POST",
-    endpoint: `${SERVER_URL_AUTH}/logout`,
+  return data;
+};
+
+export const logoutUser = async () => {
+  await axios.post(`${SERVER_URL}/api/auth/logout`, {
+    withCredentials: true,
   });
+};
