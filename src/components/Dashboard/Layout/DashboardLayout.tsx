@@ -7,12 +7,12 @@ import {
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import AppNavbar from "../../../components/Dashboard/AppNavbar";
-import SideMenu from "../../../components/Dashboard/SideMenu";
-import TemplateFrame from "../../../components/Dashboard/TemplateFrame";
+import AppNavbar from "../AppNavbar";
+import SideMenu from "../SideMenu";
+import TemplateFrame from "../TemplateFrame";
 import React, { useState, useEffect } from "react";
-import getDashboardTheme from "../../../components/Dashboard/theme/getDashboardTheme";
-import Header from "../../../components/Dashboard/Header";
+import getDashboardTheme from "../theme/getDashboardTheme";
+import Header from "../Header";
 
 type Props = {
   currentPageIndex: number;

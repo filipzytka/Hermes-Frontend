@@ -1,5 +1,5 @@
 import CollaboratorsGrid from "../../../components/Dashboard/CollaboratorsGrid";
-import DashboardLayout from "../Layout/DashboardLayout";
+import DashboardLayout from "../../../components/Dashboard/Layout/DashboardLayout";
 
 export default function CollabDashboard() {
   const COLLABORATORS_PAGE_INDEX = 1;

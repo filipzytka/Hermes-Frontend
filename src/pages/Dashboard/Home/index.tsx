@@ -1,5 +1,5 @@
 import HomeGrid from "../../../components/Dashboard/HomeGrid";
-import DashboardLayout from "../Layout/DashboardLayout";
+import DashboardLayout from "../../../components/Dashboard/Layout/DashboardLayout";
 
 export default function Dashboard() {
   const HOME_PAGE_INDEX = 0;

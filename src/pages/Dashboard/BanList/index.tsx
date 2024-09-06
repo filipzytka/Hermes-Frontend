@@ -1,4 +1,4 @@
-import DashboardLayout from "../Layout/DashboardLayout";
+import DashboardLayout from "../../../components/Dashboard/Layout/DashboardLayout";
 import BanListGrid from "../../../components/Dashboard/BanListGrid";
 
 export default function BanListDashboard() {
