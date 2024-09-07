@@ -1,8 +1,13 @@
 import axios from "axios";
 import { SERVER_URL } from "./constants";
 import { TAuthResponse } from "./response-types";
+import { getCookie } from "./helpers";
 
 export const authenticateUser = async () => {
+  if (!getCookie("active")) {
+    return;
+  }
+
   const { data, status } = await axios.get<TAuthResponse>(
     `${SERVER_URL}/api/auth/check`,
     {

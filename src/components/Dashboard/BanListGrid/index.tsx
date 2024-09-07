@@ -3,11 +3,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "../DataTable";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../hooks/useAuth";
 import { popUp } from "../../../utils/Popup";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Loading from "../../Loading";
 import {
   BannedPlayer,
   getBannedPlayers,
@@ -15,13 +13,18 @@ import {
 } from "../../../api/ban-list";
 import { GridRowsProp } from "@mui/x-data-grid/models/gridRows";
 import { bannedPlayersColumns } from "./data";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { TMessageResponse } from "../../../api/response-types";
+import Loading from "../../Loading";
 
 export default function BanListGrid() {
-  const { loading, setLoading } = useAuth();
   const [bannedPlayersRows, setBannedPlayersRows] = useState<GridRowsProp>([]);
+
+  const { refetch: bannedPlayersRefetch, isLoading } = useQuery({
+    queryKey: ["bannedPlayers"],
+    queryFn: () => getBannedPlayers(),
+  });
 
   const { mutateAsync: updateBannedMutate } = useMutation({
     mutationKey: ["updateBan"],
@@ -50,11 +53,13 @@ export default function BanListGrid() {
   };
 
   const fetchBannedPlayers = async () => {
-    const listOfBanPlayers = await getBannedPlayers();
+    const { data: bannedPlayers } = await bannedPlayersRefetch();
 
-    if (!listOfBanPlayers) return;
+    if (!bannedPlayers) {
+      return;
+    }
 
-    const bannedRows = listOfBanPlayers.map((b, index) => ({
+    const bannedRows = bannedPlayers.map((b, index) => ({
       id: index,
       Token: b.Token,
       Ip: b.Ip,
@@ -64,12 +69,10 @@ export default function BanListGrid() {
   };
 
   useEffect(() => {
-    setLoading(true);
     fetchBannedPlayers();
-    setLoading(false);
   }, []);
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 

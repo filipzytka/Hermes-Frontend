@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AuthContext from "../../context/auth";
 import { authenticateUser } from "../../api/auth";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   children: React.ReactNode;
@@ -8,31 +9,28 @@ type Props = {
 
 export const AuthProvider = ({ children }: Props) => {
   const [auth, setAuth] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
   const [role, setRole] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
+  const { refetch } = useQuery({
+    queryKey: ["userAuth"],
+    queryFn: () => authenticateUser(),
+  });
+
+  const fetchCredentials = async () => {
+    const { data: credentials } = await refetch();
+
+    if (credentials) {
+      setAuth(true);
+      setRole(credentials.data.role);
+      setEmail(credentials.data.email);
+    } else {
+      setAuth(false);
+    }
+  };
+
   useEffect(() => {
-    const isUserAuth = async () => {
-      setLoading(true);
-      try {
-        const response = await authenticateUser();
-
-        if (response) {
-          setAuth(response.status === 200);
-          setRole(response.data.role);
-          setEmail(response.data.email);
-        } else {
-          setAuth(false);
-        }
-      } catch (error) {
-        setAuth(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    isUserAuth();
+    fetchCredentials();
   }, []);
 
   return (
@@ -40,8 +38,6 @@ export const AuthProvider = ({ children }: Props) => {
       value={{
         auth,
         setAuth,
-        loading,
-        setLoading,
         role,
         setRole,
         email,

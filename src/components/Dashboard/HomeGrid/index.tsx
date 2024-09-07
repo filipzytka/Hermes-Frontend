@@ -6,13 +6,13 @@ import PlayersLineChart from "../PlayersLineChart";
 import StatCard from "../StatCard";
 import { useEffect, useState } from "react";
 import { getServerData, getServerStatus } from "../../../api/monitor-server";
-import { useAuth } from "../../../hooks/useAuth";
 import { popUp } from "../../../utils/Popup";
 import { TServerDataResponse } from "../../../api/response-types";
 import { TGraphDataset } from "./data";
-import Loading from "../../Loading";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Loading";
 
 type TServerStatus = "Online" | "Offline";
 
@@ -20,40 +20,44 @@ export default function HomeGrid() {
   const [serverData, setServerData] = useState<TServerDataResponse>();
   const [chartData, setChartData] = useState<TGraphDataset[]>([]);
   const [serverStatus, setServerStatus] = useState<TServerStatus>("Offline");
-  const { loading, setLoading } = useAuth();
+
+  const { refetch: serverStatusRefetch, isLoading: isStatusLoading } = useQuery(
+    {
+      queryKey: ["serverStatus"],
+      queryFn: () => getServerStatus(),
+    }
+  );
+
+  const { refetch: serverDataRefetch, isLoading: isDataLoading } = useQuery({
+    queryKey: ["serverData"],
+    queryFn: () => getServerData(),
+  });
 
   const fetchServerStatus = async () => {
-    const responseServer = await getServerStatus();
+    const { data: serverInfo } = await serverStatusRefetch();
 
-    if (responseServer.status !== 200) {
+    if (!serverInfo) {
       setServerStatus("Offline");
 
       return;
     }
-
-    if (responseServer.data) {
-      setServerStatus(responseServer.data.message as TServerStatus);
-    }
+    setServerStatus(serverInfo.data.message as TServerStatus);
   };
 
   const fetchServerData = async () => {
-    const responseServer = await getServerData();
+    const { data: serverDataPayload } = await serverDataRefetch();
 
-    if (responseServer.status !== 200) {
+    if (!serverDataPayload) {
       return;
     }
 
-    if (!responseServer.data) {
-      return;
-    }
-
-    const item = responseServer.data.reduce((prev, current) =>
+    const item = serverDataPayload.data.reduce((prev, current) =>
       +prev.id > +current.id ? prev : current
     );
 
     setServerData(item);
 
-    const parsedToChartFormat: TGraphDataset[] = responseServer.data.map(
+    const parsedToChartFormat: TGraphDataset[] = serverDataPayload.data.map(
       (d) => ({
         x: d.created,
         y: d.players,
@@ -63,23 +67,18 @@ export default function HomeGrid() {
     setChartData(parsedToChartFormat);
   };
 
-  const fetchAll = async () => {
-    setLoading(true);
-    fetchServerData();
-    fetchServerStatus();
-    setLoading(false);
-  };
-
   const handleRefresh = async () => {
     popUp("Server data has been updated", "success");
-    fetchAll();
+    fetchServerData();
+    fetchServerStatus();
   };
 
   useEffect(() => {
-    fetchAll();
+    fetchServerData();
+    fetchServerStatus();
   }, []);
 
-  if (loading) {
+  if (isStatusLoading || isDataLoading) {
     return <Loading />;
   }
 

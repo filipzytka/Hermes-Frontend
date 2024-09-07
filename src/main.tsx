@@ -82,13 +82,13 @@ root.render(
     <ColorSchemeScript defaultColorScheme="auto" />
     <MantineProvider defaultColorScheme="auto" theme={{ primaryColor: "cyan" }}>
       <React.StrictMode>
-        <AuthProvider>
-          <ToasterWrapper>
-            <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <ToasterWrapper>
               <RouterProvider router={router} />
-            </QueryClientProvider>
-          </ToasterWrapper>
-        </AuthProvider>
+            </ToasterWrapper>
+          </AuthProvider>
+        </QueryClientProvider>
       </React.StrictMode>
     </MantineProvider>
   </>
