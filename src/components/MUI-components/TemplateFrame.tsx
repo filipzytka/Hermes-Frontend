@@ -12,7 +12,6 @@ import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ToggleColorMode from "./ToggleColorMode";
 import getSignInTheme from "../../pages/SignIn/theme/getSignInTheme";
-import { Link } from "react-router-dom";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "relative",

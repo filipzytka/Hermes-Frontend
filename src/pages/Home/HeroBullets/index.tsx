@@ -2,7 +2,6 @@ import {
   Image,
   Container,
   Title,
-  Button,
   Group,
   Text,
   List,
