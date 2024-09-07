@@ -58,18 +58,17 @@ export default function TemplateFrame({
               p: "8px 12px",
             }}
           >
-            <Link to="/">
-              <Button
-                variant="text"
-                size="small"
-                aria-label="Back to templates"
-                startIcon={<ArrowBackRoundedIcon />}
-                component="a"
-                sx={{ display: { xs: "none", sm: "flex" } }}
-              >
-                Home Page
-              </Button>
-            </Link>
+            <Button
+              href="/"
+              variant="text"
+              size="small"
+              aria-label="Back to templates"
+              startIcon={<ArrowBackRoundedIcon />}
+              component="a"
+              sx={{ display: { xs: "none", sm: "flex" } }}
+            >
+              Home Page
+            </Button>
             <IconButton
               size="small"
               aria-label="Back to templates"
