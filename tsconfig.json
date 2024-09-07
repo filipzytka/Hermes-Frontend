@@ -8,6 +8,13 @@
       "path": "./tsconfig.node.json"
     }
   ],
+
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "ES2020",
+    }
+  },
   
   "compilerOptions": {
     "baseUrl": ".",
