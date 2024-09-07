@@ -78,10 +78,6 @@ export default function HomeGrid() {
     fetchServerStatus();
   }, []);
 
-  if (isStatusLoading || isDataLoading) {
-    return <Loading />;
-  }
-
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Stack

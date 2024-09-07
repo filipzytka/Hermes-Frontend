@@ -19,14 +19,14 @@ export const AuthProvider = ({ children }: Props) => {
 
   const fetchCredentials = async () => {
     const { data: credentials } = await refetch();
-
-    if (credentials) {
-      setAuth(true);
-      setRole(credentials.data.role);
-      setEmail(credentials.data.email);
-    } else {
+    if (!credentials) {
       setAuth(false);
+      return;
     }
+
+    setAuth(true);
+    setRole(credentials.data.role);
+    setEmail(credentials.data.email);
   };
 
   useEffect(() => {

@@ -4,15 +4,23 @@ import TailwindImg from "../../../assets/tailwind-css-logo.png";
 import { logoutUser } from "../../../api/auth";
 import { useAuth } from "../../../hooks/useAuth";
 import { popUp } from "../../../utils/Popup";
+import { useMutation } from "@tanstack/react-query";
 
 const NavigationBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { auth, setAuth } = useAuth();
 
+  const { mutateAsync: logoutMutate } = useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async () => logoutUser(),
+    onSuccess: async () => {
+      popUp("Sign out successfully", "success");
+      setAuth(false);
+    },
+  });
+
   const handleSignOut = async () => {
-    await logoutUser();
-    popUp("Sign out successfully", "success");
-    setAuth(false);
+    await logoutMutate();
   };
 
   const handleMenuToggle = () => {
