@@ -63,12 +63,13 @@ const HeroBullets = () => {
 
           <Group mt={30}>
             <Link
+              className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold
+    bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none 
+    transition-all text-md dark:focus:ring-offset-gray-800 whitespace-nowrap"
               to="https://github.com/Filipus1/Hermes-Frontend"
               target="_blank"
             >
-              <Button color={"cyan"} variant="filled" radius="xl" size="md">
-                Source code
-              </Button>
+              Source code
             </Link>
           </Group>
         </div>
