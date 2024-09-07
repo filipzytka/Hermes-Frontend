@@ -76,10 +76,8 @@ export default function CollaboratorsGrid() {
   };
 
   useEffect(() => {
-    if (isFetched) {
-      fetchCollaborators();
-    }
-  }, [isFetched, deleteUsersMutate]);
+    fetchCollaborators();
+  }, [isFetched]);
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
