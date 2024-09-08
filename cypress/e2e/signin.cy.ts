@@ -1,6 +1,6 @@
 describe("sign in", () => {
   it("should show validation errors when leaving all fields blank", () => {
-    cy.visit(`${Cypress.env("localhost")}/login`);
+    cy.visit(`${Cypress.env("LOCALHOST")}/login`);
 
     cy.get('[data-cy="signin_submit"]').click();
 
@@ -14,11 +14,11 @@ describe("sign in", () => {
   });
 
   it("should redirect the user to a home page after successfull signing in", () => {
-    cy.visit(`${Cypress.env("localhost")}/login`);
+    cy.visit(`${Cypress.env("LOCALHOST")}/login`);
 
-    cy.get('[data-cy="email-input"]').type(`${Cypress.env("email")}`);
+    cy.get('[data-cy="email-input"]').type(`${Cypress.env("EMAIL")}`);
 
-    cy.get('[data-cy="password-input"]').type(`${Cypress.env("password")}`);
+    cy.get('[data-cy="password-input"]').type(`${Cypress.env("PASSWORD")}`);
 
     cy.get('[data-cy="signin_submit"]').click();
 

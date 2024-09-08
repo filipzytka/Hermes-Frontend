@@ -28,8 +28,8 @@ jobs:
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
-          localhost: ${{secrets.LOCALHOST}}
-          email: ${{secrets.EMAIL}}
-          password: ${{secrets.PASSWORD}}
+          CYPRESS_LOCALHOST: ${{secrets.CYPRESS_LOCALHOST}}
+          CYPRESS_EMAIL: ${{secrets.CYPRESS_EMAIL}}
+          CYPRESS_PASSWORD: ${{secrets.CYPRESS_PASSWORD}}
         with:
           start: npm run dev

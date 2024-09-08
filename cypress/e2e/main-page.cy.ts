@@ -1,17 +1,17 @@
 describe("main page", () => {
   it("should show HeroBullets when entering home page", () => {
-    cy.visit(`${Cypress.env("localhost")}/`);
+    cy.visit(`${Cypress.env("LOCALHOST")}/`);
     cy.get('[data-cy="hero-bullets"]').should("exist");
   });
 
   it("should show info when clicking faq sections", () => {
-    cy.visit(`${Cypress.env("localhost")}/faq`);
+    cy.visit(`${Cypress.env("LOCALHOST")}/faq`);
     cy.get('[data-cy="faq"]').should("exist");
     cy.get('[data-cy="faq-item-0"').should("exist").click();
   });
 
   it("should navigate to given pages when clicking navbar links", () => {
-    cy.visit(`${Cypress.env("localhost")}`);
+    cy.visit(`${Cypress.env("LOCALHOST")}`);
 
     cy.get('[data-cy="link-home"]').should("exist").click();
     cy.url().should("match", /\/$/);
@@ -24,7 +24,7 @@ describe("main page", () => {
   });
 
   it("should dashboard link be not visible when being not signed in", () => {
-    cy.visit(`${Cypress.env("localhost")}`);
+    cy.visit(`${Cypress.env("LOCALHOST")}`);
 
     cy.get('[data-cy="link-dashboard"]').should("not.exist");
   });
