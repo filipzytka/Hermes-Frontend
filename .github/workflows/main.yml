@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
     branches:
       - master
@@ -24,3 +24,10 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Cypress
+        uses: cypress-io/github-action@v6.5.0
+        env:
+          localhost: ${{secrets.LOCALHOST}}
+          email: ${{secrets.EMAIL}}
+          password: ${{secrets.PASSWORD}}
