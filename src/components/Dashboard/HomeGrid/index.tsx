@@ -110,17 +110,17 @@ export default function HomeGrid() {
         <Grid key={2} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Public"
-            value={serverData?.public?.toString()}
+            value={serverData?.public.toString()}
             title2="Port"
-            value2={serverData?.port?.toString()}
+            value2={serverData?.port.toString()}
           />
         </Grid>{" "}
         <Grid key={3} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Has password"
-            value={serverData?.hasPassword?.toString()}
+            value={serverData?.hasPassword.toString()}
             title2="Server Type"
-            value2={serverData?.serverType?.toString()}
+            value2={serverData?.serverType.toString()}
           />
         </Grid>
         <Grid key={4} size={{ xs: 12, sm: 6, lg: 3 }}>
