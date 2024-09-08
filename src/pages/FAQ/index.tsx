@@ -13,9 +13,13 @@ const FAQ = () => {
           Frequently Asked Questions
         </Title>
 
-        <Accordion variant="separated">
+        <Accordion data-cy="faq" variant="separated">
           {data.map((d, index) => (
-            <Accordion.Item key={index} value={d.value}>
+            <Accordion.Item
+              data-cy={`faq-item-${index}`}
+              key={index}
+              value={d.value}
+            >
               <Accordion.Control>{d.question}</Accordion.Control>
               <Accordion.Panel>{d.answer}</Accordion.Panel>
             </Accordion.Item>

@@ -93,14 +93,19 @@ export default function SignIn() {
                 name="email"
                 validators={{
                   onChangeAsyncDebounceMs: 500,
-                  onChangeAsync: ({ value }) => {
+                  onSubmit: ({ value }) => {
+                    if (value.length === 0) {
+                      return "Email field is empty";
+                    }
+                  },
+                  onChange: ({ value }) => {
                     if (value.length < 8 && value.length !== 0) {
                       return "Email must be at least 8 characters long";
                     }
 
                     if (
-                      value.length !== 0 &&
-                      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) &&
+                      value.length !== 0
                     ) {
                       return "Invalid email format";
                     }
@@ -110,6 +115,7 @@ export default function SignIn() {
                   return (
                     <div>
                       <TextField
+                        data-cy="email-input"
                         onChange={(e) => field.handleChange(e.target.value)}
                         onBlur={field.handleBlur}
                         id="email"
@@ -124,7 +130,10 @@ export default function SignIn() {
                         sx={{ ariaLabel: "email" }}
                       />
                       {field.state.meta.errors && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div
+                          data-cy="error-submit-email"
+                          className="text-red-500 text-sm mt-1"
+                        >
                           {field.state.meta.errors}
                         </div>
                       )}
@@ -142,7 +151,12 @@ export default function SignIn() {
                 name="password"
                 validators={{
                   onChangeAsyncDebounceMs: 500,
-                  onChangeAsync: async ({ value }) => {
+                  onSubmit: ({ value }) => {
+                    if (value.length === 0) {
+                      return "Password field is empty";
+                    }
+                  },
+                  onChange: ({ value }) => {
                     if (value.length < 8 && value.length !== 0) {
                       return "Password must be at least 8 characters long";
                     }
@@ -158,6 +172,7 @@ export default function SignIn() {
                   return (
                     <div>
                       <TextField
+                        data-cy="password-input"
                         onChange={(e) => field.handleChange(e.target.value)}
                         onBlur={field.handleBlur}
                         name="password"
@@ -171,7 +186,10 @@ export default function SignIn() {
                         variant="outlined"
                       />
                       {field.state.meta.errors && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div
+                          data-cy="error-submit-password"
+                          className="text-red-500 text-sm mt-1"
+                        >
                           {field.state.meta.errors}
                         </div>
                       )}
@@ -180,7 +198,12 @@ export default function SignIn() {
                 }}
               />
             </FormControl>
-            <Button type="submit" fullWidth variant="contained">
+            <Button
+              data-cy="signin_submit"
+              type="submit"
+              fullWidth
+              variant="contained"
+            >
               Sign in
             </Button>
           </Box>

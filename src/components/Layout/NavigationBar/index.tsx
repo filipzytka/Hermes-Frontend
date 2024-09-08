@@ -62,6 +62,7 @@ const NavigationBar = () => {
           <div className="hidden md:flex gap-8">
             {auth && (
               <Link
+                data-cy="link-dashboard"
                 to="/dashboard/home"
                 className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
               >
@@ -69,19 +70,21 @@ const NavigationBar = () => {
               </Link>
             )}
             <Link
+              data-cy="link-home"
               to="/"
               className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
             >
               Home
             </Link>
             <Link
+              data-cy="link-faq"
               to="/faq"
               className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
             >
               FAQ
             </Link>
             {!auth ? (
-              <Link to="/login">
+              <Link data-cy="link-signin" to="/login">
                 <button className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600">
                   Sign in
                 </button>

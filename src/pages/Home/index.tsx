@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <Layout>
       <section
-        data-testid="cypress-hero-bullets"
+        data-cy="hero-bullets"
         id="hero-bullets"
         className="mt-8 md:mt-32 mx-6"
       >
