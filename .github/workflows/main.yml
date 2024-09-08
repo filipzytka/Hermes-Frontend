@@ -31,3 +31,5 @@ jobs:
           localhost: ${{secrets.LOCALHOST}}
           email: ${{secrets.EMAIL}}
           password: ${{secrets.PASSWORD}}
+        with:
+          start: npm run dev
