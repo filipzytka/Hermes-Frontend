@@ -9,6 +9,10 @@ import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import MenuButton from "./MenuButton";
 import MenuContent from "./MenuContent";
 import { useAuth } from "../../hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import { logoutUser } from "../../api/auth";
+import { popUp } from "../../utils/Popup";
+import { useNavigate } from "react-router-dom";
 
 interface SideMenuMobileProps {
   open: boolean | undefined;
@@ -19,7 +23,23 @@ export default function SideMenuMobile({
   open,
   toggleDrawer,
 }: SideMenuMobileProps) {
-  const { email } = useAuth();
+  const { email, setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  const { mutateAsync: logoutMutate } = useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async () => logoutUser(),
+    onSuccess: async () => {
+      popUp("Sign out successfully", "success");
+      setAuth(false);
+      navigate("/");
+    },
+  });
+
+  const handleSignOut = async () => {
+    await logoutMutate();
+  };
+
   return (
     <Drawer
       anchor="right"
@@ -58,6 +78,7 @@ export default function SideMenuMobile({
         </Stack>
         <Stack sx={{ p: 2 }}>
           <Button
+            onClick={handleSignOut}
             variant="outlined"
             fullWidth
             startIcon={<LogoutRoundedIcon />}
