@@ -12,6 +12,7 @@ import { TGraphDataset } from "./data";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Loading";
 
 type TServerStatus = "Online" | "Offline";
 
@@ -25,7 +26,11 @@ export default function HomeGrid() {
     queryFn: () => getServerStatus(),
   });
 
-  const { refetch: serverDataRefetch } = useQuery({
+  const {
+    refetch: serverDataRefetch,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["serverData"],
     queryFn: () => getServerData(),
   });
@@ -74,6 +79,10 @@ export default function HomeGrid() {
     fetchServerData();
     fetchServerStatus();
   }, []);
+
+  if (isLoading || isFetching) {
+    return <Loading />;
+  }
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>

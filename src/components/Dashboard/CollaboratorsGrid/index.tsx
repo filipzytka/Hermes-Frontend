@@ -20,15 +20,16 @@ import {
   getCollaborators,
 } from "../../../api/collaborators";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import Loading from "../../Loading";
 
 export default function CollaboratorsGrid() {
   const [collaboratorsRows, setCollaboratorsRows] = useState<GridRowsProp>([]);
   const { isShowing, setIsShowing, toggle } = useModal();
   const { email } = useAuth();
 
-  const { isFetched, refetch } = useQuery({
+  const { isFetched, refetch, isLoading, isFetching } = useQuery({
     queryKey: ["collaborators"],
-    queryFn: async () => getCollaborators(),
+    queryFn: () => getCollaborators(),
   });
 
   const { mutateAsync: deleteUsersMutate } = useMutation({
@@ -78,6 +79,10 @@ export default function CollaboratorsGrid() {
   useEffect(() => {
     fetchCollaborators();
   }, [isFetched]);
+
+  if (isLoading || isFetching) {
+    return <Loading />;
+  }
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>

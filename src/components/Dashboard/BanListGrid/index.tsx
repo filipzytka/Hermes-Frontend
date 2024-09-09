@@ -21,7 +21,11 @@ import Loading from "../../Loading";
 export default function BanListGrid() {
   const [bannedPlayersRows, setBannedPlayersRows] = useState<GridRowsProp>([]);
 
-  const { refetch: bannedPlayersRefetch, isLoading } = useQuery({
+  const {
+    refetch: bannedPlayersRefetch,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["bannedPlayers"],
     queryFn: () => getBannedPlayers(),
   });
@@ -72,7 +76,7 @@ export default function BanListGrid() {
     fetchBannedPlayers();
   }, []);
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Loading />;
   }
 
