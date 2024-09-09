@@ -11,6 +11,11 @@ import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 import MenuButton from "./MenuButton";
 import { useState } from "react";
 import React from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { logoutUser } from "../../api/auth";
+import { popUp } from "../../utils/Popup";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const MenuItem = styled(MuiMenuItem)({
   margin: "2px 0",
@@ -18,13 +23,33 @@ const MenuItem = styled(MuiMenuItem)({
 
 export default function OptionsMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { mutateAsync: logoutMutate } = useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async () => logoutUser(),
+    onSuccess: async () => {
+      popUp("Sign out successfully", "success");
+      setAuth(false);
+      navigate("/");
+    },
+  });
+
+  const handleSignOut = async () => {
+    await logoutMutate();
+  };
+
   return (
     <React.Fragment>
       <MenuButton
@@ -55,7 +80,7 @@ export default function OptionsMenu() {
         }}
       >
         <MenuItem
-          onClick={handleClose}
+          onClick={handleSignOut}
           sx={{
             [`& .${listItemIconClasses.root}`]: {
               ml: "auto",
