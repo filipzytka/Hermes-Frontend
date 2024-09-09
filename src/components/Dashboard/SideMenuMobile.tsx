@@ -1,4 +1,3 @@
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
@@ -9,6 +8,7 @@ import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 
 import MenuButton from "./MenuButton";
 import MenuContent from "./MenuContent";
+import { useAuth } from "../../hooks/useAuth";
 
 interface SideMenuMobileProps {
   open: boolean | undefined;
@@ -19,6 +19,7 @@ export default function SideMenuMobile({
   open,
   toggleDrawer,
 }: SideMenuMobileProps) {
+  const { email } = useAuth();
   return (
     <Drawer
       anchor="right"
@@ -42,14 +43,8 @@ export default function SideMenuMobile({
             direction="row"
             sx={{ gap: 1, alignItems: "center", flexGrow: 1, p: 1 }}
           >
-            <Avatar
-              sizes="small"
-              alt="Riley Carter"
-              src="/static/images/avatar/7.jpg"
-              sx={{ width: 24, height: 24 }}
-            />
             <Typography component="p" variant="h6">
-              Riley Carter
+              {email}
             </Typography>
           </Stack>
           <MenuButton showBadge>

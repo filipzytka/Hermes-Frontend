@@ -1,5 +1,4 @@
 import { styled } from "@mui/material/styles";
-import Avatar from "@mui/material/Avatar";
 import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -56,12 +55,6 @@ export default function SideMenu({ currentPageIndex }: Props) {
           borderColor: "divider",
         }}
       >
-        <Avatar
-          sizes="small"
-          alt={email}
-          src="/static/images/avatar/7.jpg"
-          sx={{ width: 36, height: 36 }}
-        />
         <Box sx={{ mr: "auto" }}>
           <Typography
             variant="body2"
