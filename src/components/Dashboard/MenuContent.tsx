@@ -24,11 +24,11 @@ export default function MenuContent({ currentPageIndex }: Props) {
 
   const handleNavigation = (index: number) => {
     if (index == 0) {
-      navigate("/dashboard/home");
+      navigate("/admin/dashboard/home");
     } else if (index == 1) {
       navigate("/admin/dashboard/collab");
     } else if (index == 2) {
-      navigate("/dashboard/banlist");
+      navigate("/admin/dashboard/banlist");
     }
   };
 

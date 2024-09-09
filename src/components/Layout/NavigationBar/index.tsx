@@ -63,7 +63,7 @@ const NavigationBar = () => {
             {auth && (
               <Link
                 data-cy="link-dashboard"
-                to="/dashboard/home"
+                to="/admin/dashboard/home"
                 className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
               >
                 Dashboard

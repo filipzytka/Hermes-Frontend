@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/dashboard/home",
+    path: "admin/dashboard/home",
     element: (
       <PrivateRoute>
         <Dashboard />
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "dashboard/banlist",
+    path: "admin/dashboard/banlist",
     element: (
       <PrivateRoute>
         <BanListDashboard />
