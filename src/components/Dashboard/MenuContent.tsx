@@ -36,7 +36,12 @@ export default function MenuContent({ currentPageIndex }: Props) {
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
       <List dense>
         {mainListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: "block" }}>
+          <ListItem
+            data-cy={`dashboard-nav-menu-item-${index}`}
+            key={index}
+            disablePadding
+            sx={{ display: "block" }}
+          >
             <ListItemButton
               onClick={() => handleNavigation(index)}
               selected={index === currentPageIndex}

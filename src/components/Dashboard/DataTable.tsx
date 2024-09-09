@@ -64,12 +64,21 @@ export default function DataTable<T>({
     <>
       <Box sx={{ mb: 2 }}>
         {onAdd && (
-          <Button onClick={onAdd} variant="outlined" sx={{ mr: 1 }}>
+          <Button
+            data-cy="add-button"
+            onClick={onAdd}
+            variant="outlined"
+            sx={{ mr: 1 }}
+          >
             Invite
           </Button>
         )}
         {onRemove && (
-          <Button onClick={handleRemove} variant="outlined">
+          <Button
+            data-cy="remove-button"
+            onClick={handleRemove}
+            variant="outlined"
+          >
             Remove
           </Button>
         )}

@@ -23,7 +23,7 @@ describe("main page", () => {
     cy.url().should("match", /\/login$/);
   });
 
-  it("should dashboard link be not visible when being not signed in", () => {
+  it("should dashboard link be not visible when not signed in", () => {
     cy.visit(`${Cypress.env("LOCALHOST")}`);
 
     cy.get('[data-cy="link-dashboard"]').should("not.exist");
