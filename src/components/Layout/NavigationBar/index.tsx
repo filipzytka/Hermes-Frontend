@@ -132,7 +132,7 @@ const NavigationBar = () => {
           <li>
             {auth && (
               <Link
-                to="/dashboard/home"
+                to="/admin/dashboard/home"
                 className="block py-2 px-3 rounded md:hover:bg-transparent
                             md:hover:text-cyan-600 md:p-0
                             md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
