@@ -99,10 +99,6 @@ export default function SignIn() {
                     }
                   },
                   onChange: ({ value }) => {
-                    if (value.length < 8 && value.length !== 0) {
-                      return "Email must be at least 8 characters long";
-                    }
-
                     if (
                       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) &&
                       value.length !== 0
