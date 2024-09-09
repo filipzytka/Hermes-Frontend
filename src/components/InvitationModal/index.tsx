@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import Button from "@mui/material/Button/Button";
 import Box from "@mui/material/Box/Box";
 import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "../../hooks/useAuth";
 
 type Props = {
   isShowing: boolean;
@@ -17,9 +18,10 @@ type Props = {
 };
 
 const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
-  const { mutateAsync: sendEmailMutate } = useMutation({
+  const { email } = useAuth();
+  const { mutateAsync: generateTokenMutate } = useMutation({
     mutationKey: ["generateToken"],
-    mutationFn: async ({ email }: { email: string }) => {
+    mutationFn: async () => {
       return generateToken(email);
     },
   });
@@ -34,7 +36,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
   });
 
   const handleEmailSending = async (email: string) => {
-    const response = await sendEmailMutate({ email });
+    const response = await generateTokenMutate();
     const generatedToken = response.data.token;
 
     onSend(email, generatedToken!);
