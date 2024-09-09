@@ -15,6 +15,9 @@ import { validateToken } from "../../api/token";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../api/user";
 import AuthThemeProvider from "../../components/AuthThemeProvider";
+import { popUp } from "../../utils/Popup";
+import { AxiosError } from "axios";
+import { TMessageResponse } from "../../api/response-types";
 
 export default function SignUp() {
   const [token, setToken] = useState("");
@@ -37,8 +40,12 @@ export default function SignUp() {
     onSuccess: () => {
       navigate("/login");
     },
-    onError: () => {
-      navigate("/");
+    onError: (error: AxiosError) => {
+      popUp(
+        `${(error.response?.data as TMessageResponse).message}` ||
+          "Something went wrong",
+        "error"
+      );
     },
   });
 
