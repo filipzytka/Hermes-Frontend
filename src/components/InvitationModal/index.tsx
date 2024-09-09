@@ -1,10 +1,14 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { popUp } from "../../utils/Popup";
 import { generateToken } from "../../api/token";
-import { useAuth } from "../../hooks/useAuth";
 import { FaAddressBook } from "react-icons/fa";
-import InvitationModalForm from "./Form/InvitationModalForm";
+import { useForm } from "@tanstack/react-form";
+import TextField from "@mui/material/TextField/TextField";
+import FormControl from "@mui/material/FormControl/FormControl";
+import Button from "@mui/material/Button/Button";
+import Box from "@mui/material/Box/Box";
+import { useMutation } from "@tanstack/react-query";
 
 type Props = {
   isShowing: boolean;
@@ -13,20 +17,27 @@ type Props = {
 };
 
 const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
-  const [inputEmail, setInputValue] = useState("");
-  const { email } = useAuth();
+  const { mutateAsync: sendEmailMutate } = useMutation({
+    mutationKey: ["generateToken"],
+    mutationFn: async ({ email }: { email: string }) => {
+      return generateToken(email);
+    },
+  });
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const response = await generateToken(email);
+  const form = useForm({
+    defaultValues: {
+      email: "",
+    },
+    onSubmit: (data) => {
+      handleEmailSending(data.value.email);
+    },
+  });
 
-    if (response.status !== 200 || !response.data) {
-      return;
-    }
-
+  const handleEmailSending = async (email: string) => {
+    const response = await sendEmailMutate({ email });
     const generatedToken = response.data.token;
 
-    onSend(inputEmail, generatedToken!);
+    onSend(email, generatedToken!);
 
     popUp("Invitation has been sent successfully", "success");
     onClose();
@@ -42,11 +53,82 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
         <div className="absolute right-4 top-4">
           <CloseButton handler={onClose} />
         </div>
-        <InvitationModalHeader />
-        <InvitationModalForm
-          submitHandler={handleSubmit}
-          emailChangeHandler={setInputValue}
-        />
+        <Box
+          component="form"
+          noValidate
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            gap: 2,
+            padding: 2,
+          }}
+        >
+          <InvitationModalHeader />
+          <FormControl fullWidth>
+            <h2 className="my-1">Email</h2>
+
+            <form.Field
+              name="email"
+              validators={{
+                onChangeAsyncDebounceMs: 500,
+                onSubmit: ({ value }) => {
+                  if (value.length === 0) {
+                    return "Email field is empty";
+                  }
+                },
+                onChange: ({ value }) => {
+                  if (
+                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) &&
+                    value.length !== 0
+                  ) {
+                    return "Invalid email format";
+                  }
+                },
+              }}
+              children={(field) => {
+                return (
+                  <div>
+                    <TextField
+                      data-cy="inv-modal-input"
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      onBlur={field.handleBlur}
+                      type="email"
+                      name="email"
+                      placeholder="collaborator@email.com"
+                      autoComplete="email"
+                      autoFocus
+                      required
+                      fullWidth
+                      variant="outlined"
+                      aria-label="email"
+                    />
+                    {field.state.meta.errors && (
+                      <div
+                        data-cy="error-submit-email"
+                        className="text-red-500 text-sm mt-1"
+                      >
+                        {field.state.meta.errors}
+                      </div>
+                    )}
+                  </div>
+                );
+              }}
+            />
+          </FormControl>
+          <Button
+            data-cy="inv-button-send"
+            type="submit"
+            fullWidth
+            variant="contained"
+          >
+            Send
+          </Button>
+        </Box>
       </InvitationModalWrapper>
     </>,
     document.getElementById("modal-root") as HTMLElement
