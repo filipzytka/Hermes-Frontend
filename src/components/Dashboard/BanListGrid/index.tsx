@@ -35,8 +35,9 @@ export default function BanListGrid() {
     mutationFn: async (players: BannedPlayer[]) => {
       return updateBannedPlayers(players);
     },
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       popUp(response.message, "success");
+      await fetchBannedPlayers();
     },
     onError: (error: AxiosError) => {
       popUp(
