@@ -7,12 +7,14 @@ import Stack from "@mui/material/Stack";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import PeopleIcon from "@mui/icons-material/People";
 import BlockIcon from "@mui/icons-material/Block";
+import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
 import { useNavigate } from "react-router-dom";
 
 const mainListItems = [
   { text: "Home", icon: <HomeRoundedIcon /> },
   { text: "Collaborators", icon: <PeopleIcon /> },
   { text: "BanList", icon: <BlockIcon /> },
+  { text: "Logs", icon: <SpeakerNotesIcon /> },
 ];
 
 type Props = {
@@ -29,6 +31,8 @@ export default function MenuContent({ currentPageIndex }: Props) {
       navigate("/admin/dashboard/collab");
     } else if (index == 2) {
       navigate("/admin/dashboard/banlist");
+    } else if (index == 3) {
+      navigate("/admin/dashboard/logs");
     }
   };
 

@@ -18,6 +18,7 @@ import CollabDashboard from "./pages/Dashboard/Collaborators";
 import PrivateRoute from "./components/RouteAccess/PrivateRoute";
 import BanListDashboard from "./pages/Dashboard/BanList";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import LogsDashboard from "./pages/Dashboard/Logs";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <BanListDashboard />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "admin/dashboard/logs",
+    element: (
+      <PrivateRoute>
+        <LogsDashboard />
       </PrivateRoute>
     ),
   },

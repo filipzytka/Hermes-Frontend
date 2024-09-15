@@ -45,3 +45,8 @@ export type TServerDataChartResponse = {
   players: number;
   created: string;
 };
+
+export type TLogsResponse = {
+  message: string;
+  created: string;
+};

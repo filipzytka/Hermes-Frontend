@@ -103,7 +103,7 @@ export default function CollaboratorsGrid() {
         </Button>
       </Stack>
 
-      <Typography component="h2" variant="h6" sx={{ mt: 2, mb: 2 }}>
+      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Collaborators
       </Typography>
       <Grid container spacing={2} columns={12}>
