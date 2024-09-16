@@ -5,10 +5,7 @@ export default function BanListDashboard() {
   const BANLIST_PAGE_INDEX = 2;
 
   return (
-    <DashboardLayout
-      currentPageIndex={BANLIST_PAGE_INDEX}
-      currentPage={"BanList"}
-    >
+    <DashboardLayout currentPageIndex={BANLIST_PAGE_INDEX}>
       <BanListGrid />
     </DashboardLayout>
   );

@@ -12,19 +12,13 @@ import SideMenu from "../SideMenu";
 import TemplateFrame from "../TemplateFrame";
 import React, { useState, useEffect } from "react";
 import getDashboardTheme from "../theme/getDashboardTheme";
-import Header from "../Header";
 
 type Props = {
   currentPageIndex: number;
-  currentPage: string;
   children: React.ReactNode;
 };
 
-const DashboardLayout = ({
-  currentPageIndex,
-  currentPage,
-  children,
-}: Props) => {
+const DashboardLayout = ({ currentPageIndex, children }: Props) => {
   const [mode, setMode] = useState<PaletteMode>("dark");
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const dashboardTheme = createTheme(getDashboardTheme(mode));
@@ -81,7 +75,6 @@ const DashboardLayout = ({
                 mt: { xs: 8, md: 0 },
               }}
             >
-              <Header currentPage={currentPage} />
               {children}
             </Stack>
           </Box>

@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Loading";
+import Header from "../Header";
 
 type TServerStatus = "Online" | "Offline";
 
@@ -86,18 +87,17 @@ export default function HomeGrid() {
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
+      <Header currentPage={"Home"} />
       <Stack
         direction="row"
         sx={{
           flexGrow: 1,
-          p: 1,
+          py: 1,
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-          Overview
-        </Typography>
+        <Typography component="h2" variant="h6" sx={{ mb: 2 }} />
         <Button variant="outlined" onClick={handleRefresh}>
           Refresh
         </Button>

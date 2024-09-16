@@ -5,10 +5,7 @@ export default function CollabDashboard() {
   const COLLABORATORS_PAGE_INDEX = 1;
 
   return (
-    <DashboardLayout
-      currentPageIndex={COLLABORATORS_PAGE_INDEX}
-      currentPage={"Collaborators"}
-    >
+    <DashboardLayout currentPageIndex={COLLABORATORS_PAGE_INDEX}>
       <CollaboratorsGrid />
     </DashboardLayout>
   );
