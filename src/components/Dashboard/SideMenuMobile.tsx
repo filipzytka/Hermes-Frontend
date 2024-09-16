@@ -30,7 +30,7 @@ export default function SideMenuMobile({
     mutationKey: ["logout"],
     mutationFn: async () => logoutUser(),
     onSuccess: async () => {
-      popUp("Sign out successfully", "success");
+      popUp("Signed out successfully", "success");
       setAuth(false);
       navigate("/");
     },

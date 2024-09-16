@@ -40,7 +40,7 @@ export default function OptionsMenu() {
     mutationKey: ["logout"],
     mutationFn: async () => logoutUser(),
     onSuccess: async () => {
-      popUp("Sign out successfully", "success");
+      popUp("Signed out successfully", "success");
       setAuth(false);
       navigate("/");
     },
