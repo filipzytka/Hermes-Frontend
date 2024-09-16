@@ -87,7 +87,7 @@ export default function CollaboratorsGrid() {
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
-      <Header currentPage={"Home"} />
+      <Header currentPage={"Collaborators"} />
       <Stack
         direction="row"
         sx={{
@@ -107,7 +107,12 @@ export default function CollaboratorsGrid() {
         Collaborators
       </Typography>
       <Grid container spacing={2} columns={12}>
-        <Grid size={{ md: 12, lg: 9 }}>
+        <Grid
+          size={{ md: 12, lg: 9 }}
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           {isFetched && (
             <DataTable
               columns={collaboratorColumns}

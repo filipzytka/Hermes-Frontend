@@ -70,7 +70,12 @@ export default function LogsGrid() {
         Logs
       </Typography>
       <Grid container spacing={2} columns={12}>
-        <Grid size={{ md: 12, lg: 9 }}>
+        <Grid
+          size={{ md: 12, lg: 9 }}
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           {isFetched && <DataTable columns={logsColumns} rows={logsRows} />}
         </Grid>
       </Grid>

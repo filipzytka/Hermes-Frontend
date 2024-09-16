@@ -140,13 +140,25 @@ export default function HomeGrid() {
             value2={serverData?.version}
           />
         </Grid>
-        <Grid key={5} size={{ sm: 12, md: 6 }}>
+        <Grid
+          key={5}
+          size={{ sm: 12, md: 6 }}
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           <PlayersLineChart
             yAxisData={chartData.map((point) => point.y)}
             xAxisData={chartData.map((point) => point.x)}
           />
         </Grid>
-        <Grid key={6} size={{ sm: 12, md: 6 }}>
+        <Grid
+          key={6}
+          size={{ sm: 12, md: 6 }}
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           <PlayersBarChart
             xAxisData={chartData.map((point) => point.x)}
             yAxisData={chartData.map((point) => point.y)}
