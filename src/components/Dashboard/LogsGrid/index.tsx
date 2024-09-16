@@ -35,7 +35,7 @@ export default function LogsGrid() {
   };
 
   const handleRefresh = async () => {
-    popUp("Collaborators list has been updated", "success");
+    popUp("Logs have been updated", "success");
     fetchLogs();
   };
 
