@@ -18,10 +18,12 @@ import AuthThemeProvider from "../../components/AuthThemeProvider";
 import { popUp } from "../../utils/Popup";
 import { AxiosError } from "axios";
 import { TMessageResponse } from "../../api/response-types";
+import Loading from "../../components/Loading";
 
 export default function SignUp() {
   const [token, setToken] = useState("");
   const [inviter, setInviter] = useState("");
+  const [isTokenValid, setIsTokenValid] = useState(false);
   const navigate = useNavigate();
 
   const { mutateAsync: registerAccountMutate } = useMutation({
@@ -54,9 +56,6 @@ export default function SignUp() {
     mutationFn: async ({ token }: { token: string }) => {
       return validateToken(token);
     },
-    onError: () => {
-      console.log("error ");
-    },
   });
 
   const handleRegisterData = async (email: string, password: string) => {
@@ -81,6 +80,7 @@ export default function SignUp() {
       return;
     }
 
+    setIsTokenValid(true);
     setToken(searchedToken);
 
     const validateTokenStatus = async () => {
@@ -93,6 +93,10 @@ export default function SignUp() {
 
     validateTokenStatus();
   }, []);
+
+  if (!isTokenValid) {
+    return <Loading />;
+  }
 
   return (
     <AuthThemeProvider>
