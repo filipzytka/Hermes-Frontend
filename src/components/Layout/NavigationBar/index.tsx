@@ -21,6 +21,7 @@ const NavigationBar = () => {
 
   const handleSignOut = async () => {
     await logoutMutate();
+    setMenuOpen(false);
   };
 
   const handleMenuToggle = () => {
