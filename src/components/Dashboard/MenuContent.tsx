@@ -9,6 +9,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BlockIcon from "@mui/icons-material/Block";
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const mainListItems = [
   { text: "Home", icon: <HomeRoundedIcon /> },
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export default function MenuContent({ currentPageIndex }: Props) {
+  const { role } = useAuth();
   const navigate = useNavigate();
 
   const handleNavigation = (index: number) => {
@@ -39,22 +41,28 @@ export default function MenuContent({ currentPageIndex }: Props) {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
       <List dense>
-        {mainListItems.map((item, index) => (
-          <ListItem
-            data-cy={`dashboard-nav-menu-item-${index}`}
-            key={index}
-            disablePadding
-            sx={{ display: "block" }}
-          >
-            <ListItemButton
-              onClick={() => handleNavigation(index)}
-              selected={index === currentPageIndex}
+        {mainListItems.map((item, index) => {
+          if (item.text === "Collaborators" && role !== "admin") {
+            return null;
+          }
+
+          return (
+            <ListItem
+              data-cy={`dashboard-nav-menu-item-${index}`}
+              key={index}
+              disablePadding
+              sx={{ display: "block" }}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+              <ListItemButton
+                onClick={() => handleNavigation(index)}
+                selected={index === currentPageIndex}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
     </Stack>
   );
