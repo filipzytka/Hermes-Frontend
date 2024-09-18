@@ -40,7 +40,7 @@ export default function SideMenu({ currentPageIndex }: Props) {
       <Box
         sx={{
           display: "flex",
-          mt: "60px",
+          mt: "25px",
           p: 1.5,
         }}
       ></Box>
