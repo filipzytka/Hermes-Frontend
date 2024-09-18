@@ -2,7 +2,6 @@ import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "../DataTable";
-import { useEffect, useState } from "react";
 import { popUp } from "../../../utils/Popup";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -11,7 +10,6 @@ import {
   getBannedPlayers,
   updateBannedPlayers,
 } from "../../../api/ban-list";
-import { GridRowsProp } from "@mui/x-data-grid/models/gridRows";
 import { bannedPlayersColumns } from "./data";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -20,12 +18,10 @@ import Loading from "../../Loading";
 import Header from "../Header";
 
 export default function BanListGrid() {
-  const [bannedPlayersRows, setBannedPlayersRows] = useState<GridRowsProp>([]);
-
   const {
+    data: bannedPlayersData,
     refetch: bannedPlayersRefetch,
     isLoading,
-    isFetching,
   } = useQuery({
     queryKey: ["bannedPlayers"],
     queryFn: () => getBannedPlayers(),
@@ -38,7 +34,7 @@ export default function BanListGrid() {
     },
     onSuccess: async (response) => {
       popUp(response.message, "success");
-      await fetchBannedPlayers();
+      await bannedPlayersRefetch();
     },
     onError: (error: AxiosError) => {
       popUp(
@@ -51,34 +47,17 @@ export default function BanListGrid() {
 
   const handleRefresh = async () => {
     popUp("Ban list has been updated", "success");
-    fetchBannedPlayers();
+    await bannedPlayersRefetch();
   };
 
-  const handleBanPlayersRemoval = async (players: BannedPlayer[]) => {
-    await updateBannedMutate(players);
-  };
-
-  const fetchBannedPlayers = async () => {
-    const { data: bannedPlayers } = await bannedPlayersRefetch();
-
-    if (!bannedPlayers) {
-      return;
-    }
-
-    const bannedRows = bannedPlayers.map((b, index) => ({
+  const banListRows =
+    bannedPlayersData?.map((b, index) => ({
       id: index,
       Token: b.Token,
       Ip: b.Ip,
-    }));
+    })) ?? [];
 
-    setBannedPlayersRows(bannedRows);
-  };
-
-  useEffect(() => {
-    fetchBannedPlayers();
-  }, []);
-
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -113,8 +92,10 @@ export default function BanListGrid() {
           <DataTable
             isBanList={true}
             columns={bannedPlayersColumns}
-            rows={bannedPlayersRows}
-            onRemove={handleBanPlayersRemoval}
+            rows={banListRows}
+            onRemove={updateBannedMutate}
+            isCheckbox={true}
+            paginationSide={"client"}
           />
         </Grid>
       </Grid>

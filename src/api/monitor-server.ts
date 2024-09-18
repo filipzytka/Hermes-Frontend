@@ -1,6 +1,10 @@
 import axios from "axios";
 import { SERVER_URL } from "./constants";
-import { TMessageResponse, TServerDataResponse } from "./response-types";
+import {
+  TMessageResponse,
+  TServerDataChartResponse,
+  TServerDataResponse,
+} from "./response-types";
 
 export const getServerStatus = async () => {
   const { data, status } = await axios.get<TMessageResponse>(
@@ -13,13 +17,23 @@ export const getServerStatus = async () => {
   return { data, status };
 };
 
-export const getServerData = async () => {
-  const { data, status } = await axios.get<TServerDataResponse[]>(
-    `${SERVER_URL}/api/server/get/data`,
+export const getRecentServerData = async () => {
+  const { data, status } = await axios.get<TServerDataResponse>(
+    `${SERVER_URL}/api/server`,
     {
       withCredentials: true,
     }
   );
 
+  return { data, status };
+};
+
+export const getRecentPlayerData = async () => {
+  const { data, status } = await axios.get<TServerDataChartResponse[]>(
+    `${SERVER_URL}/api/server/players`,
+    {
+      withCredentials: true,
+    }
+  );
   return { data, status };
 };

@@ -1,5 +1,6 @@
 export type TCollaborator = {
   email: string;
+  role: string;
 };
 
 export type TAuthResponse = {
@@ -46,7 +47,17 @@ export type TServerDataChartResponse = {
   created: string;
 };
 
-export type TLogsResponse = {
+export type TLogs = {
   message: string;
   created: string;
+};
+
+export type TLogsResponse = {
+  logs: TLogs[];
+  currentPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
 };

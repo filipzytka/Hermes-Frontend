@@ -4,86 +4,55 @@ import Typography from "@mui/material/Typography";
 import PlayersBarChart from "../PlayersBarChart";
 import PlayersLineChart from "../PlayersLineChart";
 import StatCard from "../StatCard";
-import { useEffect, useState } from "react";
-import { getServerData, getServerStatus } from "../../../api/monitor-server";
+import {
+  getRecentPlayerData,
+  getRecentServerData,
+  getServerStatus,
+} from "../../../api/monitor-server";
 import { popUp } from "../../../utils/Popup";
-import { TServerDataResponse } from "../../../api/response-types";
-import { TGraphDataset } from "./data";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Loading";
 import Header from "../Header";
 
-type TServerStatus = "Online" | "Offline";
-
 export default function HomeGrid() {
-  const [serverData, setServerData] = useState<TServerDataResponse>();
-  const [chartData, setChartData] = useState<TGraphDataset[]>([]);
-  const [serverStatus, setServerStatus] = useState<TServerStatus>("Offline");
-
-  const { refetch: serverStatusRefetch } = useQuery({
+  const { data: serverStatus, refetch: serverStatusRefetch } = useQuery({
     queryKey: ["serverStatus"],
     queryFn: () => getServerStatus(),
   });
 
+  const { data: playerData, refetch: serverPlayersRefetch } = useQuery({
+    queryKey: ["playerData"],
+    queryFn: () => getRecentPlayerData(),
+  });
+
   const {
+    data: serverData,
     refetch: serverDataRefetch,
     isLoading,
     isFetching,
   } = useQuery({
     queryKey: ["serverData"],
-    queryFn: () => getServerData(),
+    queryFn: () => getRecentServerData(),
   });
-
-  const fetchServerStatus = async () => {
-    const { data: serverInfo } = await serverStatusRefetch();
-
-    if (!serverInfo) {
-      setServerStatus("Offline");
-
-      return;
-    }
-    setServerStatus(serverInfo.data.message as TServerStatus);
-  };
-
-  const fetchServerData = async () => {
-    const { data: serverDataPayload } = await serverDataRefetch();
-
-    if (!serverDataPayload) {
-      return;
-    }
-
-    const item = serverDataPayload.data.reduce((prev, current) =>
-      +prev.id > +current.id ? prev : current
-    );
-
-    setServerData(item);
-
-    const parsedToChartFormat: TGraphDataset[] = serverDataPayload.data.map(
-      (d) => ({
-        x: d.created,
-        y: d.players,
-      })
-    );
-
-    setChartData(parsedToChartFormat);
-  };
 
   const handleRefresh = async () => {
     popUp("Server data has been updated", "success");
-    fetchServerData();
-    fetchServerStatus();
+    serverDataRefetch();
+    serverStatusRefetch();
+    serverPlayersRefetch();
   };
-
-  useEffect(() => {
-    fetchServerData();
-    fetchServerStatus();
-  }, []);
 
   if (isLoading || isFetching) {
     return <Loading />;
   }
+
+  const parsedToChartFormat =
+    playerData?.data.map((d) => ({
+      x: d.created,
+      y: d.players,
+    })) ?? [];
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
@@ -111,33 +80,33 @@ export default function HomeGrid() {
         <Grid key={1} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Server Name"
-            value={serverData?.serverName}
+            value={serverData?.data.serverName}
             title2="Gamemode"
-            value2={serverData?.gameMode}
+            value2={serverData?.data.gameMode}
           />
         </Grid>{" "}
         <Grid key={2} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Public"
-            value={serverData?.public.toString()}
+            value={serverData?.data.public.toString()}
             title2="Port"
-            value2={serverData?.port.toString()}
+            value2={serverData?.data.port.toString()}
           />
         </Grid>{" "}
         <Grid key={3} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Has password"
-            value={serverData?.hasPassword.toString()}
+            value={serverData?.data.hasPassword.toString()}
             title2="Server Type"
-            value2={serverData?.serverType.toString()}
+            value2={serverData?.data.serverType.toString()}
           />
         </Grid>
         <Grid key={4} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="World"
-            value={serverData?.world}
+            value={serverData?.data.world}
             title2="Version"
-            value2={serverData?.version}
+            value2={serverData?.data.version}
           />
         </Grid>
         <Grid
@@ -148,8 +117,8 @@ export default function HomeGrid() {
           }}
         >
           <PlayersLineChart
-            yAxisData={chartData.map((point) => point.y)}
-            xAxisData={chartData.map((point) => point.x)}
+            yAxisData={parsedToChartFormat.map((point) => point.y)}
+            xAxisData={parsedToChartFormat.map((point) => point.x)}
           />
         </Grid>
         <Grid
@@ -160,8 +129,8 @@ export default function HomeGrid() {
           }}
         >
           <PlayersBarChart
-            xAxisData={chartData.map((point) => point.x)}
-            yAxisData={chartData.map((point) => point.y)}
+            xAxisData={parsedToChartFormat.map((point) => point.x)}
+            yAxisData={parsedToChartFormat.map((point) => point.y)}
           />
         </Grid>
       </Grid>
@@ -173,9 +142,9 @@ export default function HomeGrid() {
         <Grid key={7} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Status"
-            value={serverStatus}
+            value={serverStatus?.data.message}
             title2="Last updated:"
-            value2={serverData?.created}
+            value2={serverData?.data.created}
           />
         </Grid>
       </Grid>

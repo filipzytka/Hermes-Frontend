@@ -2,8 +2,6 @@ import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "../DataTable";
-import { useEffect, useState } from "react";
-import { GridRowsProp } from "@mui/x-data-grid";
 import useModal from "../../../hooks/useModal";
 import { render } from "@react-email/components";
 import Welcome from "../../Email/Welcome";
@@ -24,11 +22,15 @@ import Loading from "../../Loading";
 import Header from "../Header";
 
 export default function CollaboratorsGrid() {
-  const [collaboratorsRows, setCollaboratorsRows] = useState<GridRowsProp>([]);
   const { isShowing, setIsShowing, toggle } = useModal();
   const { email } = useAuth();
 
-  const { isFetched, refetch, isLoading, isFetching } = useQuery({
+  const {
+    data,
+    isFetched,
+    refetch: collaboratorsRefatch,
+    isLoading,
+  } = useQuery({
     queryKey: ["collaborators"],
     queryFn: () => getCollaborators(),
   });
@@ -39,7 +41,7 @@ export default function CollaboratorsGrid() {
       deleteCollaborators(usersToDelete),
     onSuccess: async (response) => {
       popUp(`${response?.message}`, "success");
-      await fetchCollaborators();
+      await collaboratorsRefatch();
     },
   });
 
@@ -52,36 +54,19 @@ export default function CollaboratorsGrid() {
     setIsShowing(false);
   };
 
-  const handleCollaboratorRemoval = async (collaborators: TCollaborator[]) => {
-    await deleteUsersMutate(collaborators);
-  };
-
-  const fetchCollaborators = async () => {
-    const { data: recentData } = await refetch();
-
-    if (!recentData) {
-      return;
-    }
-
-    const collaboratorsData = recentData.collaborators;
-    const collaboratorsRows = collaboratorsData.map((c, index) => ({
-      id: index,
-      email: c.email,
-    }));
-
-    setCollaboratorsRows(collaboratorsRows);
-  };
-
   const handleRefresh = async () => {
     popUp("Collaborators list has been updated", "success");
-    fetchCollaborators();
+    collaboratorsRefatch();
   };
 
-  useEffect(() => {
-    fetchCollaborators();
-  }, [isFetched]);
+  const collaboratorRows =
+    data?.collaborators?.map((c, index) => ({
+      id: index,
+      email: c.email,
+      role: c.role,
+    })) ?? [];
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -115,10 +100,12 @@ export default function CollaboratorsGrid() {
         >
           {isFetched && (
             <DataTable
+              isCheckbox={true}
               columns={collaboratorColumns}
-              rows={collaboratorsRows}
+              rows={collaboratorRows}
               onAdd={toggle}
-              onRemove={handleCollaboratorRemoval}
+              onRemove={deleteUsersMutate}
+              paginationSide={"client"}
             />
           )}
         </Grid>

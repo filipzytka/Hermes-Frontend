@@ -14,6 +14,20 @@ type Props<T> = {
   onAdd?: () => void;
   onRemove?: (items: T[]) => void;
   isBanList?: boolean;
+  rowCount?: number;
+  isCheckbox: boolean;
+  paginationSide: "server" | "client";
+  paginationModel?: {
+    pageSize: number;
+    page: number;
+  };
+  onPageChange?: ({
+    page,
+    pageSize,
+  }: {
+    page: number;
+    pageSize: number;
+  }) => void;
 };
 
 export default function DataTable<T>({
@@ -22,6 +36,11 @@ export default function DataTable<T>({
   onAdd,
   onRemove,
   isBanList,
+  rowCount,
+  paginationModel,
+  onPageChange,
+  isCheckbox,
+  paginationSide,
 }: Props<T>) {
   const [selectedRows, setSelectedRows] = useState<GridRowSelectionModel>([]);
 
@@ -85,9 +104,16 @@ export default function DataTable<T>({
       </Box>
       <DataGrid
         autoHeight
-        checkboxSelection
+        paginationMode={paginationSide}
+        checkboxSelection={isCheckbox}
         rows={rows}
+        rowCount={rowCount}
         columns={columns}
+        paginationModel={paginationModel}
+        onPaginationModelChange={({ page, pageSize }) => {
+          if (!onPageChange) return;
+          onPageChange({ page, pageSize });
+        }}
         onRowSelectionModelChange={(newSelection) =>
           setSelectedRows(newSelection)
         }
@@ -97,7 +123,7 @@ export default function DataTable<T>({
         initialState={{
           pagination: { paginationModel: { pageSize: 20 } },
         }}
-        pageSizeOptions={[20]}
+        pageSizeOptions={[20, 50, 100]}
         disableColumnResize
         density="compact"
         slotProps={{

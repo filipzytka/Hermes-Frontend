@@ -1,52 +1,60 @@
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
-import { GridRowsProp } from "@mui/x-data-grid";
+import { useState } from "react";
 import { popUp } from "../../../utils/Popup";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "../../Loading";
-import { getLogs } from "../../../api/logs";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { searchLogs } from "../../../api/logs";
 import { logsColumns } from "./data";
 import DataTable from "../DataTable";
 import Header from "../Header";
+import TextField from "@mui/material/TextField/TextField";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function LogsGrid() {
-  const [logsRows, setLogsRows] = useState<GridRowsProp>([]);
-  const { isFetched, refetch, isLoading, isFetching } = useQuery({
-    queryKey: ["logs"],
-    queryFn: () => getLogs(1, 200),
+  const [message, setMessage] = useState("");
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 20,
+    page: 0,
   });
 
-  const fetchLogs = async () => {
-    const { data: recentLogs } = await refetch();
-    if (!recentLogs) {
+  const debouncedSearchLogs = useDebouncedCallback(
+    (page: number, size: number, message: string) => {
+      return searchLogs(page, size, message);
+    },
+    150,
+    { leading: true, trailing: true }
+  );
+
+  const { data: logsData, refetch } = useQuery({
+    placeholderData: keepPreviousData,
+    queryKey: ["searched-logs", paginationModel, message],
+    queryFn: async () =>
+      await debouncedSearchLogs(
+        paginationModel.page,
+        paginationModel.pageSize,
+        message
+      ),
+  });
+
+  const handleRefresh = async () => {
+    const { data: refetchData } = await refetch();
+    if (!refetchData) {
       return;
     }
 
-    const collaboratorsRows = recentLogs.map((c, index) => ({
-      id: index,
-      message: c.message,
-      created: c.created,
-    }));
-
-    setLogsRows(collaboratorsRows);
-  };
-
-  const handleRefresh = async () => {
+    await refetch();
     popUp("Logs have been updated", "success");
-    fetchLogs();
   };
 
-  useEffect(() => {
-    fetchLogs();
-  }, [isFetched]);
-
-  if (isLoading || isFetching) {
-    return <Loading />;
-  }
+  const logsDataRows =
+    logsData?.logs.map((l, index) => ({
+      id: index,
+      message: l.message,
+      created: l.created,
+    })) ?? [];
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
@@ -76,7 +84,30 @@ export default function LogsGrid() {
             flexGrow: 1,
           }}
         >
-          {isFetched && <DataTable columns={logsColumns} rows={logsRows} />}
+          <div>
+            <div>
+              <TextField
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                id="search"
+                name="search"
+                placeholder="search for logs"
+                required
+                fullWidth
+                variant="outlined"
+              />
+            </div>
+
+            <DataTable
+              columns={logsColumns}
+              rows={logsDataRows}
+              rowCount={logsData?.totalCount}
+              onPageChange={setPaginationModel}
+              paginationModel={paginationModel}
+              isCheckbox={false}
+              paginationSide="server"
+            />
+          </div>
         </Grid>
       </Grid>
     </Box>

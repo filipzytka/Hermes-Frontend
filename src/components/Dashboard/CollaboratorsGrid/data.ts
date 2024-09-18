@@ -9,4 +9,12 @@ export const collaboratorColumns: GridColDef[] = [
     flex: 1,
     minWidth: 80,
   },
+  {
+    field: "role",
+    headerName: "Role",
+    headerAlign: "left",
+    align: "left",
+    flex: 1,
+    minWidth: 80,
+  },
 ];
