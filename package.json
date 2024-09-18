@@ -41,6 +41,7 @@
     "@tabler/icons-react": "^3.11.0",
     "@tanstack/react-form": "^0.31.0",
     "@tanstack/react-query": "^5.54.1",
+    "@tanstack/zod-form-adapter": "^0.32.0",
     "@tiptap/extension-link": "^2.5.9",
     "@tiptap/react": "^2.5.9",
     "@tiptap/starter-kit": "^2.5.9",
@@ -59,7 +60,8 @@
     "react-router-dom": "^6.25.1",
     "recharts": "^2.12.7",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "use-debounce": "^10.0.3"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
