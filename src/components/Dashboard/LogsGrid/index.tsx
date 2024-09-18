@@ -15,36 +15,28 @@ import { useDebouncedCallback } from "use-debounce";
 
 export default function LogsGrid() {
   const [message, setMessage] = useState("");
+  const [debouncedMessage, setDebouncedMessage] = useState("");
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 20,
     page: 0,
   });
 
-  const debouncedSearchLogs = useDebouncedCallback(
-    (page: number, size: number, message: string) => {
-      return searchLogs(page, size, message);
-    },
-    150,
-    { leading: true, trailing: true }
-  );
+  const debouncedSetMessage = useDebouncedCallback((value) => {
+    setDebouncedMessage(value);
+  }, 150);
 
   const { data: logsData, refetch } = useQuery({
     placeholderData: keepPreviousData,
-    queryKey: ["searched-logs", paginationModel, message],
+    queryKey: ["searched-logs", paginationModel, debouncedMessage],
     queryFn: async () =>
-      await debouncedSearchLogs(
+      await searchLogs(
         paginationModel.page,
         paginationModel.pageSize,
-        message
+        debouncedMessage
       ),
   });
 
   const handleRefresh = async () => {
-    const { data: refetchData } = await refetch();
-    if (!refetchData) {
-      return;
-    }
-
     await refetch();
     popUp("Logs have been updated", "success");
   };
@@ -88,7 +80,10 @@ export default function LogsGrid() {
             <div>
               <TextField
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                  debouncedSetMessage(e.target.value);
+                }}
                 id="search"
                 name="search"
                 placeholder="search for logs"
