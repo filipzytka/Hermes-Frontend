@@ -24,6 +24,12 @@ export default function HomeGrid() {
 
   const { data: playerData, refetch: serverPlayersRefetch } = useQuery({
     queryKey: ["playerData"],
+    select: (playerData) => ({
+      chartData: playerData?.data.map((d) => ({
+        x: d.created,
+        y: d.players,
+      })),
+    }),
     queryFn: () => getRecentPlayerData(),
   });
 
@@ -47,12 +53,6 @@ export default function HomeGrid() {
   if (isLoading || isFetching) {
     return <Loading />;
   }
-
-  const parsedToChartFormat =
-    playerData?.data.map((d) => ({
-      x: d.created,
-      y: d.players,
-    })) ?? [];
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
@@ -84,7 +84,7 @@ export default function HomeGrid() {
             title2="Gamemode"
             value2={serverData?.data.gameMode}
           />
-        </Grid>{" "}
+        </Grid>
         <Grid key={2} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Public"
@@ -92,7 +92,7 @@ export default function HomeGrid() {
             title2="Port"
             value2={serverData?.data.port.toString()}
           />
-        </Grid>{" "}
+        </Grid>
         <Grid key={3} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             title="Has password"
@@ -117,8 +117,8 @@ export default function HomeGrid() {
           }}
         >
           <PlayersLineChart
-            yAxisData={parsedToChartFormat.map((point) => point.y)}
-            xAxisData={parsedToChartFormat.map((point) => point.x)}
+            yAxisData={playerData?.chartData.map((point) => point.y) ?? []}
+            xAxisData={playerData?.chartData.map((point) => point.x) ?? []}
           />
         </Grid>
         <Grid
@@ -129,8 +129,8 @@ export default function HomeGrid() {
           }}
         >
           <PlayersBarChart
-            xAxisData={parsedToChartFormat.map((point) => point.x)}
-            yAxisData={parsedToChartFormat.map((point) => point.y)}
+            xAxisData={playerData?.chartData.map((point) => point.x) ?? []}
+            yAxisData={playerData?.chartData.map((point) => point.y) ?? []}
           />
         </Grid>
       </Grid>

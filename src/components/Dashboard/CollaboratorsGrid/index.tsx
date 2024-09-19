@@ -32,6 +32,13 @@ export default function CollaboratorsGrid() {
     isLoading,
   } = useQuery({
     queryKey: ["collaborators"],
+    select: (data) => ({
+      rows: data?.collaborators.map((l, index) => ({
+        id: index,
+        email: l.email,
+        role: l.role,
+      })),
+    }),
     queryFn: () => getCollaborators(),
   });
 
@@ -58,13 +65,6 @@ export default function CollaboratorsGrid() {
     popUp("Collaborators list has been updated", "success");
     collaboratorsRefatch();
   };
-
-  const collaboratorRows =
-    data?.collaborators?.map((c, index) => ({
-      id: index,
-      email: c.email,
-      role: c.role,
-    })) ?? [];
 
   if (isLoading) {
     return <Loading />;
@@ -102,7 +102,7 @@ export default function CollaboratorsGrid() {
             <DataTable
               isCheckbox={true}
               columns={collaboratorColumns}
-              rows={collaboratorRows}
+              rows={data?.rows ?? []}
               onAdd={toggle}
               onRemove={deleteUsersMutate}
               paginationSide={"client"}

@@ -28,6 +28,14 @@ export default function LogsGrid() {
   const { data: logsData, refetch } = useQuery({
     placeholderData: keepPreviousData,
     queryKey: ["searched-logs", paginationModel, debouncedMessage],
+    select: (data) => ({
+      rows: data?.logs.map((l, index) => ({
+        id: index,
+        message: l.message,
+        created: l.created,
+      })),
+      totalCount: data?.totalCount ?? 0,
+    }),
     queryFn: async () =>
       await searchLogs(
         paginationModel.page,
@@ -41,12 +49,7 @@ export default function LogsGrid() {
     popUp("Logs have been updated", "success");
   };
 
-  const logsDataRows =
-    logsData?.logs.map((l, index) => ({
-      id: index,
-      message: l.message,
-      created: l.created,
-    })) ?? [];
+  console.log(logsData);
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
@@ -95,7 +98,7 @@ export default function LogsGrid() {
 
             <DataTable
               columns={logsColumns}
-              rows={logsDataRows}
+              rows={logsData?.rows ?? []}
               rowCount={logsData?.totalCount}
               onPageChange={setPaginationModel}
               paginationModel={paginationModel}

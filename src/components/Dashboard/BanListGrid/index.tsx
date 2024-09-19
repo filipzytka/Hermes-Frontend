@@ -24,6 +24,13 @@ export default function BanListGrid() {
     isLoading,
   } = useQuery({
     queryKey: ["bannedPlayers"],
+    select: (data) => ({
+      rows: data?.map((b, index) => ({
+        id: index,
+        Token: b.Token,
+        Ip: b.Ip,
+      })),
+    }),
     queryFn: () => getBannedPlayers(),
   });
 
@@ -49,13 +56,6 @@ export default function BanListGrid() {
     popUp("Ban list has been updated", "success");
     await bannedPlayersRefetch();
   };
-
-  const banListRows =
-    bannedPlayersData?.map((b, index) => ({
-      id: index,
-      Token: b.Token,
-      Ip: b.Ip,
-    })) ?? [];
 
   if (isLoading) {
     return <Loading />;
@@ -92,7 +92,7 @@ export default function BanListGrid() {
           <DataTable
             isBanList={true}
             columns={bannedPlayersColumns}
-            rows={banListRows}
+            rows={bannedPlayersData?.rows ?? []}
             onRemove={updateBannedMutate}
             isCheckbox={true}
             paginationSide={"client"}
