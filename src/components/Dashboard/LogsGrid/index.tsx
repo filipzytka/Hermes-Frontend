@@ -12,6 +12,7 @@ import DataTable from "../DataTable";
 import Header from "../Header";
 import TextField from "@mui/material/TextField/TextField";
 import { useDebouncedCallback } from "use-debounce";
+import Loading from "../../Loading";
 
 export default function LogsGrid() {
   const [message, setMessage] = useState("");
@@ -25,7 +26,11 @@ export default function LogsGrid() {
     setDebouncedMessage(value);
   }, 150);
 
-  const { data: logsData, refetch } = useQuery({
+  const {
+    data: logsData,
+    refetch,
+    isLoading,
+  } = useQuery({
     placeholderData: keepPreviousData,
     queryKey: ["searched-logs", paginationModel, debouncedMessage],
     select: (data) => ({
@@ -48,6 +53,10 @@ export default function LogsGrid() {
     await refetch();
     popUp("Logs have been updated", "success");
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>

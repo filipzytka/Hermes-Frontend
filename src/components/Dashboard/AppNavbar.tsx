@@ -64,7 +64,7 @@ export default function AppNavbar() {
               component="h1"
               sx={{ color: "text.primary" }}
             >
-              Dashboard
+              Hermes
             </Typography>
           </Stack>
           <MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
