@@ -1,8 +1,8 @@
 import { Container, Text, Group, Image } from "@mantine/core";
-import classes from "./HeroTitle.module.css";
+import classes from "./assets/HeroTitle.module.css";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import image from "../assets/herobullets.svg";
+import image from "./assets/herobullets.svg";
 
 export function HeroTitle() {
   return (
