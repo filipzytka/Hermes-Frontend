@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AuthContext from "../../context/auth";
 import { authenticateUser } from "../../api/auth";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/Loading";
 
 type Props = {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [role, setRole] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  const { refetch } = useQuery({
+  const { refetch, isLoading } = useQuery({
     queryKey: ["userAuth"],
     queryFn: () => authenticateUser(),
   });
@@ -32,6 +33,10 @@ export const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     fetchCredentials();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <AuthContext.Provider
