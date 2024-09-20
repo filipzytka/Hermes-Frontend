@@ -7,9 +7,9 @@ const FAQ = () => {
     <Layout>
       <Container
         size="sm"
-        className="flex-grow w-full justify-center items-center mt-8 md:mt-32"
+        className="flex-grow w-full justify-center items-center py-8 md:py-52"
       >
-        <Title className="text-center text-gray-800 dark:text-gray-100 mb-8">
+        <Title className="text-center text-gray-800 dark:text-gray-100 mb-4">
           Frequently Asked Questions
         </Title>
 
