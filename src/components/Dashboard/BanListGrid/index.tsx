@@ -82,7 +82,7 @@ export default function BanListGrid() {
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Banned Players
       </Typography>
-      <Grid container spacing={2} columns={12}>
+      <Grid container spacing={2} columns={1}>
         <Grid
           size={{ md: 12, lg: 9 }}
           sx={{

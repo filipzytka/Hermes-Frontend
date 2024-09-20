@@ -135,13 +135,10 @@ export default function HomeGrid() {
         </Grid>
       </Grid>
 
-      <Typography component="h2" variant="h6" sx={{ mt: 2, mb: 2 }}>
-        Server
-      </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid key={7} size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
-            title="Status"
+            title="Server status"
             value={serverStatus?.data.message}
             title2="Last updated:"
             value2={serverData?.data.created}

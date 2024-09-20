@@ -9,9 +9,9 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import AppNavbar from "../AppNavbar";
 import SideMenu from "../SideMenu";
-import TemplateFrame from "../TemplateFrame";
 import React, { useState, useEffect } from "react";
 import getDashboardTheme from "../theme/getDashboardTheme";
+import TemplateFrame from "../../MUI-components/TemplateFrame";
 
 type Props = {
   currentPageIndex: number;

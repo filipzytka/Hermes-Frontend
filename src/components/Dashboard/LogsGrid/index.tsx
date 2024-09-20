@@ -55,7 +55,6 @@ export default function LogsGrid() {
       <Stack
         direction="row"
         sx={{
-          flexGrow: 1,
           py: 1,
           justifyContent: "space-between",
           alignItems: "center",
@@ -70,7 +69,7 @@ export default function LogsGrid() {
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Logs
       </Typography>
-      <Grid container spacing={2} columns={12}>
+      <Grid container spacing={2} columns={1}>
         <Grid
           size={{ md: 12, lg: 9 }}
           sx={{
@@ -102,6 +101,7 @@ export default function LogsGrid() {
               paginationModel={paginationModel}
               isCheckbox={false}
               paginationSide="server"
+              copyToClipBoard
             />
           </div>
         </Grid>

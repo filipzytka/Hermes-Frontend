@@ -28,7 +28,7 @@ export default function CollaboratorsGrid() {
   const {
     data,
     isFetched,
-    refetch: collaboratorsRefatch,
+    refetch: collaboratorsRefetch,
     isLoading,
   } = useQuery({
     queryKey: ["collaborators"],
@@ -48,7 +48,7 @@ export default function CollaboratorsGrid() {
       deleteCollaborators(usersToDelete),
     onSuccess: async (response) => {
       popUp(`${response?.message}`, "success");
-      await collaboratorsRefatch();
+      await collaboratorsRefetch();
     },
   });
 
@@ -63,7 +63,7 @@ export default function CollaboratorsGrid() {
 
   const handleRefresh = async () => {
     popUp("Collaborators list has been updated", "success");
-    collaboratorsRefatch();
+    collaboratorsRefetch();
   };
 
   if (isLoading) {
@@ -91,7 +91,7 @@ export default function CollaboratorsGrid() {
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Collaborators
       </Typography>
-      <Grid container spacing={2} columns={12}>
+      <Grid container spacing={2} columns={1}>
         <Grid
           size={{ md: 12, lg: 9 }}
           sx={{

@@ -12,6 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ToggleColorMode from "./ToggleColorMode";
 import getSignInTheme from "../../pages/SignIn/theme/getSignInTheme";
+import { useNavigate } from "react-router-dom";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "relative",
@@ -42,6 +43,7 @@ export default function TemplateFrame({
   children,
 }: TemplateFrameProps) {
   const signInTheme = createTheme(getSignInTheme(mode));
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={signInTheme}>
@@ -58,7 +60,7 @@ export default function TemplateFrame({
             }}
           >
             <Button
-              href="/"
+              onClick={() => navigate("/")}
               variant="text"
               size="small"
               aria-label="Back to templates"
@@ -69,10 +71,10 @@ export default function TemplateFrame({
               Home Page
             </Button>
             <IconButton
+              onClick={() => navigate("/")}
               size="small"
               aria-label="Back to templates"
               component="a"
-              href="/"
               sx={{ display: { xs: "auto", sm: "none" } }}
             >
               <ArrowBackRoundedIcon />

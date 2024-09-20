@@ -5,8 +5,10 @@ import {
   GridRowsProp,
   GridColDef,
   GridRowSelectionModel,
+  GridRowParams,
 } from "@mui/x-data-grid";
 import { useState } from "react";
+import { popUp } from "../../utils/Popup";
 
 type Props<T> = {
   columns: GridColDef[];
@@ -16,6 +18,7 @@ type Props<T> = {
   isBanList?: boolean;
   rowCount?: number;
   isCheckbox: boolean;
+  copyToClipBoard?: boolean;
   paginationSide: "server" | "client";
   paginationModel?: {
     pageSize: number;
@@ -41,6 +44,7 @@ export default function DataTable<T>({
   onPageChange,
   isCheckbox,
   paginationSide,
+  copyToClipBoard,
 }: Props<T>) {
   const [selectedRows, setSelectedRows] = useState<GridRowSelectionModel>([]);
 
@@ -69,7 +73,7 @@ export default function DataTable<T>({
   const removeBanList = () => {
     const unselectedRows = rows.filter((row) => !selectedRows.includes(row.id));
 
-    if (onRemove && selectedRows.length > 0) {
+    if (onRemove && unselectedRows.length > 0) {
       const itemsToRemove = unselectedRows.map((row) => {
         const { id, ...rest } = row;
         return rest as T;
@@ -102,10 +106,36 @@ export default function DataTable<T>({
           </Button>
         )}
       </Box>
+      {}
       <DataGrid
+        sx={{
+          fontSize: "0.8rem",
+        }}
+        // getRowHeight={getRowHeight}
+        // sx={{
+        //   [`& .MuiDataGrid-cell`]: {
+        //     paddingTop: 1.5,
+        //     paddingBottom: 1.5,
+        //     lineHeight: "unset",
+        //     maxHeight: "none",
+        //     whiteSpace: "normal",
+        //   },
+        //   [`& .MuiDataGrid-columnHeader`]: {
+        //     maxHeight: "none",
+        //     height: "auto",
+        //     whiteSpace: "inherit",
+        //     overflow: "inherit",
+        //     lineHeight: "24px",
+        //   },
+        //   [`& .MuiDataGrid-columnHeaderTitle`]: {
+        //     whiteSpace: "normal",
+        //   },
+        // }}
         autoHeight
         paginationMode={paginationSide}
         checkboxSelection={isCheckbox}
+        disableRowSelectionOnClick={!isCheckbox}
+        disableColumnResize
         rows={rows}
         rowCount={rowCount}
         columns={columns}
@@ -114,17 +144,23 @@ export default function DataTable<T>({
           if (!onPageChange) return;
           onPageChange({ page, pageSize });
         }}
-        onRowSelectionModelChange={(newSelection) =>
-          setSelectedRows(newSelection)
-        }
+        onRowSelectionModelChange={(newSelection) => {
+          setSelectedRows(newSelection);
+        }}
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
         }
         initialState={{
           pagination: { paginationModel: { pageSize: 20 } },
         }}
+        onRowClick={(params: GridRowParams) => {
+          if (!copyToClipBoard) return;
+          const selectedMessage = params.row.message;
+          navigator.clipboard.writeText(selectedMessage);
+
+          popUp(`Copied to clipboard`, "success");
+        }}
         pageSizeOptions={[20, 50, 100]}
-        disableColumnResize
         density="compact"
         slotProps={{
           filterPanel: {
