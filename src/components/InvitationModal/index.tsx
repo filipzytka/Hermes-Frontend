@@ -10,6 +10,8 @@ import Button from "@mui/material/Button/Button";
 import Box from "@mui/material/Box/Box";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../hooks/useAuth";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
 
 type Props = {
   isShowing: boolean;
@@ -30,6 +32,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
     defaultValues: {
       email: "",
     },
+    validatorAdapter: zodValidator(),
     onSubmit: (data) => {
       handleEmailSending(data.value.email);
     },
@@ -77,20 +80,10 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
             <form.Field
               name="email"
               validators={{
-                onChangeAsyncDebounceMs: 500,
-                onSubmit: ({ value }) => {
-                  if (value.length === 0) {
-                    return "Email field is empty";
-                  }
-                },
-                onChange: ({ value }) => {
-                  if (
-                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) &&
-                    value.length !== 0
-                  ) {
-                    return "Invalid email format";
-                  }
-                },
+                onChange: z
+                  .string()
+                  .min(8, "Email must be at least 8 characters")
+                  .email("Invalid email format"),
               }}
               children={(field) => {
                 return (
@@ -103,7 +96,6 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                       name="email"
                       placeholder="collaborator@email.com"
                       autoComplete="email"
-                      autoFocus
                       required
                       fullWidth
                       variant="outlined"
@@ -127,6 +119,10 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
             type="submit"
             fullWidth
             variant="contained"
+            color="inherit"
+            sx={{
+              mt: 1,
+            }}
           >
             Send
           </Button>
