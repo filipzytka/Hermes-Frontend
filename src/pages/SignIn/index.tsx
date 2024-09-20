@@ -16,6 +16,8 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { TMessageResponse } from "../../api/response-types";
 import AuthThemeProvider from "../../components/AuthThemeProvider";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
 
 export default function SignIn() {
   const { setAuth, setRole, setEmail } = useAuth();
@@ -36,7 +38,7 @@ export default function SignIn() {
       setAuth(true);
       setRole(response.role);
       setEmail(response.email);
-      navigate("/");
+      navigate("/admin/dashboard/home");
     },
     onError: (error: AxiosError) => {
       popUp(
@@ -47,17 +49,17 @@ export default function SignIn() {
     },
   });
 
-  const handleLoginData = async (email: string, password: string) => {
-    await loginAccountMutate({ email, password });
-  };
-
   const form = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
+    validatorAdapter: zodValidator(),
     onSubmit: (data) => {
-      handleLoginData(data.value.email, data.value.password);
+      loginAccountMutate({
+        email: data.value.email,
+        password: data.value.password,
+      });
     },
   });
 
@@ -92,20 +94,10 @@ export default function SignIn() {
               <form.Field
                 name="email"
                 validators={{
-                  onChangeAsyncDebounceMs: 500,
-                  onSubmit: ({ value }) => {
-                    if (value.length === 0) {
-                      return "Email field is empty";
-                    }
-                  },
-                  onChange: ({ value }) => {
-                    if (
-                      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) &&
-                      value.length !== 0
-                    ) {
-                      return "Invalid email format";
-                    }
-                  },
+                  onChange: z
+                    .string()
+                    .min(8, "Email must be at least 8 characters")
+                    .email("Invalid email format"),
                 }}
                 children={(field) => {
                   return (
@@ -119,7 +111,6 @@ export default function SignIn() {
                         name="email"
                         placeholder="your@email.com"
                         autoComplete="email"
-                        autoFocus
                         required
                         fullWidth
                         variant="outlined"
@@ -146,23 +137,10 @@ export default function SignIn() {
               <form.Field
                 name="password"
                 validators={{
-                  onChangeAsyncDebounceMs: 500,
-                  onSubmit: ({ value }) => {
-                    if (value.length === 0) {
-                      return "Password field is empty";
-                    }
-                  },
-                  onChange: ({ value }) => {
-                    if (value.length < 8 && value.length !== 0) {
-                      return "Password must be at least 8 characters long";
-                    }
-                    if (
-                      value.length !== 0 &&
-                      (!/\d/.test(value) || !/[a-zA-Z]/.test(value))
-                    ) {
-                      return "Password must contain both letters and numbers";
-                    }
-                  },
+                  onChange: z
+                    .string()
+                    .min(8, "Password must be at least 8 characters long")
+                    .max(100, "Password length cannot exceed 100 characters"),
                 }}
                 children={(field) => {
                   return (
@@ -176,7 +154,6 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        autoFocus
                         required
                         fullWidth
                         variant="outlined"
@@ -199,6 +176,10 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
+              color="info"
+              sx={{
+                mt: 1,
+              }}
             >
               Sign in
             </Button>

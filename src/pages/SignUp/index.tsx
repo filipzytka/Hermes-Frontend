@@ -12,18 +12,18 @@ import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import { validateToken } from "../../api/token";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { registerUser } from "../../api/user";
 import AuthThemeProvider from "../../components/AuthThemeProvider";
 import { popUp } from "../../utils/Popup";
 import { AxiosError } from "axios";
 import { TMessageResponse } from "../../api/response-types";
 import Loading from "../../components/Loading";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
 
 export default function SignUp() {
-  const [token, setToken] = useState("");
-  const [inviter, setInviter] = useState("");
-  const [isTokenValid, setIsTokenValid] = useState(false);
+  const [validationToken, setValidationToken] = useState("");
   const navigate = useNavigate();
 
   const { mutateAsync: registerAccountMutate } = useMutation({
@@ -51,50 +51,48 @@ export default function SignUp() {
     },
   });
 
-  const { mutateAsync: validateTokenMutate } = useMutation({
-    mutationKey: ["validateToken"],
-    mutationFn: async ({ token }: { token: string }) => {
-      return validateToken(token);
+  const {
+    data: validationData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["validation"],
+    queryFn: async () => {
+      const queryParams = new URLSearchParams(location.search);
+      const searchedToken = queryParams.get("token");
+      if (!searchedToken) {
+        navigate("/login");
+        return;
+      }
+
+      setValidationToken(searchedToken);
+
+      return await validateToken(searchedToken);
     },
   });
-
-  const handleRegisterData = async (email: string, password: string) => {
-    await registerAccountMutate({ email, password, token });
-  };
 
   const form = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
+    validatorAdapter: zodValidator(),
     onSubmit: (data) => {
-      handleRegisterData(data.value.email, data.value.password);
+      registerAccountMutate({
+        email: data.value.email,
+        password: data.value.password,
+        token: validationToken,
+      });
     },
   });
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const searchedToken = queryParams.get("token");
-    if (!searchedToken) {
+    if (isError) {
       navigate("/login");
-      return;
     }
+  }, [isError]);
 
-    setIsTokenValid(true);
-    setToken(searchedToken);
-
-    const validateTokenStatus = async () => {
-      const { data: tokenValidateData } = await validateTokenMutate({
-        token: searchedToken,
-      });
-
-      setInviter(tokenValidateData.createdBy);
-    };
-
-    validateTokenStatus();
-  }, []);
-
-  if (!isTokenValid) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -114,7 +112,8 @@ export default function SignUp() {
               variant="h4"
               sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
             >
-              You have been invited by {inviter} to Sign Up
+              You have been invited by {validationData?.data.createdBy} to Sign
+              Up
             </Typography>
             <Box
               onSubmit={(e) => {
@@ -136,19 +135,10 @@ export default function SignUp() {
                 <form.Field
                   name="email"
                   validators={{
-                    onChangeAsyncDebounceMs: 500,
-                    onChangeAsync: ({ value }) => {
-                      if (value.length < 8 && value.length !== 0) {
-                        return "Email must be at least 8 characters long";
-                      }
-
-                      if (
-                        value.length !== 0 &&
-                        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-                      ) {
-                        return "Invalid email format";
-                      }
-                    },
+                    onChange: z
+                      .string()
+                      .min(8, "Email must be at least 8 characters")
+                      .email("Invalid email format"),
                   }}
                   children={(field) => {
                     return (
@@ -161,13 +151,12 @@ export default function SignUp() {
                           name="email"
                           placeholder="your@email.com"
                           autoComplete="email"
-                          autoFocus
                           required
                           fullWidth
                           variant="outlined"
                           sx={{ ariaLabel: "email" }}
                         />
-                        {field.state.meta.errors && (
+                        {field.state.meta.errors.length > 0 && (
                           <div className="text-red-500 text-sm mt-1">
                             {field.state.meta.errors}
                           </div>
@@ -183,18 +172,10 @@ export default function SignUp() {
                 <form.Field
                   name="password"
                   validators={{
-                    onChangeAsyncDebounceMs: 500,
-                    onChangeAsync: async ({ value }) => {
-                      if (value.length < 8 && value.length !== 0) {
-                        return "Password must be at least 8 characters long";
-                      }
-                      if (
-                        value.length !== 0 &&
-                        (!/\d/.test(value) || !/[a-zA-Z]/.test(value))
-                      ) {
-                        return "Password must contain both letters and numbers";
-                      }
-                    },
+                    onChange: z
+                      .string()
+                      .min(8, "Password must be at least 8 characters long")
+                      .max(100, "Password length cannot exceed 100 characters"),
                   }}
                   children={(field) => {
                     return (
@@ -207,7 +188,6 @@ export default function SignUp() {
                           type="password"
                           id="password"
                           autoComplete="current-password"
-                          autoFocus
                           required
                           fullWidth
                           variant="outlined"
@@ -222,7 +202,15 @@ export default function SignUp() {
                   }}
                 />
               </FormControl>
-              <Button type="submit" fullWidth variant="contained">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="info"
+                sx={{
+                  mt: 1,
+                }}
+              >
                 Sign up
               </Button>
               <Typography sx={{ textAlign: "center" }}>
