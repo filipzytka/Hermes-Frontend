@@ -20,7 +20,6 @@ export const getBannedPlayers = async () => {
 export const updateBannedPlayers = async (players: BannedPlayer[]) => {
   const { data } = await axios.post<TMessageResponse>(
     `${SERVER_URL}/api/ban/players/update`,
-
     players,
     {
       withCredentials: true,
