@@ -15,6 +15,7 @@ import Stack from "@mui/material/Stack";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Loading";
 import Header from "../Header";
+import moment from "moment";
 
 export default function HomeGrid() {
   const { data: serverStatus, refetch: serverStatusRefetch } = useQuery({
@@ -26,7 +27,7 @@ export default function HomeGrid() {
     queryKey: ["playerData"],
     select: (playerData) => ({
       chartData: playerData?.data.map((d) => ({
-        x: d.created,
+        x: moment(d.created).format("MMMM Do YYYY, HH:mm"),
         y: d.players,
       })),
     }),
@@ -71,13 +72,24 @@ export default function HomeGrid() {
           Refresh
         </Button>
       </Stack>
+      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+        Main panel
+      </Typography>
       <Grid
         container
         spacing={2}
-        columns={12}
+        columns={15}
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
-        <Grid key={1} size={{ xs: 12, sm: 6, lg: 3 }}>
+        <Grid key={7} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
+          <StatCard
+            title="Server status"
+            value={serverStatus?.data.message}
+            title2="Last updated:"
+            value2={serverData?.data.created}
+          />
+        </Grid>
+        <Grid key={1} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="Server Name"
             value={serverData?.data.serverName}
@@ -85,7 +97,7 @@ export default function HomeGrid() {
             value2={serverData?.data.gameMode}
           />
         </Grid>
-        <Grid key={2} size={{ xs: 12, sm: 6, lg: 3 }}>
+        <Grid key={2} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="Public"
             value={serverData?.data.public.toString()}
@@ -93,7 +105,7 @@ export default function HomeGrid() {
             value2={serverData?.data.port.toString()}
           />
         </Grid>
-        <Grid key={3} size={{ xs: 12, sm: 6, lg: 3 }}>
+        <Grid key={3} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="Has password"
             value={serverData?.data.hasPassword.toString()}
@@ -101,7 +113,7 @@ export default function HomeGrid() {
             value2={serverData?.data.serverType.toString()}
           />
         </Grid>
-        <Grid key={4} size={{ xs: 12, sm: 6, lg: 3 }}>
+        <Grid key={4} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="World"
             value={serverData?.data.world}
@@ -109,39 +121,20 @@ export default function HomeGrid() {
             value2={serverData?.data.version}
           />
         </Grid>
-        <Grid
-          key={5}
-          size={{ sm: 12, md: 6 }}
-          sx={{
-            flexGrow: 1,
-          }}
-        >
+      </Grid>
+
+      <Grid container spacing={2} columns={1}>
+        <Grid key={5} size={{ sm: 12, md: 6 }} sx={{ flexGrow: 1 }}>
           <PlayersLineChart
             yAxisData={playerData?.chartData.map((point) => point.y) ?? []}
             xAxisData={playerData?.chartData.map((point) => point.x) ?? []}
           />
         </Grid>
-        <Grid
-          key={6}
-          size={{ sm: 12, md: 6 }}
-          sx={{
-            flexGrow: 1,
-          }}
-        >
-          <PlayersBarChart
-            xAxisData={playerData?.chartData.map((point) => point.x) ?? []}
-            yAxisData={playerData?.chartData.map((point) => point.y) ?? []}
-          />
-        </Grid>
-      </Grid>
 
-      <Grid container spacing={2} columns={12}>
-        <Grid key={7} size={{ xs: 12, sm: 6, lg: 3 }}>
-          <StatCard
-            title="Server status"
-            value={serverStatus?.data.message}
-            title2="Last updated:"
-            value2={serverData?.data.created}
+        <Grid key={5} size={{ sm: 12, md: 6 }} sx={{ flexGrow: 1 }}>
+          <PlayersBarChart
+            yAxisData={playerData?.chartData.map((point) => point.y) ?? []}
+            xAxisData={playerData?.chartData.map((point) => point.x) ?? []}
           />
         </Grid>
       </Grid>

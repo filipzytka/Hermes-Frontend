@@ -13,6 +13,7 @@ import Header from "../Header";
 import TextField from "@mui/material/TextField/TextField";
 import { useDebouncedCallback } from "use-debounce";
 import Loading from "../../Loading";
+import moment from "moment";
 
 export default function LogsGrid() {
   const [message, setMessage] = useState("");
@@ -37,7 +38,7 @@ export default function LogsGrid() {
       rows: data?.logs.map((l, index) => ({
         id: index,
         message: l.message,
-        created: l.created,
+        created: moment(l.created).format("MMMM Do YYYY, HH:mm"),
       })),
       totalCount: data?.totalCount ?? 0,
     }),

@@ -6,7 +6,7 @@
 .title {
   font-weight: 900;
   margin-bottom: var(--mantine-spacing-md);
-  text-align: center;
+  text-align: left;
   font-family: "Roboto";
 
   @media (max-width: $mantine-breakpoint-sm) {

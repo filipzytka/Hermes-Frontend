@@ -5,10 +5,10 @@ import { HeroTitle } from "./HeroTitle";
 const Home = () => {
   return (
     <Layout>
-      <section data-cy="hero" id="hero" className="mx-6">
+      <main data-cy="hero" className="mx-6">
         <HeroTitle />
         <FeaturesGrid />
-      </section>
+      </main>
       <div className="flex-grow"></div>
     </Layout>
   );
