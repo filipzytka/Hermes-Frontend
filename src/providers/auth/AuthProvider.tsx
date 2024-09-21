@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }: Props) => {
   const { refetch, isLoading } = useQuery({
     queryKey: ["userAuth"],
     queryFn: () => authenticateUser(),
+    retry: false,
   });
 
   const fetchCredentials = async () => {
