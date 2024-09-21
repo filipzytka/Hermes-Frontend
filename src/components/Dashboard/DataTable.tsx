@@ -108,6 +108,7 @@ export default function DataTable<T>({
       </Box>
       {}
       <DataGrid
+        autoHeight
         paginationMode={paginationSide}
         checkboxSelection={isCheckbox}
         disableRowSelectionOnClick={!isCheckbox}
