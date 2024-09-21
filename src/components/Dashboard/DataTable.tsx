@@ -108,30 +108,6 @@ export default function DataTable<T>({
       </Box>
       {}
       <DataGrid
-        sx={{
-          fontSize: "0.8rem",
-        }}
-        // getRowHeight={getRowHeight}
-        // sx={{
-        //   [`& .MuiDataGrid-cell`]: {
-        //     paddingTop: 1.5,
-        //     paddingBottom: 1.5,
-        //     lineHeight: "unset",
-        //     maxHeight: "none",
-        //     whiteSpace: "normal",
-        //   },
-        //   [`& .MuiDataGrid-columnHeader`]: {
-        //     maxHeight: "none",
-        //     height: "auto",
-        //     whiteSpace: "inherit",
-        //     overflow: "inherit",
-        //     lineHeight: "24px",
-        //   },
-        //   [`& .MuiDataGrid-columnHeaderTitle`]: {
-        //     whiteSpace: "normal",
-        //   },
-        // }}
-        autoHeight
         paginationMode={paginationSide}
         checkboxSelection={isCheckbox}
         disableRowSelectionOnClick={!isCheckbox}
