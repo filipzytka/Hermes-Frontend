@@ -30,7 +30,7 @@ const NavigationBar = () => {
 
   return (
     <nav className="w-full mt-8">
-      <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex items-center justify-between mx-auto p-6">
         <Link to="/" className="flex items-center">
           <img src={TailwindImg} className="h-8" alt="Hermes logo" />
           <span className="text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">
@@ -42,8 +42,8 @@ const NavigationBar = () => {
           <button
             onClick={handleMenuToggle}
             type="button"
-            className="flex items-center p-2 w-10 h-10 justify-center text-sm
-            text-gray-800 rounded-lg md:hidden
+            className="flex items-center justify-center text-sm
+            text-red rounded-lg md:hidden
             hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
             dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           >
@@ -107,7 +107,7 @@ const NavigationBar = () => {
             menuOpen ? "translate-x-0" : "-translate-x-full"
           } z-30`}
       >
-        <div className="flex items-center justify-end p-6 mt-8">
+        <div className="flex items-center justify-end py-7 px-5 mt-8">
           <button
             onClick={handleMenuToggle}
             type="button"
