@@ -13,6 +13,6 @@ export const logsColumns: GridColDef[] = [
     headerName: "Message",
     headerAlign: "left",
     align: "left",
-    flex: 2,
+    flex: 7,
   },
 ];
