@@ -81,7 +81,7 @@ export default function HomeGrid() {
         columns={15}
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
-        <Grid key={7} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
+        <Grid key={0} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="Server status"
             value={serverStatus?.data.message}
@@ -131,7 +131,7 @@ export default function HomeGrid() {
           />
         </Grid>
 
-        <Grid key={5} size={{ sm: 12, md: 6 }} sx={{ flexGrow: 1 }}>
+        <Grid key={6} size={{ sm: 12, md: 6 }} sx={{ flexGrow: 1 }}>
           <PlayersBarChart
             yAxisData={playerData?.chartData.map((point) => point.y) ?? []}
             xAxisData={playerData?.chartData.map((point) => point.x) ?? []}
