@@ -68,6 +68,9 @@ jobs:
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes.server:latest
 
+      - name: Check lifetime of Docker containers
+        run: docker ps
+
       - name: Sleep for 30 seconds
         run: sleep 30s
         shell: bash
