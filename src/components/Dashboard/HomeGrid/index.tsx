@@ -27,7 +27,7 @@ export default function HomeGrid() {
     queryKey: ["playerData"],
     select: (playerData) => ({
       chartData: playerData?.data.map((d) => ({
-        x: moment(d.created).format("MMMM Do YYYY, HH:mm"),
+        x: moment(new Date(d.created)).format("MMMM Do YYYY, HH:mm"),
         y: d.players,
       })),
     }),

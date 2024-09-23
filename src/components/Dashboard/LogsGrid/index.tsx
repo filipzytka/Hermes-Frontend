@@ -38,7 +38,7 @@ export default function LogsGrid() {
       rows: data?.logs.map((l, index) => ({
         id: index,
         message: l.message,
-        created: moment(l.created).format("MMMM Do YYYY, HH:mm"),
+        created: moment(new Date(l.created)).format("MMMM Do YYYY, HH:mm"),
       })),
       totalCount: data?.totalCount ?? 0,
     }),
