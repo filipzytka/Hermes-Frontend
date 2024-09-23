@@ -25,6 +25,36 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Log in to GitHub Docker registry
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Pull ASP.NET CORE and Database Docker Images
+        run: |
+          docker pull ghcr.io/filipzytka/hermes.server:latest
+          docker pull ghcr.io/filipzytka/postgres:latest
+
+      - name: Start Backend and Database with Docker Compose
+        run: |
+          echo "Starting backend and database services..."
+          docker-compose up -d
+        env:
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+          CONNECTION_STRING: Host=hermes.database;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}
+          TEST_CONNECTION_STRING: Host=hermes.database;Port=5432;Database=${{ secrets.TEST_POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}
+          TEST_POSTGRES_DB: ${{ secrets.TEST_POSTGRES_DB }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          PORT: ${{ secrets.PORT }}
+          EMAIL_SENDER_USERNAME: ${{ secrets.EMAIL_SENDER_USERNAME }}
+          EMAIL_SENDER_PASSWORD: ${{ secrets.EMAIL_SENDER_PASSWORD }}
+          REACT_CLIENT_URL: ${{ secrets.REACT_CLIENT_URL }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ALARM_EMAIL: ${{ secrets.ALARM_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          CYPRESS_VALIDATION_TOKEN: ${{ secrets.CYPRESS_VALIDATION_TOKEN }}
+
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
