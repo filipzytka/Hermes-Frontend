@@ -68,6 +68,10 @@ jobs:
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes.server:latest
 
+      - name: Sleep for 30 seconds
+        run: sleep 30s
+        shell: bash
+
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
