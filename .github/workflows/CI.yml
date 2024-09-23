@@ -47,27 +47,25 @@ jobs:
             -p 5432:5432 \
             ghcr.io/filipzytka/postgres:latest
 
-      - name: Log in to GitHub Docker registry
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
+            #             -e ENVIRONMENT=${{ secrets.ENVIRONMENT }} \
+            # -e CONNECTION_STRING="Host=postgres;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}" \
+            # -e TEST_CONNECTION_STRING="Host=postgres;Port=5432;Database=${{ secrets.TEST_POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}" \
+            # -e TEST_POSTGRES_DB=${{ secrets.TEST_POSTGRES_DB }} \
+            # -e SMTP_SERVER=${{ secrets.SMTP_SERVER }} \
+            # -e PORT=${{ secrets.PORT }} \
+            # -e EMAIL_SENDER_USERNAME=${{ secrets.EMAIL_SENDER_USERNAME }} \
+            # -e EMAIL_SENDER_PASSWORD=${{ secrets.EMAIL_SENDER_PASSWORD }} \
+            # -e REACT_CLIENT_URL=${{ secrets.REACT_CLIENT_URL }} \
+            # -e ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }} \
+            # -e ALARM_EMAIL=${{ secrets.ALARM_EMAIL }} \
+            # -e ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
+            # -e CYPRESS_VALIDATION_TOKEN=${{ secrets.CYPRESS_VALIDATION_TOKEN }} \
 
       - name: Start ASP.NET Core Container
         run: |
           docker run -d \
             --name hermes.server \
             --network hermes-network \
-            -e ENVIRONMENT=${{ secrets.ENVIRONMENT }} \
-            -e CONNECTION_STRING="Host=postgres;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}" \
-            -e TEST_CONNECTION_STRING="Host=postgres;Port=5432;Database=${{ secrets.TEST_POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}" \
-            -e TEST_POSTGRES_DB=${{ secrets.TEST_POSTGRES_DB }} \
-            -e SMTP_SERVER=${{ secrets.SMTP_SERVER }} \
-            -e PORT=${{ secrets.PORT }} \
-            -e EMAIL_SENDER_USERNAME=${{ secrets.EMAIL_SENDER_USERNAME }} \
-            -e EMAIL_SENDER_PASSWORD=${{ secrets.EMAIL_SENDER_PASSWORD }} \
-            -e REACT_CLIENT_URL=${{ secrets.REACT_CLIENT_URL }} \
-            -e ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }} \
-            -e ALARM_EMAIL=${{ secrets.ALARM_EMAIL }} \
-            -e ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }} \
-            -e CYPRESS_VALIDATION_TOKEN=${{ secrets.CYPRESS_VALIDATION_TOKEN }} \
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes.server:latest
 
