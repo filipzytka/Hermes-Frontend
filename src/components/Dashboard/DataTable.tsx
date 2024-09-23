@@ -50,7 +50,7 @@ export default function DataTable<T>({
 
   const handleRemove = () => {
     if (isBanList) {
-      removeBanList();
+      removeUnselectedItems();
     } else {
       removeSelectedItems();
     }
@@ -59,10 +59,10 @@ export default function DataTable<T>({
   const removeSelectedItems = () => {
     if (onRemove && selectedRows.length > 0) {
       const itemsToRemove = selectedRows.map((id: any) => {
-        const row = rows.find((row) => row.id === id);
+        const row = rows.find((r) => r.id === id);
         if (row) {
           const { id, ...rest } = row;
-          return rest as T;
+          return rest;
         }
       }) as T[];
 
@@ -70,13 +70,13 @@ export default function DataTable<T>({
     }
   };
 
-  const removeBanList = () => {
+  const removeUnselectedItems = () => {
     const unselectedRows = rows.filter((row) => !selectedRows.includes(row.id));
 
     if (onRemove && unselectedRows.length > 0) {
       const itemsToRemove = unselectedRows.map((row) => {
         const { id, ...rest } = row;
-        return rest as T;
+        return rest;
       }) as T[];
 
       onRemove(itemsToRemove);
