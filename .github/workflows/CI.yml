@@ -34,8 +34,7 @@ jobs:
         run: docker pull ghcr.io/filipzytka/hermes.server:latest
 
       - name: Create Docker Network
-        run: |
-          docker network create hermes-network
+        run: docker network create hermes-network
 
       - name: Start Postgres Container
         run: |
