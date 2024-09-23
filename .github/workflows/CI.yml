@@ -29,7 +29,7 @@ jobs:
 
       - name: Pull ASP.NET CORE and Database Docker Images
         run: |
-          docker pull ghcr.io/filipzytka/hermes.server:latest
+          docker pull ghcr.io/filipzytka/hermes.server:latest \
           docker pull ghcr.io/filipzytka/postgres:latest
 
       - name: Create Docker Network
