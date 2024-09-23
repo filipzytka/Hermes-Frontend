@@ -47,6 +47,9 @@ jobs:
             -p 5432:5432 \
             ghcr.io/filipzytka/postgres:latest
 
+      - name: Log in to GitHub Docker registry
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
+
       - name: Start ASP.NET Core Container
         run: |
           docker run -d \
