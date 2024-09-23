@@ -8,7 +8,11 @@ type Props = {
 const PrivateRoute = ({ children }: Props) => {
   const { auth } = useAuth();
 
-  return auth ? children : <Navigate to="/login" />;
+  if (auth === true) {
+    return children;
+  } else if (auth === false) {
+    <Navigate to="/login" />;
+  }
 };
 
 export default PrivateRoute;

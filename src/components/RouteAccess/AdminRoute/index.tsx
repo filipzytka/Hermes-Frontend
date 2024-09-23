@@ -8,11 +8,11 @@ type Props = {
 const AdminRoute = ({ children }: Props) => {
   const { auth, role } = useAuth();
 
-  if (auth && role === "admin") {
+  if (auth === true && role === "admin") {
     return children;
+  } else if (auth === false) {
+    return <Navigate to="/login" />;
   }
-
-  return <Navigate to="/login" />;
 };
 
 export default AdminRoute;

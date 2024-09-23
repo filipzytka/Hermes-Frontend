@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 type AuthContextType = {
-  auth: boolean;
-  setAuth: (auth: boolean) => void;
+  auth: boolean | null;
+  setAuth: (auth: boolean | null) => void;
   role: string;
   setRole: (role: string) => void;
   email: string;

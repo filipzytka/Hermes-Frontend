@@ -140,7 +140,11 @@ export default function SignIn() {
                   onChange: z
                     .string()
                     .min(8, "Password must be at least 8 characters long")
-                    .max(100, "Password length cannot exceed 100 characters"),
+                    .max(100, "Password length cannot exceed 100 characters")
+                    .regex(
+                      /^(?=.*[a-zA-Z])(?=.*\d)/,
+                      "Password must contain both letters and numbers"
+                    ),
                 }}
                 children={(field) => {
                   return (

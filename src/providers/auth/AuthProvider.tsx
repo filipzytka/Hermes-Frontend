@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const AuthProvider = ({ children }: Props) => {
-  const [auth, setAuth] = useState<boolean>(false);
+  const [auth, setAuth] = useState<boolean | null>(null);
   const [role, setRole] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 

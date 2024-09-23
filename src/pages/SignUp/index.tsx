@@ -144,6 +144,7 @@ export default function SignUp() {
                     return (
                       <div>
                         <TextField
+                          data-cy="email-input"
                           onChange={(e) => field.handleChange(e.target.value)}
                           onBlur={field.handleBlur}
                           id="email"
@@ -175,12 +176,17 @@ export default function SignUp() {
                     onChange: z
                       .string()
                       .min(8, "Password must be at least 8 characters long")
-                      .max(100, "Password length cannot exceed 100 characters"),
+                      .max(100, "Password length cannot exceed 100 characters")
+                      .regex(
+                        /^(?=.*[a-zA-Z])(?=.*\d)/,
+                        "Password must contain both letters and numbers"
+                      ),
                   }}
                   children={(field) => {
                     return (
                       <div>
                         <TextField
+                          data-cy="password-input"
                           onChange={(e) => field.handleChange(e.target.value)}
                           onBlur={field.handleBlur}
                           name="password"
@@ -203,6 +209,7 @@ export default function SignUp() {
                 />
               </FormControl>
               <Button
+                data-cy="signUp_submit"
                 type="submit"
                 fullWidth
                 variant="contained"
