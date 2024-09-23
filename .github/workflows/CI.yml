@@ -71,8 +71,8 @@ jobs:
       - name: Check lifetime of Docker containers
         run: docker ps
 
-      - name: Sleep for 30 seconds
-        run: sleep 30s
+      - name: Sleep for 50 seconds
+        run: sleep 50s
         shell: bash
 
       - name: Cypress
