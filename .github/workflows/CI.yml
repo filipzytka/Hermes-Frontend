@@ -88,13 +88,6 @@ jobs:
             "password": "Root12345"
           }'
 
-      - name: Run React app
-        run: npm run dev
-
-      - name: Sleep for 10 seconds
-        run: sleep 10s
-        shell: bash
-
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
