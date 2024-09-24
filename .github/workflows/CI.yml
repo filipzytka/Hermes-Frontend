@@ -38,7 +38,7 @@ jobs:
 
       - name: Start Postgres Container
         run: |
-          docker run \
+          docker run -d \
             --name postgres \
             --network hermes-network \
             -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
@@ -47,9 +47,9 @@ jobs:
             -p 5432:5432 \
             ghcr.io/filipzytka/postgres:latest
 
-      - name: Sleep
-        run: sleep 20s
-        shell: bash
+      # - name: Sleep for 50 seconds
+      #   run: sleep 50s
+      #   shell: bash
 
       - name: Start ASP.NET Core Container
         run: |
@@ -72,18 +72,15 @@ jobs:
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes.server:latest
 
-      - name: Check lifetime of Docker containers 1
+      - name: Check lifetime of Docker containers
         run: docker ps
 
-      - name: Sleep
-        run: sleep 30s
+      - name: Sleep for 50 seconds
+        run: sleep 50s
         shell: bash
 
-      - name: Check lifetime of Docker containers 2
+      - name: Check lifetime of Docker containers
         run: docker ps
-
-      - name: Send curl to check if endpoints work
-        run: curl http://localhost:8080/api/auth/check
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
@@ -98,6 +95,3 @@ jobs:
           CYPRESS_TEST_TOKEN: ${{ secrets.CYPRESS_TEST_TOKEN }}
         with:
           start: npm run dev
-
-      - name: Check lifetime of Docker containers 3
-        run: docker ps
