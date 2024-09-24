@@ -14,7 +14,7 @@ before(() => {
 });
 
 it("should create new account after submitting register form", () => {
-  const testToken = `${Cypress.env("CYPRESS_TEST_TOKEN")}`;
+  const testToken = `${Cypress.env("TEST_TOKEN")}`;
   const registerUrl = `${Cypress.env("LOCALHOST")}/register?token=${testToken}`;
 
   cy.visit(registerUrl);
