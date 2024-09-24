@@ -21,83 +21,15 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1.6.0
 
-      - name: Log in to GitHub Docker registry
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
-
-      - name: Pull Database Docker Image from Github packages
-        run: docker pull ghcr.io/filipzytka/postgres:latest
-
-      - name: Pull ASP.NET CORE Image from Github packages
-        run: docker pull ghcr.io/filipzytka/hermes.server:latest
-
-      - name: Create Docker Network
-        run: docker network create hermes-network
-
-      - name: Start Postgres Container
-        run: |
-          docker run -d \
-            --name postgres \
-            --network hermes-network \
-            -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
-            -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
-            -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
-            -p 5432:5432 \
-            ghcr.io/filipzytka/postgres:latest
-
-      - name: Sleep for 20 seconds
-        run: sleep 20s
-        shell: bash
-
-      - name: Start ASP.NET Core Container
-        run: |
-          docker run -d \
-            --name hermes.server \
-            --network hermes-network \
-            -e ENVIRONMENT="${{ secrets.ENVIRONMENT }}" \
-            -e CONNECTION_STRING="Host=postgres;Database=${{ secrets.POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}" \
-            -e TEST_CONNECTION_STRING="Host=postgres;Port=5432;Database=${{ secrets.TEST_POSTGRES_DB }};Username=${{ secrets.POSTGRES_USER }};Password=${{ secrets.POSTGRES_PASSWORD }}" \
-            -e TEST_POSTGRES_DB="${{ secrets.TEST_POSTGRES_DB }}" \
-            -e SMTP_SERVER="${{ secrets.SMTP_SERVER }}" \
-            -e PORT="${{ secrets.PORT }}" \
-            -e EMAIL_SENDER_USERNAME="${{ secrets.EMAIL_SENDER_USERNAME }}" \
-            -e EMAIL_SENDER_PASSWORD="${{ secrets.EMAIL_SENDER_PASSWORD }}" \
-            -e REACT_CLIENT_URL="${{ secrets.REACT_CLIENT_URL }}" \
-            -e ADMIN_EMAIL="${{ secrets.ADMIN_EMAIL }}" \
-            -e ALARM_EMAIL="${{ secrets.ALARM_EMAIL }}" \
-            -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
-            -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
-            -p 8080:8080 \
-            ghcr.io/filipzytka/hermes.server:latest
-
-      - name: Check lifetime of Docker containers
-        run: docker ps
-
-      - name: Sleep for 15 seconds
-        run: sleep 15s
-        shell: bash
-
-      - name: curl login
-        run: |
-          curl -X POST "http://localhost:8080/api/auth/login" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "email": "admin@mail.com",
-            "password": "Root12345"
-          }'
-
       - name: Build project
         run: npm run build
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
-          CYPRESS_LOCALHOST: ${{ secrets.CYPRESS_LOCALHOST }}
-          CYPRESS_EMAIL: ${{ secrets.CYPRESS_EMAIL }}
-          CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-          CYPRESS_INV_EMAIL: ${{ secrets.CYPRESS_INV_EMAIL }}
-          CYPRESS_SERVER_URL: ${{ secrets.CYPRESS_SERVER_URL }}
-          CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
-          CYPRESS_TEST_EMAIL: ${{ secrets.CYPRESS_TEST_EMAIL }}
-          CYPRESS_TEST_TOKEN: ${{ secrets.CYPRESS_TEST_TOKEN }}
+          CYPRESS_LOCALHOST: ${{secrets.CYPRESS_LOCALHOST}}
+          CYPRESS_EMAIL: ${{secrets.CYPRESS_EMAIL}}
+          CYPRESS_PASSWORD: ${{secrets.CYPRESS_PASSWORD}}
         with:
           start: npm run dev
+          run-tests: "signin.cy.ts"
