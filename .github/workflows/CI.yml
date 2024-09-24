@@ -38,7 +38,7 @@ jobs:
 
       - name: Start Postgres Container
         run: |
-          docker run -d \
+          docker run \
             --name postgres \
             --network hermes-network \
             -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
@@ -81,6 +81,9 @@ jobs:
 
       - name: Check lifetime of Docker containers 2
         run: docker ps
+
+      - name: Send curl to check if endpoints work
+        run: curl http://localhost:8080/api/auth/check
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
