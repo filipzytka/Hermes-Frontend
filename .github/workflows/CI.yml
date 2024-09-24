@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1.6.0
 
-      - name: Build project
-        run: npm run build
-
       - name: Log in to GitHub Docker registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
 
@@ -88,6 +85,9 @@ jobs:
             "password": "Root12345"
           }'
 
+      - name: Build project
+        run: npm run build
+
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
@@ -99,3 +99,5 @@ jobs:
           CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
           CYPRESS_TEST_EMAIL: ${{ secrets.CYPRESS_TEST_EMAIL }}
           CYPRESS_TEST_TOKEN: ${{ secrets.CYPRESS_TEST_TOKEN }}
+        with:
+          start: npm run dev
