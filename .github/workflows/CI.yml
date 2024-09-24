@@ -98,5 +98,6 @@ jobs:
           CYPRESS_LOCALHOST: ${{ secrets.CYPRESS_LOCALHOST }}
           CYPRESS_EMAIL: ${{ secrets.CYPRESS_EMAIL }}
           CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
+          CYPRESS_SERVER_URL: ${{ secrets.CYPRESS_SERVER_URL }}
         with:
           start: npm run dev
