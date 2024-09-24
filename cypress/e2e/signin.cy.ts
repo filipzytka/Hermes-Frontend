@@ -1,10 +1,9 @@
-beforeEach(() => {
-  cy.visit(`http://localhost:5173/login`);
-});
+// beforeEach(() => {
+//   cy.visit(`http://localhost:5173/login`);
+// });
 
 it("should show validation errors when email is in a wrong format", () => {
-  cy.visit(`http://localhost:5173/login`);
-
+  cy.visit(`${Cypress.env("LOCALHOST")}/login`);
   cy.get('[data-cy="email-input"]').type("abcdgmail.com");
 
   cy.get('[data-cy="error-submit-email"]').should(
@@ -14,8 +13,7 @@ it("should show validation errors when email is in a wrong format", () => {
 });
 
 it("should show validation errors when typing password with less than 8 characters", () => {
-  cy.visit(`http://localhost:5173/login`);
-
+  cy.visit(`${Cypress.env("LOCALHOST")}/login`);
   cy.get('[data-cy="password-input"]').type("Abc2");
 
   cy.get('[data-cy="error-submit-password"]').should(
@@ -27,8 +25,7 @@ it("should show validation errors when typing password with less than 8 characte
 });
 
 it("should show validation errors when typing password which does not contain both letters and numbers", () => {
-  cy.visit(`http://localhost:5173/login`);
-
+  cy.visit(`${Cypress.env("LOCALHOST")}/login`);
   cy.get('[data-cy="password-input"]').type("abcdefghijk");
 
   cy.get('[data-cy="error-submit-password"]').should(
