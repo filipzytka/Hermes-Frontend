@@ -98,9 +98,9 @@ jobs:
           CYPRESS_LOCALHOST: ${{ secrets.CYPRESS_LOCALHOST }}
           CYPRESS_EMAIL: ${{ secrets.CYPRESS_EMAIL }}
           CYPRESS_PASSWORD: ${{ secrets.CYPRESS_PASSWORD }}
-          CYPRESS_INV_EMAIL: ${{ secrets.CYPRESS_INV_EMAIL }}
-          CYPRESS_CLIENT_URL: ${{ secrets.CYPRESS_CLIENT_URL }}
-          CYPRESS_TEST_EMAIL: ${{ secrets.CYPRESS_TEST_EMAIL }}
-          CYPRESS_TEST_TOKEN: ${{ secrets.CYPRESS_TEST_TOKEN }}
+          CYPRESS_INV_EMAIL: "${{ secrets.CYPRESS_INV_EMAIL }}"
+          CYPRESS_CLIENT_URL: "${{ secrets.CYPRESS_CLIENT_URL }}"
+          CYPRESS_TEST_EMAIL: "${{ secrets.CYPRESS_TEST_EMAIL }}"
+          CYPRESS_TEST_TOKEN: "${{ secrets.CYPRESS_TEST_TOKEN }}"
         with:
           start: npm run dev
