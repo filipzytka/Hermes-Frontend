@@ -47,8 +47,8 @@ jobs:
             -p 5432:5432 \
             ghcr.io/filipzytka/postgres:latest
 
-      - name: Sleep for 50 seconds
-        run: sleep 50s
+      - name: Sleep
+        run: sleep 20s
         shell: bash
 
       - name: Start ASP.NET Core Container
@@ -75,8 +75,8 @@ jobs:
       - name: Check lifetime of Docker containers 1
         run: docker ps
 
-      - name: Sleep for 50 seconds
-        run: sleep 50s
+      - name: Sleep
+        run: sleep 30s
         shell: bash
 
       - name: Check lifetime of Docker containers 2
