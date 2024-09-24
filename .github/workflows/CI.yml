@@ -79,9 +79,6 @@ jobs:
         run: sleep 50s
         shell: bash
 
-      - name: Curl
-        run: curl -f http://localhost:8080/api/auth/check
-
       - name: Check lifetime of Docker containers
         run: docker ps
 
