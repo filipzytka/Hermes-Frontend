@@ -68,7 +68,7 @@ jobs:
             -e ADMIN_EMAIL="${{ secrets.ADMIN_EMAIL }}" \
             -e ALARM_EMAIL="${{ secrets.ALARM_EMAIL }}" \
             -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
-            -e CYPRESS_VALIDATION_TOKEN="${{ secrets.CYPRESS_VALIDATION_TOKEN }}" \
+            -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes.server:latest
 
