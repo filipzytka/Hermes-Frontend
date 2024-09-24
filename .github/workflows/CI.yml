@@ -72,14 +72,14 @@ jobs:
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes.server:latest
 
-      - name: Check lifetime of Docker containers
+      - name: Check lifetime of Docker containers 1
         run: docker ps
 
       - name: Sleep for 50 seconds
         run: sleep 50s
         shell: bash
 
-      - name: Check lifetime of Docker containers
+      - name: Check lifetime of Docker containers 2
         run: docker ps
 
       - name: Cypress
@@ -95,3 +95,6 @@ jobs:
           CYPRESS_TEST_TOKEN: ${{ secrets.CYPRESS_TEST_TOKEN }}
         with:
           start: npm run dev
+
+      - name: Check lifetime of Docker containers 3
+        run: docker ps
