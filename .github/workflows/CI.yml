@@ -88,10 +88,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Sleep for 15 seconds
-        run: sleep 15s
-        shell: bash
-
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
