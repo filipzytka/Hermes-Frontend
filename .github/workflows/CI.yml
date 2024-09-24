@@ -79,6 +79,15 @@ jobs:
         run: sleep 50s
         shell: bash
 
+      - name: curl login
+        run: |
+          curl -X POST "http://localhost:8080/api/auth/login" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "email": "admin@mail.com",
+            "password": "Root12345"
+          }'
+
       - name: Check lifetime of Docker containers
         run: docker ps
 
