@@ -1,13 +1,12 @@
 beforeEach(() => {
   cy.session("login", () => {
-    cy.visit(`${Cypress.env("LOCALHOST")}/login`);
+    const email = `${Cypress.env("EMAIL")}`;
+    const password = `${Cypress.env("PASSWORD")}`;
 
-    cy.get('[data-cy="email-input"]').type(Cypress.env("EMAIL"));
-    cy.get('[data-cy="password-input"]').type(Cypress.env("PASSWORD"));
+    cy.loginByApi(email, password).then((response) => {
+      expect(response.status).to.eq(200);
+    });
 
-    cy.get('[data-cy="signin_submit"]').click().debug();
-
-    cy.wait(100);
     cy.document().its("cookie").should("contain", "active");
   });
 });
