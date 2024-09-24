@@ -75,6 +75,9 @@ jobs:
         run: sleep 50s
         shell: bash
 
+      - name: Check lifetime of Docker containers
+        run: docker ps
+
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
         env:
