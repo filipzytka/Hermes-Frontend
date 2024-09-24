@@ -88,8 +88,9 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Wait for React app to be available
-        run: npx wait-on http://localhost:5173
+      - name: Sleep for 15 seconds
+        run: sleep 15s
+        shell: bash
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
