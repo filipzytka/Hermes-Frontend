@@ -38,7 +38,7 @@ jobs:
 
       - name: Start Postgres Container
         run: |
-          docker run \
+          docker run -d \
             --name postgres \
             --network hermes-network \
             -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
