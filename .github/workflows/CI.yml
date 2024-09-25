@@ -88,8 +88,8 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
-          VITE_CLIENT_URL: ${{ secrets.VITE_CLIENT_URL }}
+          VITE_SERVER_URL: "${{ secrets.VITE_SERVER_URL }}""
+          VITE_CLIENT_URL: "${{ secrets.VITE_CLIENT_URL }}"
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
