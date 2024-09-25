@@ -14,11 +14,12 @@ before(() => {
 });
 
 it("should create new account after submitting register form", () => {
-  const testToken = `${Cypress.env("CYPRESS_TEST_TOKEN")}`;
+  const testToken = `${Cypress.env("TEST_TOKEN")}`;
   const registerUrl = `${Cypress.env("LOCALHOST")}/register?token=${testToken}`;
 
   cy.visit(registerUrl);
 
+  cy.wait(5000);
   cy.get('[data-cy="email-input"]').type(testEmail);
   cy.get('[data-cy="password-input"]').type(password);
 
