@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SERVER_URL } from "./constants";
+// import { SERVER_URL } from "./constants";
 import { TMessageResponse } from "./response-types";
 
 export const registerUser = async (
