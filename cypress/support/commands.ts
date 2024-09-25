@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 Cypress.Commands.add("loginByApi", (email: string, password: string) => {
-  return cy.request("POST", `http://localhost:8080/api/auth/login`, {
+  return cy.request("POST", `${Cypress.env("SERVER_URL")}/api/auth/login`, {
     email,
     password,
   });
