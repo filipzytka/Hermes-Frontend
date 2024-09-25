@@ -89,7 +89,7 @@ jobs:
         env:
           VITE_SERVER_URL: ${{ secrets.CYPRESS_SERVER_URL }}
           VITE_CLIENT_URL: ${{ secrets.REACT_CLIENT_URL }}
-        run: npm run build
+        run: npx vite --host
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
