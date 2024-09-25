@@ -22,7 +22,7 @@ it("should create new account after submitting register form", () => {
   cy.get('[data-cy="email-input"]').type(testEmail);
   cy.get('[data-cy="password-input"]').type(password);
 
-  cy.intercept("POST", `http://localhost:8080/api/users/register`).as(
+  cy.intercept("POST", `${Cypress.env("SERVER_URL")}/api/users/register`).as(
     "register"
   );
 

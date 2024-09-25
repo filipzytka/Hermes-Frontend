@@ -8,7 +8,7 @@ export const registerUser = async (
   token: string
 ) => {
   const { data } = await axios.post<TMessageResponse>(
-    `${SERVER_URL}/api/users/register`,
+    `http://localhost:8080/api/users/register`,
     {
       email,
       password,
