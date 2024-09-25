@@ -76,7 +76,7 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1.6.0
 
-      - name: Build React
+      - name: Build React App
         run: npm run build
 
       - name: Cypress
