@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { SERVER_URL } from "./constants";
+import { SERVER_URL } from "./constants";
 
 export const sendEmail = async (
   receiverEmail: string,
@@ -7,7 +7,7 @@ export const sendEmail = async (
   body: string
 ) => {
   await axios.post(
-    `http://localhost:8080/api/email`,
+    `${SERVER_URL}/api/email`,
     {
       receiverEmail,
       topic,

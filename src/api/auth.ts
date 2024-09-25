@@ -9,7 +9,7 @@ export const authenticateUser = async () => {
   }
 
   const { data, status } = await axios.get<TAuthResponse>(
-    `http://localhost:8080/api/auth/check`,
+    `${SERVER_URL}/api/auth/check`,
     {
       withCredentials: true,
     }

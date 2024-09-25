@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { SERVER_URL } from "./constants";
+import { SERVER_URL } from "./constants";
 import { TMessageResponse } from "./response-types";
 
 export const registerUser = async (
@@ -8,7 +8,7 @@ export const registerUser = async (
   token: string
 ) => {
   const { data } = await axios.post<TMessageResponse>(
-    `http://localhost:8080/api/users/register`,
+    `${SERVER_URL}/api/users/register`,
     {
       email,
       password,

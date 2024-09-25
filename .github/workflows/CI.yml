@@ -86,6 +86,9 @@ jobs:
         uses: bahmutov/npm-install@v1.6.0
 
       - name: Build project
+        env:
+          VITE_SERVER_URL: ${{ secrets.CYPRESS_SERVER_URL }}
+          VITE_CLIENT_URL: ${{ secrets.REACT_CLIENT_URL }}
         run: npm run build
 
       - name: Cypress
