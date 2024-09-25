@@ -58,7 +58,7 @@ jobs:
             -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
             -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
-            ghcr.io/filipzytka/hermes.server:latest
+            ghcr.io/filipzytka/hermes:latest
 
       - name: Check lifetime of Docker containers
         run: docker ps
