@@ -86,10 +86,10 @@ jobs:
         uses: bahmutov/npm-install@v1.6.0
 
       - name: Build project
-        env:
-          VITE_SERVER_URL: ${{ secrets.CYPRESS_SERVER_URL }}
-          VITE_CLIENT_URL: ${{ secrets.REACT_CLIENT_URL }}
-        run: npx vite --host
+        run: |
+          echo "VITE_SERVER_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
+          echo "VITE_CLIENT_URL=${{ secrets.REACT_APP_CLIENT_ID }}" >> .env
+          npm run build
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
