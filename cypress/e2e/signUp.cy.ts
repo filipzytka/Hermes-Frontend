@@ -19,6 +19,7 @@ it("should create new account after submitting register form", () => {
 
   cy.visit(registerUrl);
 
+  cy.wait(5000);
   cy.get('[data-cy="email-input"]').type(testEmail);
   cy.get('[data-cy="password-input"]').type(password);
 
