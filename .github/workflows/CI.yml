@@ -104,7 +104,7 @@ jobs:
           wait-on: "http://localhost:5173"
 
       - name: upload screenshots
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-screenshots
