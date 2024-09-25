@@ -1,10 +1,10 @@
 import axios from "axios";
-import { SERVER_URL } from "./constants";
+// import { SERVER_URL } from "./constants";
 import { TTokenResponse } from "./response-types";
 
 export const generateToken = async (createdBy: string) => {
   const { data, status } = await axios.post<TTokenResponse>(
-    `${SERVER_URL}/api/invite/generate`,
+    `http://localhost:8080/api/invite/generate`,
     {
       createdBy,
     },
