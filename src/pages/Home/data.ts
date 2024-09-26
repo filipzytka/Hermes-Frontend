@@ -18,16 +18,16 @@ export const FeaturesGridData = [
       "Search and analytics engine paired with Logstash to ingest, process, and store logs from monitored servers, enabling real-time querying and analysis of system data.",
   },
   {
-    icon: BiLogoPostgresql,
-    title: "PostgreSQL",
-    description:
-      "Advanced relational database system used to store structured application data, offering powerful querying, scalability, and data integrity.",
-  },
-  {
     icon: AiOutlineSchedule,
     title: "Background Scheduling",
     description:
       "Automate recurring tasks such as server monitoring and notifications with Quartz.NET, ensuring timely execution and optimal system performance.",
+  },
+  {
+    icon: BiLogoPostgresql,
+    title: "PostgreSQL",
+    description:
+      "Advanced relational database system used to store structured application data, offering powerful querying, scalability, and data integrity.",
   },
   {
     icon: MdDashboard,
