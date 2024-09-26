@@ -15,6 +15,7 @@ export const generateToken = async (createdBy: string) => {
 
   return { data, status };
 };
+
 export const validateToken = async (token: string) => {
   const { data, status } = await axios.get<TTokenResponse>(
     `${SERVER_URL}/api/invite/validate?token=${token}`,
