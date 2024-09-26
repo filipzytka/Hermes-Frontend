@@ -19,7 +19,7 @@ export const getCollaborators = async () => {
 
 export const deleteCollaborators = async (usersToDelete: TCollaborator[]) => {
   const { data } = await axios.delete<TMessageResponse>(
-    `${SERVER_URL}/api/users/collaborator/remove`,
+    `${SERVER_URL}/api/users/collaborators`,
     {
       withCredentials: true,
       data: usersToDelete,

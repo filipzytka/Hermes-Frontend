@@ -10,7 +10,7 @@ Cypress.Commands.add("loginByApi", (email: string, password: string) => {
 Cypress.Commands.add("removeTestUser", (email: string, role: string) => {
   return cy.request({
     method: "DELETE",
-    url: `${Cypress.env("SERVER_URL")}/api/users/collaborator/remove`,
+    url: `${Cypress.env("SERVER_URL")}/api/users/collaborators`,
     body: [
       {
         email,
