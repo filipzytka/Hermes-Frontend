@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
@@ -14,7 +13,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { TMessageResponse } from "../../api/response-types";
+import { TAuthErrorResponse } from "../../api/response-types";
 import AuthThemeProvider from "../../components/AuthThemeProvider";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
@@ -41,12 +40,8 @@ export default function SignIn() {
       setEmail(response.email);
       navigate("/admin/dashboard/home");
     },
-    onError: (error: AxiosError) => {
-      popUp(
-        `${(error.response?.data as TMessageResponse).message}` ||
-          "Something went wrong",
-        "error"
-      );
+    onError: (error: AxiosError<TAuthErrorResponse>) => {
+      popUp(`${error.response?.data?.errors?.auth[0]}`, "error");
     },
   });
 

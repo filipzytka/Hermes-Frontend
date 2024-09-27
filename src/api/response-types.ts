@@ -9,6 +9,18 @@ export type TAuthResponse = {
   message: string;
 };
 
+export type TAuthErrorResponse = {
+  errors: {
+    auth: string[];
+  };
+};
+
+export type TEmailErrorResponse = {
+  errors: {
+    Email: string[];
+  };
+};
+
 export type TMessageResponse = {
   message: string;
 };

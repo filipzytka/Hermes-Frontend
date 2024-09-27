@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
@@ -17,7 +16,7 @@ import { registerUser } from "../../api/user";
 import AuthThemeProvider from "../../components/AuthThemeProvider";
 import { popUp } from "../../utils/Popup";
 import { AxiosError } from "axios";
-import { TMessageResponse } from "../../api/response-types";
+import { TEmailErrorResponse } from "../../api/response-types";
 import Loading from "../../components/Loading";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
@@ -43,12 +42,8 @@ export default function SignUp() {
     onSuccess: () => {
       navigate("/login");
     },
-    onError: (error: AxiosError) => {
-      popUp(
-        `${(error.response?.data as TMessageResponse).message}` ||
-          "Something went wrong",
-        "error"
-      );
+    onError: (error: AxiosError<TEmailErrorResponse>) => {
+      popUp(`${error.response?.data?.errors?.Email[0]}`, "error");
     },
   });
 
