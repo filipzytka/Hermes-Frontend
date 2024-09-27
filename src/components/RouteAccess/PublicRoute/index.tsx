@@ -5,10 +5,10 @@ type Props = {
   children: JSX.Element;
 };
 
-const PublicRoute = ({ children }: Props) => {
+const NotSignedInRoute = ({ children }: Props) => {
   const { auth } = useAuth();
 
   return !auth ? children : <Navigate to="/" />;
 };
 
-export default PublicRoute;
+export default NotSignedInRoute;
