@@ -1,6 +1,5 @@
-import axios from "axios";
-import { SERVER_URL } from "./constants";
 import { TBanResponse, TMessageResponse } from "./response-types";
+import { axiosInstance } from "./axios";
 
 export type BannedPlayer = {
   token: string;
@@ -8,22 +7,14 @@ export type BannedPlayer = {
 };
 
 export const getBannedPlayers = async () => {
-  const { data } = await axios.get<TBanResponse[]>(
-    `${SERVER_URL}/api/ban/players`,
-    {
-      withCredentials: true,
-    }
-  );
+  const { data } = await axiosInstance.get<TBanResponse[]>(`/ban/players`);
   return data;
 };
 
 export const updateBannedPlayers = async (players: BannedPlayer[]) => {
-  const { data } = await axios.post<TMessageResponse>(
-    `${SERVER_URL}/api/ban/players`,
-    players,
-    {
-      withCredentials: true,
-    }
+  const { data } = await axiosInstance.post<TMessageResponse>(
+    `/ban/players`,
+    players
   );
 
   return data;
