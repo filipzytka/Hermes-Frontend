@@ -18,6 +18,7 @@ import { TMessageResponse } from "../../api/response-types";
 import AuthThemeProvider from "../../components/AuthThemeProvider";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
+import FormInput from "../../components/FormInput";
 
 export default function SignIn() {
   const { setAuth, setRole, setEmail } = useAuth();
@@ -101,21 +102,12 @@ export default function SignIn() {
                 }}
                 children={(field) => {
                   return (
-                    <div>
-                      <TextField
-                        data-cy="email-input"
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        onBlur={field.handleBlur}
-                        id="email"
-                        type="email"
-                        name="email"
-                        placeholder="your@email.com"
-                        autoComplete="email"
-                        required
-                        fullWidth
-                        variant="outlined"
-                        sx={{ ariaLabel: "email" }}
-                      />
+                    <FormInput
+                      handleChange={field.handleChange}
+                      handleBlur={field.handleBlur}
+                      type="email"
+                      placeholder="your@email.com"
+                    >
                       {field.state.meta.errors && (
                         <div
                           data-cy="error-submit-email"
@@ -124,7 +116,7 @@ export default function SignIn() {
                           {field.state.meta.errors}
                         </div>
                       )}
-                    </div>
+                    </FormInput>
                   );
                 }}
               />
@@ -148,20 +140,11 @@ export default function SignIn() {
                 }}
                 children={(field) => {
                   return (
-                    <div>
-                      <TextField
-                        data-cy="password-input"
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        onBlur={field.handleBlur}
-                        name="password"
-                        placeholder="••••••"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        required
-                        fullWidth
-                        variant="outlined"
-                      />
+                    <FormInput
+                      handleChange={field.handleChange}
+                      handleBlur={field.handleBlur}
+                      type="password"
+                    >
                       {field.state.meta.errors && (
                         <div
                           data-cy="error-submit-password"
@@ -170,7 +153,7 @@ export default function SignIn() {
                           {field.state.meta.errors}
                         </div>
                       )}
-                    </div>
+                    </FormInput>
                   );
                 }}
               />

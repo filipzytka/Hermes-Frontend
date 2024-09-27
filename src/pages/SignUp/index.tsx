@@ -21,6 +21,7 @@ import { TMessageResponse } from "../../api/response-types";
 import Loading from "../../components/Loading";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
+import FormInput from "../../components/FormInput";
 
 export default function SignUp() {
   const [validationToken, setValidationToken] = useState("");
@@ -142,27 +143,17 @@ export default function SignUp() {
                   }}
                   children={(field) => {
                     return (
-                      <div>
-                        <TextField
-                          data-cy="email-input"
-                          onChange={(e) => field.handleChange(e.target.value)}
-                          onBlur={field.handleBlur}
-                          id="email"
-                          type="email"
-                          name="email"
-                          placeholder="your@email.com"
-                          autoComplete="email"
-                          required
-                          fullWidth
-                          variant="outlined"
-                          sx={{ ariaLabel: "email" }}
-                        />
+                      <FormInput
+                        handleChange={field.handleChange}
+                        handleBlur={field.handleBlur}
+                        type="email"
+                      >
                         {field.state.meta.errors.length > 0 && (
                           <div className="text-red-500 text-sm mt-1">
                             {field.state.meta.errors}
                           </div>
                         )}
-                      </div>
+                      </FormInput>
                     );
                   }}
                 />
@@ -184,26 +175,17 @@ export default function SignUp() {
                   }}
                   children={(field) => {
                     return (
-                      <div>
-                        <TextField
-                          data-cy="password-input"
-                          onChange={(e) => field.handleChange(e.target.value)}
-                          onBlur={field.handleBlur}
-                          name="password"
-                          placeholder="••••••"
-                          type="password"
-                          id="password"
-                          autoComplete="current-password"
-                          required
-                          fullWidth
-                          variant="outlined"
-                        />
+                      <FormInput
+                        handleChange={field.handleChange}
+                        handleBlur={field.handleBlur}
+                        type="password"
+                      >
                         {field.state.meta.errors && (
                           <div className="text-red-500 text-sm mt-1">
                             {field.state.meta.errors}
                           </div>
                         )}
-                      </div>
+                      </FormInput>
                     );
                   }}
                 />

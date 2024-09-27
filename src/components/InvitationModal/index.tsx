@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../../hooks/useAuth";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
+import FormInput from "../FormInput";
 
 type Props = {
   isShowing: boolean;
@@ -55,9 +56,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
   return ReactDOM.createPortal(
     <>
       <InvitationModalWrapper>
-        <div className="absolute right-4 top-4">
-          <CloseButton handler={onClose} />
-        </div>
+        <CloseButton handler={onClose} />
         <Box
           component="form"
           noValidate
@@ -87,20 +86,12 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
               }}
               children={(field) => {
                 return (
-                  <div>
-                    <TextField
-                      data-cy="inv-modal-input"
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                      type="email"
-                      name="email"
-                      placeholder="collaborator@email.com"
-                      autoComplete="email"
-                      required
-                      fullWidth
-                      variant="outlined"
-                      aria-label="email"
-                    />
+                  <FormInput
+                    handleChange={field.handleChange}
+                    handleBlur={field.handleBlur}
+                    type="email"
+                    placeholder="your@email.com"
+                  >
                     {field.state.meta.errors && (
                       <div
                         data-cy="error-submit-email"
@@ -109,7 +100,7 @@ const InvitationModal = ({ isShowing, onSend, onClose }: Props) => {
                         {field.state.meta.errors}
                       </div>
                     )}
-                  </div>
+                  </FormInput>
                 );
               }}
             />
@@ -139,22 +130,24 @@ type CloseBtnProps = {
 
 const CloseButton = ({ handler }: CloseBtnProps) => {
   return (
-    <button onClick={handler}>
-      <svg
-        className="w-6 h-6 text-gray-500"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M6 18L18 6M6 6l12 12"
-        ></path>
-      </svg>
-    </button>
+    <div className="absolute right-4 top-4">
+      <button onClick={handler}>
+        <svg
+          className="w-6 h-6 text-gray-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
   );
 };
 
