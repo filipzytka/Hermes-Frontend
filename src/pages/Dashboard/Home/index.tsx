@@ -31,7 +31,6 @@ export default function Dashboard() {
     data: serverData,
     refetch: serverDataRefetch,
     isLoading,
-    isFetching,
   } = useQuery({
     queryKey: ["serverData"],
     queryFn: () => getRecentServerData(),
