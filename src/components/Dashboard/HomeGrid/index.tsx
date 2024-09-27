@@ -4,57 +4,44 @@ import Typography from "@mui/material/Typography";
 import PlayersBarChart from "../PlayersBarChart";
 import PlayersLineChart from "../PlayersLineChart";
 import StatCard from "../StatCard";
-import {
-  getRecentPlayerData,
-  getRecentServerData,
-  getServerStatus,
-} from "../../../api/monitor-server";
-import { popUp } from "../../../utils/Popup";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "../../Loading";
 import Header from "../Header";
-import moment from "moment";
+import {
+  TMessageResponse,
+  TServerDataResponse,
+} from "../../../api/response-types";
 
-export default function HomeGrid() {
-  const { data: serverStatus, refetch: serverStatusRefetch } = useQuery({
-    queryKey: ["serverStatus"],
-    queryFn: () => getServerStatus(),
-  });
+type Props = {
+  handleRefresh: () => void;
+  serverStatus:
+    | {
+        data: TMessageResponse;
+        status: number;
+      }
+    | undefined;
+  serverData:
+    | {
+        data: TServerDataResponse;
+        status: number;
+      }
+    | undefined;
+  playerData:
+    | {
+        chartData: {
+          x: string;
+          y: number;
+        }[];
+      }
+    | undefined;
+};
 
-  const { data: playerData, refetch: serverPlayersRefetch } = useQuery({
-    queryKey: ["playerData"],
-    select: (playerData) => ({
-      chartData: playerData?.data.map((d) => ({
-        x: moment(new Date(d.created)).format("MMMM Do YYYY, HH:mm"),
-        y: d.players,
-      })),
-    }),
-    queryFn: () => getRecentPlayerData(),
-  });
-
-  const {
-    data: serverData,
-    refetch: serverDataRefetch,
-    isLoading,
-    isFetching,
-  } = useQuery({
-    queryKey: ["serverData"],
-    queryFn: () => getRecentServerData(),
-  });
-
-  const handleRefresh = async () => {
-    popUp("Server data has been updated", "success");
-    serverDataRefetch();
-    serverStatusRefetch();
-    serverPlayersRefetch();
-  };
-
-  if (isLoading || isFetching) {
-    return <Loading />;
-  }
-
+export default function HomeGrid({
+  handleRefresh,
+  serverStatus,
+  serverData,
+  playerData,
+}: Props) {
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Header currentPage={"Home"} />
