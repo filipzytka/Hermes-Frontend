@@ -1,64 +1,44 @@
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
-import { popUp } from "../../../utils/Popup";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { searchLogs } from "../../../api/logs";
-import { logsColumns } from "./data";
 import DataTable from "../DataTable";
 import Header from "../Header";
 import TextField from "@mui/material/TextField/TextField";
-import { useDebouncedCallback } from "use-debounce";
-import Loading from "../../Loading";
-import moment from "moment";
+import { logsColumns } from "./data";
 
-export default function LogsGrid() {
-  const [message, setMessage] = useState("");
-  const [debouncedMessage, setDebouncedMessage] = useState("");
-  const [paginationModel, setPaginationModel] = useState({
-    pageSize: 20,
-    page: 0,
-  });
-
-  const debouncedSetMessage = useDebouncedCallback((value) => {
-    setDebouncedMessage(value);
-  }, 150);
-
-  const {
-    data: logsData,
-    refetch,
-    isLoading,
-  } = useQuery({
-    placeholderData: keepPreviousData,
-    queryKey: ["searched-logs", paginationModel, debouncedMessage],
-    select: (data) => ({
-      rows: data?.logs.map((l, index) => ({
-        id: index,
-        message: l.message,
-        created: moment(new Date(l.created)).format("MMMM Do YYYY, HH:mm"),
-      })),
-      totalCount: data?.totalCount ?? 0,
-    }),
-    queryFn: async () =>
-      await searchLogs(
-        paginationModel.page,
-        paginationModel.pageSize,
-        debouncedMessage
-      ),
-  });
-
-  const handleRefresh = async () => {
-    await refetch();
-    popUp("Logs have been updated", "success");
+type Props = {
+  handleRefresh: () => void;
+  message: string;
+  setMessage: (message: string) => void;
+  debouncedSetMessage: (message: string) => void;
+  paginationModel: {
+    pageSize: number;
+    page: number;
   };
+  setPaginationModel: (model: { pageSize: number; page: number }) => void;
+  logsData:
+    | {
+        rows: {
+          id: number;
+          message: string;
+          created: string;
+        }[];
+        totalCount: number;
+      }
+    | undefined;
+};
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
+export default function LogsGrid({
+  handleRefresh,
+  message,
+  setMessage,
+  debouncedSetMessage,
+  logsData,
+  paginationModel,
+  setPaginationModel,
+}: Props) {
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Header currentPage={"Logs"} />
