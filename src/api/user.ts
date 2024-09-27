@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "./axios";
 import { TMessageResponse } from "./response-types";
 
 export const registerUser = async (
@@ -6,11 +6,14 @@ export const registerUser = async (
   password: string,
   token: string
 ) => {
-  const { data } = await axios.post<TMessageResponse>(`/users/register`, {
-    email,
-    password,
-    token,
-  });
+  const { data } = await axiosInstance.post<TMessageResponse>(
+    `/users/register`,
+    {
+      email,
+      password,
+      token,
+    }
+  );
 
   return data;
 };

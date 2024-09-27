@@ -1,8 +1,8 @@
-import axios from "axios";
 import { TTokenResponse } from "./response-types";
+import { axiosInstance } from "./axios";
 
 export const generateToken = async (createdBy: string) => {
-  const { data, status } = await axios.post<TTokenResponse>(
+  const { data, status } = await axiosInstance.post<TTokenResponse>(
     `/invite/generate`,
     {
       createdBy,
@@ -13,7 +13,7 @@ export const generateToken = async (createdBy: string) => {
 };
 
 export const validateToken = async (token: string) => {
-  const { data, status } = await axios.get<TTokenResponse>(
+  const { data, status } = await axiosInstance.get<TTokenResponse>(
     `/invite/validate?token=${token}`
   );
 
