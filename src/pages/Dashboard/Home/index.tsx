@@ -44,7 +44,7 @@ export default function Dashboard() {
     serverPlayersRefetch();
   };
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <Loading />;
   }
 
