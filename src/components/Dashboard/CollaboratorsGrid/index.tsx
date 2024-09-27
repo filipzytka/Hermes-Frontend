@@ -2,74 +2,39 @@ import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "../DataTable";
-import useModal from "../../../hooks/useModal";
-import { render } from "@react-email/components";
-import Welcome from "../../Email/Welcome";
-import { sendEmail } from "../../../api/email";
-import { useAuth } from "../../../hooks/useAuth";
 import InvitationModal from "../../InvitationModal";
-import { popUp } from "../../../utils/Popup";
-import { TCollaborator } from "../../../api/response-types";
 import { collaboratorColumns } from "./data";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import {
-  deleteCollaborators,
-  getCollaborators,
-} from "../../../api/collaborators";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import Loading from "../../Loading";
 import Header from "../Header";
+import { TCollaborator } from "../../../api/response-types";
 
-export default function CollaboratorsGrid() {
-  const { isShowing, setIsShowing, toggle } = useModal();
-  const { email } = useAuth();
-
-  const {
-    data,
-    isFetched,
-    refetch: collaboratorsRefetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["collaborators"],
-    select: (data) => ({
-      rows: data?.collaborators.map((l, index) => ({
-        id: index,
-        email: l.email,
-        role: l.role,
-      })),
-    }),
-    queryFn: () => getCollaborators(),
-  });
-
-  const { mutateAsync: deleteUsersMutate } = useMutation({
-    mutationKey: ["deleteUsers"],
-    mutationFn: (usersToDelete: TCollaborator[]) =>
-      deleteCollaborators(usersToDelete),
-    onSuccess: async (response) => {
-      popUp(`${response?.message}`, "success");
-      await collaboratorsRefetch();
-    },
-  });
-
-  const handleSendEmail = async (receiverEmail: string, token: string) => {
-    const html = render(
-      <Welcome username={receiverEmail} token={token} inviterEmail={email} />
-    );
-
-    await sendEmail(receiverEmail, "Invitation", html);
-    setIsShowing(false);
-  };
-
-  const handleRefresh = async () => {
-    popUp("Collaborators list has been updated", "success");
-    collaboratorsRefetch();
-  };
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
+type Props = {
+  handleRefresh: () => void;
+  isFetched: boolean;
+  toggle: () => void;
+  deleteUsersMutate: (usersToDelete: TCollaborator[]) => void;
+  isShowing: boolean;
+  handleSendEmail: (receiverEmail: string, token: string) => void;
+  data:
+    | {
+        rows: {
+          id: number;
+          email: string;
+          role: string;
+        }[];
+      }
+    | undefined;
+};
+export default function CollaboratorsGrid({
+  handleRefresh,
+  isFetched,
+  toggle,
+  deleteUsersMutate,
+  isShowing,
+  handleSendEmail,
+  data,
+}: Props) {
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Header currentPage={"Collaborators"} />
