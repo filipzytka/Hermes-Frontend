@@ -26,6 +26,7 @@ type Props = {
       }
     | undefined;
 };
+
 export default function CollaboratorsGrid({
   handleRefresh,
   isFetched,
