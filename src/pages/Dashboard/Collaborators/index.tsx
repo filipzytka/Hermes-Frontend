@@ -17,7 +17,6 @@ import useModal from "../../../hooks/useModal";
 export default function CollabDashboard() {
   const { email } = useAuth();
   const { isShowing, setIsShowing, toggle } = useModal();
-
   const {
     data,
     isFetched,
