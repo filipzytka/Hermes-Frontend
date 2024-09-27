@@ -2,65 +2,25 @@ import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import DataTable from "../DataTable";
-import { popUp } from "../../../utils/Popup";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import {
-  BannedPlayer,
-  getBannedPlayers,
-  updateBannedPlayers,
-} from "../../../api/ban-list";
 import { bannedPlayersColumns } from "./data";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { TMessageResponse } from "../../../api/response-types";
-import Loading from "../../Loading";
 import Header from "../Header";
+import Button from "@mui/material/Button/Button";
+import { BannedPlayer } from "../../../api/ban-list";
 
-export default function BanListGrid() {
-  const {
-    data: bannedPlayersData,
-    refetch: bannedPlayersRefetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["bannedPlayers"],
-    select: (data) => ({
-      rows: data?.map((b, index) => ({
-        id: index,
-        Token: b.Token,
-        Ip: b.Ip,
-      })),
-    }),
-    queryFn: () => getBannedPlayers(),
-  });
+type Props = {
+  handleRefresh: () => void;
+  bannedPlayersData:
+    | { rows: { id: number; Token: string; Ip: string }[] }
+    | undefined;
+  updateBannedMutate: (players: BannedPlayer[]) => void;
+};
 
-  const { mutateAsync: updateBannedMutate } = useMutation({
-    mutationKey: ["updateBan"],
-    mutationFn: async (players: BannedPlayer[]) => {
-      return updateBannedPlayers(players);
-    },
-    onSuccess: async (response) => {
-      popUp(response.message, "success");
-      await bannedPlayersRefetch();
-    },
-    onError: (error: AxiosError) => {
-      popUp(
-        `${(error.response?.data as TMessageResponse).message}` ||
-          "Something went wrong",
-        "error"
-      );
-    },
-  });
-
-  const handleRefresh = async () => {
-    popUp("Ban list has been updated", "success");
-    await bannedPlayersRefetch();
-  };
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
+export default function BanListGrid({
+  handleRefresh,
+  bannedPlayersData,
+  updateBannedMutate,
+}: Props) {
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Header currentPage={"BanList"} />
