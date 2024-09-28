@@ -67,6 +67,14 @@ jobs:
       - name: Check lifetime of Docker containers
         run: docker ps
 
+      - name: Wait for ASP.NET Backend to be available
+        run: |
+          until netstat -nlpt | grep :8080; do
+            echo "Waiting for ASP.NET Backend to be available..."
+            sleep 1
+          done
+        shell: bash
+
       - uses: actions/checkout@v2
       - name: Setup Node
         uses: actions/setup-node@v4.0.3
