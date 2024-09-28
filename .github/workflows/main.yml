@@ -73,7 +73,9 @@ jobs:
         run: npm run build
 
       - name: Check lifetime of Docker containers
-        run: docker ps -a
+        run: |
+          docker ps -a \
+          docker logs hermes.server
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
