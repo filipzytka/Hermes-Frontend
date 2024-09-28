@@ -64,9 +64,6 @@ jobs:
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes:latest
 
-      - name: Check lifetime of Docker containers
-        run: docker ps
-
       - name: Wait for ASP.NET Backend to be available
         run: |
           until netstat -nlpt | grep :8080; do
