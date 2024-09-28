@@ -35,9 +35,9 @@ jobs:
             -p 5432:5432 \
             postgres:latest
 
-      - name: Wait for Postgres Db to be available
+      - name: Wait for Postgres to be available
         run: |
-          until curl -s http://localhost:5432; do
+          until docker exec postgres pg_isready -h localhost -p 5432; do
             echo "Waiting for Postgres to be available..."
             sleep 1
           done
