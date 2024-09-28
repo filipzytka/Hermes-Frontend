@@ -15,8 +15,8 @@ jobs:
       - name: Log in to GitHub Docker registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
 
-      - name: Pull Database Docker Image from Github packages
-        run: docker pull ghcr.io/filipzytka/postgres:latest
+      - name: Pull Database Docker Image
+        run: docker pull postgres
 
       - name: Pull ASP.NET CORE Image from Github packages
         run: docker pull ghcr.io/filipzytka/hermes:latest
