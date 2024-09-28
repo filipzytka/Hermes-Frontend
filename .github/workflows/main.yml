@@ -74,7 +74,7 @@ jobs:
 
       - name: Check lifetime of Docker containers
         run: |
-          docker ps -a \
+          docker ps -a 
           docker logs hermes.server
 
       - name: Cypress
