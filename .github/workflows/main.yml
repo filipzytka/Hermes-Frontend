@@ -15,8 +15,8 @@ jobs:
       - name: Log in to GitHub Docker registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
 
-      - name: Pull Database Docker Image from Github packages
-        run: docker pull ghcr.io/filipzytka/postgres:latest
+      - name: Pull Postgres Docker Image
+        run: docker pull postgres:latest
 
       - name: Pull ASP.NET CORE Image from Github packages
         run: docker pull ghcr.io/filipzytka/hermes:latest
@@ -33,7 +33,7 @@ jobs:
             -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
             -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
             -p 5432:5432 \
-            ghcr.io/filipzytka/postgres:latest
+            postgres:latest
 
       - name: Wait for PostgreSQL to be available
         run: |
@@ -104,7 +104,7 @@ jobs:
           start: npx vite --host
           wait-on: "http://localhost:5173"
 
-      - name: upload screenshots
+      - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: always()
         with:
