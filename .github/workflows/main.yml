@@ -32,7 +32,7 @@ jobs:
             -p 5432:5432 \
             postgres:latest
 
-      - name: Sleep for 10 seconds
+      - name: Sleep for 50 seconds
         run: sleep 10s
         shell: bash
 
