@@ -57,6 +57,9 @@ jobs:
             -p 8080:8080 \
             filipus01/hermes:latest
 
+      - name: Check lifetime of Docker containers
+        run: docker ps
+
       - name: Sleep for 50 seconds
         run: sleep 50s
         shell: bash
