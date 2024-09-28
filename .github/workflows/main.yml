@@ -67,10 +67,6 @@ jobs:
       - name: Check lifetime of Docker containers
         run: docker ps
 
-      - name: Sleep for 15 seconds
-        run: sleep 15s
-        shell: bash
-
       - uses: actions/checkout@v2
       - name: Setup Node
         uses: actions/setup-node@v4.0.3
