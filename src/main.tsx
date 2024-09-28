@@ -12,7 +12,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Dashboard from "./pages/Dashboard/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import NotSignedInRoute from "./components/RouteAccess/PublicRoute";
+import NotSignedInRoute from "./components/RouteAccess/NotSignedInRoute";
 import AdminRoute from "./components/RouteAccess/AdminRoute";
 import CollabDashboard from "./pages/Dashboard/Collaborators";
 import PrivateRoute from "./components/RouteAccess/PrivateRoute";
