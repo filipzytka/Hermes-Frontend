@@ -15,11 +15,11 @@ jobs:
       - name: Log in to GitHub Docker registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
 
-      - name: Pull Database Docker Image
-        run: docker pull postgres
+      - name: Pull Postgres Docker Image
+        run: docker pull postgres:latest
 
-      - name: Pull ASP.NET CORE Image from Github packages
-        run: docker pull ghcr.io/filipzytka/hermes:latest
+      - name: Pull ASP.NET CORE Application Image from Docker repository
+        run: docker pull filipus01/hermes:latest
 
       - name: Create Docker Network
         run: docker network create hermes-network
@@ -33,7 +33,7 @@ jobs:
             -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
             -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
             -p 5432:5432 \
-            ghcr.io/filipzytka/postgres:latest
+            postgres:latest
 
       - name: Sleep for 20 seconds
         run: sleep 20s
@@ -58,10 +58,7 @@ jobs:
             -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
             -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
-            ghcr.io/filipzytka/hermes:latest
-
-      - name: Check lifetime of Docker containers
-        run: docker ps
+            filipus01/hermes:latest
 
       - name: Sleep for 15 seconds
         run: sleep 15s
