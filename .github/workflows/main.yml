@@ -15,8 +15,8 @@ jobs:
       - name: Log in to GitHub Docker registry
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
 
-      - name: Pull Database Docker Image from Github packages
-        run: docker pull ghcr.io/filipzytka/postgres:latest
+      - name: Pull Postgres Docker Image
+        run: docker pull postgres:latest
 
       - name: Pull ASP.NET CORE Image from Github packages
         run: docker pull ghcr.io/filipzytka/hermes:latest
@@ -33,10 +33,14 @@ jobs:
             -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
             -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
             -p 5432:5432 \
-            ghcr.io/filipzytka/postgres:latest
+            postgres:latest
 
-      - name: Sleep for 20 seconds
-        run: sleep 20s
+      - name: Wait for PostgreSQL to be available
+        run: |
+          until netstat -nlpt | grep :5432; do
+            echo "Waiting for PostgreSQL to be available..."
+            sleep 1
+          done
         shell: bash
 
       - name: Start ASP.NET Core Container
@@ -60,11 +64,12 @@ jobs:
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes:latest
 
-      - name: Check lifetime of Docker containers
-        run: docker ps
-
-      - name: Sleep for 15 seconds
-        run: sleep 15s
+      - name: Wait for ASP.NET Backend to be available
+        run: |
+          until netstat -nlpt | grep :8080; do
+            echo "Waiting for ASP.NET Backend to be available..."
+            sleep 1
+          done
         shell: bash
 
       - uses: actions/checkout@v2
@@ -96,7 +101,7 @@ jobs:
           start: npx vite --host
           wait-on: "http://localhost:5173"
 
-      - name: upload screenshots
+      - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: always()
         with:
