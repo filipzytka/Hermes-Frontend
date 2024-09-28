@@ -12,14 +12,11 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Log in to GitHub Docker registry
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
-
       - name: Pull Postgres Docker Image
         run: docker pull postgres:latest
 
       - name: Pull ASP.NET CORE Application Image from Docker repository
-        run: docker pull filipus01/hermes:latest
+        run: docker pull filipus01/hermes
 
       - name: Create Docker Network
         run: docker network create hermes-network
@@ -58,7 +55,7 @@ jobs:
             -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
             -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
-            filipus01/hermes:latest
+            filipus01/hermes
 
       - name: Sleep for 15 seconds
         run: sleep 15s
