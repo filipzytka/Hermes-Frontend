@@ -16,7 +16,7 @@ jobs:
         run: docker pull postgres:latest
 
       - name: Pull ASP.NET CORE Application Image from Docker repository
-        run: docker pull filipus01/hermes
+        run: docker pull filipus01/hermes:latest
 
       - name: Create Docker Network
         run: docker network create hermes-network
@@ -55,7 +55,7 @@ jobs:
             -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
             -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
-            filipus01/hermes
+            filipus01/hermes:latest
 
       - name: Sleep for 15 seconds
         run: sleep 15s
