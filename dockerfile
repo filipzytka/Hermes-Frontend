@@ -1,15 +1,15 @@
-FROM node:20 as build 
-WORKDIR /app/react-app 
+FROM node:20
 
-COPY package.json . /app/react-app/
+WORKDIR /app
+
+COPY package.json package-lock.json ./
 
 RUN npm install
 
-COPY . . 
+COPY . .
 
 RUN npm run build
 
-FROM node:20 as production 
-WORKDIR /app/react-app 
+EXPOSE 5173
 
-COPY --from=build /app/react-app/dist/ /app/react-app/dist/
+CMD [ "npm", "run", "preview" ]
