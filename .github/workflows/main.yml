@@ -32,8 +32,8 @@ jobs:
             -p 5432:5432 \
             postgres:latest
 
-      - name: Sleep for 20 seconds
-        run: sleep 20s
+      - name: Sleep for 10 seconds
+        run: sleep 10s
         shell: bash
 
       - name: Start ASP.NET Core Container
@@ -60,10 +60,6 @@ jobs:
       - name: Check lifetime of Docker containers
         run: docker ps
 
-      - name: Sleep for 50 seconds
-        run: sleep 50s
-        shell: bash
-
       - uses: actions/checkout@v2
       - name: Setup Node
         uses: actions/setup-node@v4.0.3
@@ -76,12 +72,8 @@ jobs:
       - name: Build React App
         run: npm run build
 
-      - name: Sleep for 50 seconds
-        run: sleep 50s
-        shell: bash
-
       - name: Check lifetime of Docker containers
-        run: docker ps
+        run: docker ps -a
 
       - name: Cypress
         uses: cypress-io/github-action@v6.5.0
