@@ -44,7 +44,7 @@ jobs:
 
       - name: Start ASP.NET Core Container
         run: |
-          docker run -d \
+          docker run  \
             --name hermes.server \
             --network hermes-network \
             -e ENVIRONMENT="${{ secrets.ENVIRONMENT }}" \
@@ -62,6 +62,7 @@ jobs:
             -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
             ghcr.io/filipzytka/hermes:latest
+
       - name: Wait for ASP.NET Backend to be available
         run: |
           until curl -s http://localhost:8080; do
