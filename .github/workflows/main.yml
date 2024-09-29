@@ -68,7 +68,7 @@ jobs:
         run: |
           docker ps -a
           docker logs hermes.server
-          until curl -s http://localhost:8080; do
+          until curl -s http://hermes.server:8080 do
             echo "Waiting for ASP.NET Backend to be available..."
             sleep 1
           done
