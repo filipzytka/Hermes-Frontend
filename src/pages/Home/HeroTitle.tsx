@@ -19,8 +19,8 @@ export function HeroTitle() {
             >
               modern and intuitive
             </Text>{" "}
-            Hermes dashboard for managing servers provides real-time metrics and
-            tools for efficient administration and proactive monitoring
+            dashboard for managing servers provides real-time metrics and tools
+            for efficient administration and proactive monitoring
           </h1>
           <Image src={image} className={classes.image} />
         </div>
