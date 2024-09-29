@@ -18,8 +18,8 @@ type Props = {
     page: number;
   };
   setPaginationModel: (model: { pageSize: number; page: number }) => void;
-  logsData: {
-    rows?: {
+  logsData?: {
+    rows: {
       id: number;
       message: string;
       created: string;
