@@ -102,7 +102,7 @@ const NavigationBar = () => {
         </div>
       </div>
       <div
-        className={`md:hidden fixed top-0 left-0 w-full h-full bg-white bg-black/95 bg-opacity-95
+        className={`md:hidden fixed top-0 left-0 w-full h-full bg-black/95 bg-opacity-95
           transition-transform transform font-bold text-xl ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
           } z-30`}
