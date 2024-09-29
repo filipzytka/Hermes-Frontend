@@ -19,7 +19,7 @@ jobs:
         run: docker pull postgres:latest
 
       - name: Pull ASP.NET CORE Image from Github packages
-        run: docker pull ghcr.io/filipzytka/hermes:latest
+        run: docker pull filipus01/hermes-server:latest
 
       - name: Create Docker Network
         run: docker network create hermes-network
@@ -61,7 +61,7 @@ jobs:
             -e ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}" \
             -e VALIDATION_TOKEN="${{ secrets.VALIDATION_TOKEN }}" \
             -p 8080:8080 \
-            ghcr.io/filipzytka/hermes:latest
+            filipus01/hermes-server:latest
 
       - name: Wait for ASP.NET Backend to be available
         run: |
