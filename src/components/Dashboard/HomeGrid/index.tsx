@@ -14,26 +14,21 @@ import {
 
 type Props = {
   handleRefresh: () => void;
-  serverStatus:
-    | {
-        data: TMessageResponse;
-        status: number;
-      }
-    | undefined;
-  serverData:
-    | {
-        data: TServerDataResponse;
-        status: number;
-      }
-    | undefined;
-  playerData:
-    | {
-        chartData: {
-          x: string;
-          y: number;
-        }[];
-      }
-    | undefined;
+  serverStatus?: {
+    data: TMessageResponse;
+    status: number;
+  };
+
+  serverData?: {
+    data: TServerDataResponse;
+    status: number;
+  };
+  playerData?: {
+    chartData: {
+      x: string;
+      y: number;
+    }[];
+  };
 };
 
 export default function HomeGrid({
@@ -87,17 +82,17 @@ export default function HomeGrid({
         <Grid key={2} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="Public"
-            value={serverData?.data.public.toString()}
+            value={serverData?.data.public?.toString()}
             title2="Port"
-            value2={serverData?.data.port.toString()}
+            value2={serverData?.data.port?.toString()}
           />
         </Grid>
         <Grid key={3} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>
           <StatCard
             title="Has password"
-            value={serverData?.data.hasPassword.toString()}
+            value={serverData?.data.hasPassword?.toString()}
             title2="Server Type"
-            value2={serverData?.data.serverType.toString()}
+            value2={serverData?.data.serverType?.toString()}
           />
         </Grid>
         <Grid key={4} size={{ xs: 12, sm: 6, lg: 3 }} sx={{ flexGrow: 1 }}>

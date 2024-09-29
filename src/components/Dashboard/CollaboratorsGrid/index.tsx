@@ -16,15 +16,13 @@ type Props = {
   deleteUsersMutate: (usersToDelete: TCollaborator[]) => void;
   isShowing: boolean;
   handleSendEmail: (receiverEmail: string, token: string) => void;
-  data:
-    | {
-        rows: {
-          id: number;
-          email: string;
-          role: string;
-        }[];
-      }
-    | undefined;
+  data?: {
+    rows: {
+      id: number;
+      email: string;
+      role: string;
+    }[];
+  };
 };
 
 export default function CollaboratorsGrid({

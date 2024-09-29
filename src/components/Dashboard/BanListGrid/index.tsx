@@ -10,9 +10,7 @@ import { BannedPlayer } from "../../../api/ban-list";
 
 type Props = {
   handleRefresh: () => void;
-  bannedPlayersData:
-    | { rows: { id: number; Token: string; Ip: string }[] }
-    | undefined;
+  bannedPlayersData?: { rows: { id: number; Token: string; Ip: string }[] };
   updateBannedMutate: (players: BannedPlayer[]) => void;
 };
 

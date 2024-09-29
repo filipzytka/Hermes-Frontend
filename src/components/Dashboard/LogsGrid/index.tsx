@@ -18,16 +18,14 @@ type Props = {
     page: number;
   };
   setPaginationModel: (model: { pageSize: number; page: number }) => void;
-  logsData:
-    | {
-        rows: {
-          id: number;
-          message: string;
-          created: string;
-        }[];
-        totalCount: number;
-      }
-    | undefined;
+  logsData: {
+    rows?: {
+      id: number;
+      message: string;
+      created: string;
+    }[];
+    totalCount: number;
+  };
 };
 
 export default function LogsGrid({
