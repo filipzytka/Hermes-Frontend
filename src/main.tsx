@@ -88,8 +88,8 @@ const queryClient = new QueryClient();
 
 root.render(
   <>
-    <ColorSchemeScript defaultColorScheme="auto" />
-    <MantineProvider defaultColorScheme="auto" theme={{ primaryColor: "cyan" }}>
+    <ColorSchemeScript defaultColorScheme="dark" />
+    <MantineProvider defaultColorScheme="dark" theme={{ primaryColor: "cyan" }}>
       <React.StrictMode>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>

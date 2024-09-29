@@ -33,7 +33,7 @@ const NavigationBar = () => {
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-6">
         <Link to="/" className="flex items-center">
           <img src={TailwindImg} className="h-8" alt="Hermes logo" />
-          <span className="text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">
+          <span className="text-2xl font-semibold whitespace-nowrap text-white">
             Hermes
           </span>
         </Link>
@@ -44,8 +44,8 @@ const NavigationBar = () => {
             type="button"
             className="flex items-center justify-center text-sm
             text-red rounded-lg md:hidden
-            hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
-            dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+             focus:outline-none focus:ring-2 
+           text-gray-400 hover:bg-gray-700 focus:ring-gray-600"
           >
             <span className="sr-only">Open main menu</span>
             {!menuOpen && (
@@ -65,7 +65,7 @@ const NavigationBar = () => {
               <Link
                 data-cy="link-dashboard"
                 to="/admin/dashboard/home"
-                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+                className="text-gray-100 text-xl hover:text-cyan-600"
               >
                 Dashboard
               </Link>
@@ -73,27 +73,27 @@ const NavigationBar = () => {
             <Link
               data-cy="link-home"
               to="/"
-              className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+              className="text-gray-100  text-xl hover:text-cyan-600"
             >
               Home
             </Link>
             <Link
               data-cy="link-faq"
               to="/faq"
-              className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+              className="text-gray-100 text-xl hover:text-cyan-600"
             >
               FAQ
             </Link>
             {!auth ? (
               <Link data-cy="link-signin" to="/login">
-                <button className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600">
+                <button className="text-gray-100  text-xl hover:text-cyan-600">
                   Sign in
                 </button>
               </Link>
             ) : (
               <button
                 onClick={handleSignOut}
-                className="dark:text-gray-100 text-gray-800 text-xl hover:text-cyan-600"
+                className="text-gray-100 text-xl hover:text-cyan-600"
               >
                 Sign out
               </button>
@@ -102,7 +102,7 @@ const NavigationBar = () => {
         </div>
       </div>
       <div
-        className={`md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-black/95 bg-opacity-95
+        className={`md:hidden fixed top-0 left-0 w-full h-full bg-white bg-black/95 bg-opacity-95
           transition-transform transform font-bold text-xl ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
           } z-30`}
@@ -111,7 +111,7 @@ const NavigationBar = () => {
           <button
             onClick={handleMenuToggle}
             type="button"
-            className="text-gray-800 dark:text-white"
+            className="text-white"
           >
             <svg
               className="w-6 h-6"
@@ -135,8 +135,8 @@ const NavigationBar = () => {
               <Link
                 to="/admin/dashboard/home"
                 className="block py-2 px-3 rounded md:hover:bg-transparent
-                            md:hover:text-cyan-600 md:p-0
-                            md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+                             md:p-0
+                            md:hover:text-cyan-600 text-white"
               >
                 Dashboard
               </Link>
@@ -144,16 +144,16 @@ const NavigationBar = () => {
             <Link
               to="/"
               className="block py-2 px-3 rounded md:hover:bg-transparent
-                md:hover:text-cyan-600 md:p-0
-                md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+                 md:p-0
+                md:hover:text-cyan-600 text-white"
             >
               Home
             </Link>
             <Link
               to="/faq"
               className="block py-2 px-3 rounded md:hover:bg-transparent
-                md:hover:text-cyan-600 md:p-0
-                md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+               md:p-0
+                md:hover:text-cyan-600 text-white"
             >
               FAQ
             </Link>
@@ -161,8 +161,8 @@ const NavigationBar = () => {
               <button
                 onClick={handleSignOut}
                 className="block py-2 px-3 rounded md:hover:bg-transparent
-    md:hover:text-cyan-600 md:p-0
-    md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+     md:p-0
+    md:hover:text-cyan-600 text-white"
               >
                 Sign out
               </button>
@@ -170,8 +170,8 @@ const NavigationBar = () => {
               <Link to="login">
                 <button
                   className="block py-2 px-3 rounded md:hover:bg-transparent
-    md:hover:text-cyan-600 md:p-0
-    md:dark:hover:text-cyan-600 dark:text-white text-gray-800"
+   md:p-0
+    md:hover:text-cyan-600 text-white"
                 >
                   Sign in
                 </button>

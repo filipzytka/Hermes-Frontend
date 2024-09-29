@@ -9,7 +9,7 @@ const FAQ = () => {
         size="sm"
         className="flex-grow w-full justify-center items-center py-8 md:py-52"
       >
-        <Title className="text-center text-gray-800 dark:text-gray-100 mb-4">
+        <Title className="text-center text-gray-100 mb-4">
           Frequently Asked Questions
         </Title>
 

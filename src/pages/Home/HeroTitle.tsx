@@ -29,7 +29,7 @@ export function HeroTitle() {
           <Link
             className="py-3 px-6 inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold
     bg-gray-800 text-white hover:bg-gray-900 focus:outline-none 
-    transition-all text-lg dark:focus:ring-offset-gray-800 whitespace-nowrap"
+    transition-all text-lg focus:ring-offset-gray-800 whitespace-nowrap"
             to="https://github.com/filipzytka/Hermes"
             target="_blank"
           >
@@ -39,7 +39,7 @@ export function HeroTitle() {
           <Link
             className="py-3 px-6 inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold
     bg-gray-800 text-white hover:bg-gray-900 focus:outline-none 
-    transition-all text-lg dark:focus:ring-offset-gray-800 whitespace-nowrap"
+    transition-all text-lg focus:ring-offset-gray-800 whitespace-nowrap"
             to="https://github.com/filipzytka/Hermes-Frontend"
             target="_blank"
           >

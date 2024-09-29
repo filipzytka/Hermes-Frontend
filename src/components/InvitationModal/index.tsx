@@ -163,7 +163,7 @@ const InvitationModalWrapper = ({ children }: InvitationModalWrapperProps) => {
         role="main"
         className="fixed inset-0 flex justify-center items-center z-50"
       >
-        <div className="relative mt-7 bg-white rounded-xl shadow-lg dark:bg-gray-900 dark:border-gray-700 px-5 py-5">
+        <div className="relative mt-7  rounded-xl shadow-lg bg-gray-900 border-gray-700 px-5 py-5">
           {children}
         </div>
       </main>
@@ -175,9 +175,9 @@ const InvitationModalHeader = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center text-center">
-        <FaAddressBook className="dark:text-white text-cyan-600 w-10 h-10" />
+        <FaAddressBook className="text-white  w-10 h-10" />
       </div>
-      <h1 className="block text-2xl  text-gray-800 dark:text-white mt-2">
+      <h1 className="block text-2xl  text-white mt-2">
         Invite a collaborator to Hermes
       </h1>
     </>
