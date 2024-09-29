@@ -45,7 +45,7 @@ jobs:
 
       - name: Start ASP.NET Core Container
         run: |
-          docker run -d \
+          docker run \
             --name hermes.server \
             --network hermes-network \
             -e ENVIRONMENT="${{ secrets.ENVIRONMENT }}" \
