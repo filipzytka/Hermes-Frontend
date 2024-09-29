@@ -35,6 +35,11 @@ jobs:
             -p 5432:5432 \
             postgres:16
 
+      - name: XDDDDD
+        run: |
+          sleep 60
+        shell: bash
+
       - name: Wait for Postgres to be available
         run: |
           until docker exec postgres pg_isready -h localhost -p 5432; do
