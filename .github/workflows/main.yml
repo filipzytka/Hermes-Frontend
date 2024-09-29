@@ -26,7 +26,7 @@ jobs:
 
       - name: Start Postgres Container
         run: |
-          docker run -d \
+          docker run  \
             --name postgres \
             --network hermes-network \
             -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
@@ -45,7 +45,7 @@ jobs:
 
       - name: Start ASP.NET Core Container
         run: |
-          docker run -d \
+          docker run  \
             --name hermes.server \
             --network hermes-network \
             -e ENVIRONMENT="${{ secrets.ENVIRONMENT }}" \
