@@ -16,7 +16,7 @@ jobs:
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u filipzytka --password-stdin
 
       - name: Pull Postgres Docker Image
-        run: docker pull postgres:latest
+        run: docker pull postgres:16
 
       - name: Pull ASP.NET CORE Image from Github packages
         run: docker pull ghcr.io/filipzytka/hermes:latest
@@ -33,7 +33,7 @@ jobs:
             -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
             -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
             -p 5432:5432 \
-            postgres:latest
+            postgres:16
 
       - name: Wait for Postgres to be available
         run: |
