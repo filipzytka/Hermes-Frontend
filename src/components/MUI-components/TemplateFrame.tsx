@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import ToggleColorMode from "./ToggleColorMode";
 import getSignInTheme from "../../pages/SignIn/theme/getSignInTheme";
 import { useNavigate } from "react-router-dom";
 
@@ -37,11 +36,7 @@ interface TemplateFrameProps {
   children: React.ReactNode;
 }
 
-export default function TemplateFrame({
-  mode,
-  toggleColorMode,
-  children,
-}: TemplateFrameProps) {
+export default function TemplateFrame({ mode, children }: TemplateFrameProps) {
   const signInTheme = createTheme(getSignInTheme(mode));
   const navigate = useNavigate();
 
