@@ -32,7 +32,7 @@ const NavigationBar = () => {
     <nav className="w-full mt-8">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-6">
         <Link to="/" className="flex items-center">
-          <img src={TailwindImg} className="h-8" alt="Hermes logo" />
+          <img src={TailwindImg} className="h-8 m-1 p-1" alt="Hermes logo" />
           <span className="text-2xl font-semibold whitespace-nowrap text-white">
             Hermes
           </span>
