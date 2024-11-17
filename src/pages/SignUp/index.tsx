@@ -106,11 +106,18 @@ export default function SignUp() {
             <Typography
               component="h1"
               variant="h4"
-              sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+              sx={{ width: "100%", fontSize: "1rem" }}
             >
-              You have been invited by {validationData?.data.createdBy} to Sign
-              Up
+              You have been invited by {validationData?.data.createdBy}
             </Typography>
+            <Typography
+              component="h1"
+              variant="h4"
+              sx={{ width: "100%", fontSize: "1.25rem" }}
+            >
+              Sign Up
+            </Typography>
+
             <Box
               onSubmit={(e) => {
                 e.preventDefault();
