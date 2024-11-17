@@ -79,13 +79,6 @@ export default function TemplateFrame({
             >
               <ArrowBackRoundedIcon />
             </IconButton>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <ToggleColorMode
-                data-screenshot="toggle-mode"
-                mode={mode}
-                toggleColorMode={toggleColorMode}
-              />
-            </Box>
           </Toolbar>
         </StyledAppBar>
         <Box sx={{ flex: "1 1", overflow: "auto" }}>{children}</Box>
