@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import AppNavbar from "../AppNavbar";
 import SideMenu from "../SideMenu";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import getDashboardTheme from "../theme/getDashboardTheme";
 import TemplateFrame from "../../MUI-components/TemplateFrame";
 
@@ -25,26 +25,12 @@ const DashboardLayout = ({ currentPageIndex, children }: Props) => {
   const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {
-    const newMode = mode === "dark" ? "light" : "dark";
-    setMode(newMode);
-    localStorage.setItem("themeMode", newMode);
+    setMode("dark");
   };
 
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
   };
-
-  useEffect(() => {
-    const savedMode = localStorage.getItem("themeMode") as PaletteMode | null;
-    if (savedMode) {
-      setMode(savedMode);
-    } else {
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setMode(systemPrefersDark ? "dark" : "light");
-    }
-  }, []);
 
   return (
     <TemplateFrame

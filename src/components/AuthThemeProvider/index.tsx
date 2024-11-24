@@ -1,5 +1,5 @@
 import createTheme from "@mui/material/styles/createTheme";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import getSignInTheme from "../../pages/SignIn/theme/getSignInTheme";
 import { PaletteMode } from "@mui/material/styles/createPalette";
 import TemplateFrame from "../MUI-components/TemplateFrame";
@@ -17,26 +17,12 @@ const AuthThemeProvider = ({ children }: Props) => {
   const SignInTheme = createTheme(getSignInTheme(mode));
 
   const toggleColorMode = () => {
-    const newMode = mode === "dark" ? "light" : "dark";
-    setMode(newMode);
-    localStorage.setItem("themeMode", newMode);
+    setMode("dark");
   };
 
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
   };
-
-  useEffect(() => {
-    const savedMode = localStorage.getItem("themeMode") as PaletteMode | null;
-    if (savedMode) {
-      setMode(savedMode);
-    } else {
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setMode(systemPrefersDark ? "dark" : "light");
-    }
-  }, []);
 
   return (
     <div>
